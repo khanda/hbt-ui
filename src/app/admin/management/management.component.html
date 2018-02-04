@@ -1,0 +1,15 @@
+<div class="container-fluid">
+  <div class="row flex-xl-nowrap">
+    <!--side bar-->
+    <div class="col-12 col-md-3 col-xl-2 bd-sidebar">
+      <nav class="nav flex-column nav-pills">
+        <a class="nav-link " href="#" routerLink="/management/accounts" routerLinkActive="active">Quản lý tài khoản</a>
+        <a class="nav-link" href="#" routerLink="/management/employees" routerLinkActive="active">Quản lý nhân viên</a>
+      </nav>
+    </div>
+    <!--content-->
+    <div class="col-12 col-md-9 col-xl-10 bd-content">
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+</div>

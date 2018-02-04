@@ -1,0 +1,105 @@
+/* You can add global styles to this file, and also import other style files */
+/* Application-wide Styles */
+@import "~font-awesome/css/font-awesome.css";
+@import "assets/font/font-noto-serif.css";
+@import "assets/font/font-roboto-resif.css";
+
+* {
+  font-family: Roboto, sans-serif;
+  /*font-family: 'Noto Serif', serif;*/
+}
+
+h1, h2, h3, h4, h5 {
+  font-family: 'Noto Serif', serif;
+}
+
+.paging-total {
+  text-align: center;
+}
+
+.my-alert-message {
+  padding: 5px;
+}
+
+.button-form-action {
+  padding: 15px;
+}
+
+.ng-valid[required], .ng-valid.required {
+  border-left: 5px solid #42A948; /* green */
+}
+
+.ng-invalid:not(.my-exclude-invalid-form):not(form) {
+  border-left: 5px solid #a94442; /* red */
+}
+
+.td-action-btn {
+  min-width: 130px;
+}
+
+.simple-notification {
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border-radius: 4px;
+}
+
+.simple-notification.success {
+  background-color: #28a745 !important;
+}
+
+.simple-notification.error {
+  background-color: #dc3545 !important;
+}
+
+.simple-notification.warn {
+  background-color: #ffc107 !important;
+}
+
+.simple-notification.info {
+  background-color: #17a2b8 !important;
+}
+
+.top-sticky-main-content {
+  top: 56px;
+  background-color: white;
+  border-bottom: 1px solid #e9ecef;
+  padding: 10px;
+  z-index: 100;
+}
+
+.table-wrapper {
+  padding-top: 20px;
+}
+
+.form-wrapper {
+  padding-top: 50px;
+}
+
+.jaspero__dialog-actions button.primary {
+  background-color: #007bff !important;
+}
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+  /* Margin bottom by footer height */
+  margin-bottom: 60px;
+}
+
+.footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  /* Set the fixed height of the footer here */
+  height: 60px;
+  line-height: 60px; /* Vertically center the text there */
+  background-color: #f5f5f5;
+}
+
+.message-invalid {
+  color: #dc3545;
+  padding-top: 5px;
+}

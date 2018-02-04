@@ -1,0 +1,168 @@
+<div class="row align-items-center justify-content-center">
+  <div class="col-xl-5 col-lg-7 col-md-9 col-sm-12">
+    <div class="card">
+      <div class="card-header text-center">
+        <h4 class="card-title" *ngIf="mode == VIEW">Thông tin tài khoản</h4>
+        <h4 class="card-title" *ngIf="mode == NEW">Thêm tài khoản</h4>
+        <h4 class="card-title" *ngIf="mode == UPDATE">Chỉnh sửa tài khoản</h4>
+      </div>
+
+      <div class="card-body">
+        <form [formGroup]="accountForm" #accountFormDir="ngForm" (ngSubmit)="onSubmit()"
+        >
+          <!--user name-->
+
+          <div class="form-group">
+            <label for="username">Tên đăng nhập <span class="text-danger">&#042;</span></label>
+            <input type="text"
+                   class="form-control"
+                   id="username"
+                   name="username"
+                   aria-describedby="Tên đăng nhập"
+                   formControlName="userName"
+                   required
+                   [readonly]="mode != NEW">
+
+            <div *ngIf="userName.invalid && (userName.dirty || userName.touched)"
+                 class="message-invalid">
+              <div *ngIf="userName.errors.required">
+                <span> Thông tin này là bắt buộc.</span>
+              </div>
+              <div *ngIf="userName.errors.minlength">
+                Cần nhiều hơn {{USERNAME_MIX}} kí tự
+              </div>
+              <div *ngIf="userName.errors.maxlength">
+                Cần ít hơn {{USERNAME_MAX}} kí tự
+              </div>
+              <div *ngIf="userName.errors.invalidExp">
+                Chỉ được nhập chữ cái, số, - và _
+              </div>
+            </div>
+          </div>
+
+
+          <!--passwords-->
+          <div formGroupName="passwords" class="my-exclude-invalid-form"
+               *ngIf="mode==NEW">
+
+            <!--password-->
+            <div class="form-group">
+              <label for="password">Mật khẩu
+                <span class="text-danger">&#042;</span>
+              </label>
+              <input type="password"
+                     class="form-control"
+                     id="password"
+                     name="password"
+                     formControlName="password"
+                     required
+                     [readonly]="mode == VIEW"
+                     (keyup)="getPasswordValue($event.target.value)">
+
+              <div *ngIf="password.invalid && (password.dirty || password.touched)"
+                   class="message-invalid">
+                <div *ngIf="password.errors.required">
+                  <span> Thông tin này là bắt buộc.</span>
+                </div>
+                <div *ngIf="password.errors.minlength">
+                  Cần nhiều hơn {{PASSWORD_MIX}} kí tự
+                </div>
+                <div *ngIf="password.errors.maxlength">
+                  Cần ít hơn {{PASSWORD_MIX}} kí tự
+                </div>
+                <div *ngIf="password.errors.invalidExp">
+                  Chỉ được nhập chữ cái, số, - và _
+                </div>
+              </div>
+            </div>
+            <!--password-->
+            <!--confirm password area-->
+            <div class="form-group">
+              <label for="password">Nhập lại mật khẩu
+                <span class="text-danger">&#042;</span>
+              </label>
+              <input type="password"
+                     class="form-control"
+                     id="passwordConfirm"
+                     name="passwordConfirm"
+                     (keyup)="onChangeConfirmedPassword($event.target.value)"
+                     formControlName="passwordConfirm"
+                     required
+                     [readonly]="mode == VIEW">
+
+              <div *ngIf="passwordConfirm.invalid && (passwordConfirm.dirty || passwordConfirm.touched)"
+                   class="message-invalid">
+                <div *ngIf="passwordConfirm.errors.required">
+                  <span> Thông tin này là bắt buộc.</span>
+                </div>
+                <div *ngIf="passwordConfirm.errors.minlength">
+                  Cần nhiều hơn {{PASSWORD_MIX}} kí tự
+                </div>
+                <div *ngIf="passwordConfirm.errors.maxlength">
+                  Cần ít hơn {{PASSWORD_MIX}} kí tự
+                </div>
+                <div *ngIf="passwordConfirm.errors.invalidExp">
+                  Chỉ được nhập chữ cái, số, - và _
+                </div>
+              </div>
+
+              <div *ngIf="showMessagePasswordNotMatch" class="text-danger">
+                <span> Mật khẩu không khớp</span>
+              </div>
+            </div>
+            <!--confirm password area-->
+
+
+          </div>
+          <!--passwords-->
+          <!--role area-->
+          <div class="form-group">
+            <label for="userRole">Vai trò
+              <span class="message-invalid">&#042;</span>
+            </label>
+            <select class="custom-select form-control"
+                    id="userRole" name="userRole"
+                    formControlName="userRole"
+                    required
+                    (change)="onSelectRole($event.target.value)">
+              <option *ngFor="let role of roleList; let index = index" [value]="role.id">{{role.name}}</option>
+            </select>
+            <div *ngIf="userRole.invalid && (userRole.dirty || userRole.touched)"
+                 class="message-invalid">
+              <div *ngIf="userRole.errors.required">
+                <span> Thông tin này là bắt buộc.</span>
+              </div>
+            </div>
+          </div>
+          <!--role area-->
+
+          <!--message area-->
+          <div class="alert alert-danger" *ngIf="showMessageKey == ERROR">
+            <span> Đã xảy ra lỗi </span>
+          </div>
+          <div class="alert alert-success" *ngIf="showMessageKey == SUCCESS">
+            <span> Thành công  </span>
+          </div>
+          <!--message area-->
+
+          <!--button action area-->
+          <div class="button-form-action text-center">
+            <button type="button" class="btn btn-light" (click)="onClickBack()">
+              {{'button.back' | translate}}
+            </button>
+            <button type="submit" class="btn btn-success"
+                    *ngIf="mode!=VIEW"
+                    [disabled]="!accountFormDir.form.valid  ||
+                     showMessageKey == SUCCESS ||
+                      !accountFormDir.form.dirty ||
+                       !accountFormDir.form.touched || showMessagePasswordNotMatch">
+              {{'button.save' | translate}}
+            </button>
+          </div>
+          <!--button action area-->
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+

@@ -1,0 +1,9 @@
+<app-my-nav-bar [language]="language"
+                (changeLanguage)="switchLanguage($event)">
+</app-my-nav-bar>
+
+<div class="app-container">
+  <router-outlet></router-outlet>
+</div>
+
+<app-my-footer></app-my-footer>

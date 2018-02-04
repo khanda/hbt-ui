@@ -1,0 +1,48 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+  <a class="navbar-brand" routerLink="/">
+    <img src="assets/image/bootstrap-solid.svg" width="30" height="30" alt="">
+  </a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+        <a class="nav-link" routerLink="/">{{'menu.item.home'| translate}}</a>
+      </li>
+      <li class="nav-item" *ngIf="showManagementMenuItem()">
+        <a class="nav-link pointer" (click)="goToManagementPage()">{{'menu.item.management' | translate}}</a>
+      </li>
+    </ul>
+
+    <!--login user-->
+    <div>
+      <button class="btn btn-link" (click)="goToLoginPage()" *ngIf="!isAuthenticated()">
+        <span>{{'menu.item.login' | translate}}</span>
+      </button>
+      <div dropdown *ngIf="isAuthenticated()">
+        <a class="p-2" href dropdownToggle (click)="false">{{getAccountDetail()}}</a>
+        <ul *dropdownMenu class="dropdown-menu dropdown-menu-right" role="menu">
+          <li role="menuitem">
+            <a class="dropdown-item pointer" (click)="logout()">
+              <span>{{'menu.item.logout' | translate}}</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <!--login user-->
+
+    <!--languages-->
+    <div class="language-flag-wrap">
+      <img src="../../assets/image/vi-flag.png" class="language-flag"
+           (click)="onChangeLanguage('en')" *ngIf="language == 'vi'"/>
+      <img src="../../assets/image/en-flag.png" class="language-flag"
+           (click)="onChangeLanguage('vi')" *ngIf="language == 'en'"/>
+    </div>
+    <!--languages-->
+  </div>
+</nav>

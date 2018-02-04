@@ -1,0 +1,52 @@
+/* roboto-regular - latin_vietnamese */
+@font-face {
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 400;
+  src: url('Roboto_Serif/roboto-v18-latin_vietnamese-regular.eot'); /* IE9 Compat Modes */
+  src: local('Roboto'), local('Roboto-Regular'),
+  url('Roboto_Serif/roboto-v18-latin_vietnamese-regular.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+  url('Roboto_Serif/roboto-v18-latin_vietnamese-regular.woff2') format('woff2'), /* Super Modern Browsers */
+  url('Roboto_Serif/roboto-v18-latin_vietnamese-regular.woff') format('woff'), /* Modern Browsers */
+  url('Roboto_Serif/roboto-v18-latin_vietnamese-regular.ttf') format('truetype'), /* Safari, Android, iOS */
+  url('Roboto_Serif/roboto-v18-latin_vietnamese-regular.svg#Roboto') format('svg'); /* Legacy iOS */
+}
+/* roboto-500 - latin_vietnamese */
+@font-face {
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 500;
+  src: url('Roboto_Serif/roboto-v18-latin_vietnamese-500.eot'); /* IE9 Compat Modes */
+  src: local('Roboto Medium'), local('Roboto-Medium'),
+  url('Roboto_Serif/roboto-v18-latin_vietnamese-500.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+  url('Roboto_Serif/roboto-v18-latin_vietnamese-500.woff2') format('woff2'), /* Super Modern Browsers */
+  url('Roboto_Serif/roboto-v18-latin_vietnamese-500.woff') format('woff'), /* Modern Browsers */
+  url('Roboto_Serif/roboto-v18-latin_vietnamese-500.ttf') format('truetype'), /* Safari, Android, iOS */
+  url('Roboto_Serif/roboto-v18-latin_vietnamese-500.svg#Roboto') format('svg'); /* Legacy iOS */
+}
+/* roboto-700 - latin_vietnamese */
+@font-face {
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 700;
+  src: url('Roboto_Serif/roboto-v18-latin_vietnamese-700.eot'); /* IE9 Compat Modes */
+  src: local('Roboto Bold'), local('Roboto-Bold'),
+  url('Roboto_Serif/roboto-v18-latin_vietnamese-700.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+  url('Roboto_Serif/roboto-v18-latin_vietnamese-700.woff2') format('woff2'), /* Super Modern Browsers */
+  url('Roboto_Serif/roboto-v18-latin_vietnamese-700.woff') format('woff'), /* Modern Browsers */
+  url('Roboto_Serif/roboto-v18-latin_vietnamese-700.ttf') format('truetype'), /* Safari, Android, iOS */
+  url('Roboto_Serif/roboto-v18-latin_vietnamese-700.svg#Roboto') format('svg'); /* Legacy iOS */
+}
+/* roboto-900 - latin_vietnamese */
+@font-face {
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 900;
+  src: url('Roboto_Serif/roboto-v18-latin_vietnamese-900.eot'); /* IE9 Compat Modes */
+  src: local('Roboto Black'), local('Roboto-Black'),
+  url('Roboto_Serif/roboto-v18-latin_vietnamese-900.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+  url('Roboto_Serif/roboto-v18-latin_vietnamese-900.woff2') format('woff2'), /* Super Modern Browsers */
+  url('Roboto_Serif/roboto-v18-latin_vietnamese-900.woff') format('woff'), /* Modern Browsers */
+  url('Roboto_Serif/roboto-v18-latin_vietnamese-900.ttf') format('truetype'), /* Safari, Android, iOS */
+  url('Roboto_Serif/roboto-v18-latin_vietnamese-900.svg#Roboto') format('svg'); /* Legacy iOS */
+}

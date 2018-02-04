@@ -1,0 +1,42 @@
+<nav aria-label="Page navigation example">
+  <ul class="pagination justify-content-center">
+    <!--start-->
+    <li class="page-item">
+      <a class="page-link" (click)="goToPage(1)">
+        <span aria-hidden="true">&laquo;</span>
+        <span class="sr-only">{{'button.first' | translate}}</span>
+      </a>
+    </li>
+    <!--previous-->
+    <li class="page-item">
+      <a class="page-link" (click)="goToPage(currentPage - 1)">
+        <span aria-hidden="true">&lsaquo;</span>
+        <span class="sr-only">{{'button.previous' | translate}}</span>
+      </a>
+    </li>
+
+    <li class="page-item" *ngFor="let page of pages" [class.active]="page == currentPage">
+      <a class="page-link" (click)="goToPage(page)">{{page}}</a>
+    </li>
+
+    <!--next-->
+    <li class="page-item">
+      <a class="page-link" (click)="goToPage(currentPage + 1)">
+        <span aria-hidden="true">&rsaquo;</span>
+        <span class="sr-only">{{'button.next' | translate}}</span>
+      </a>
+    </li>
+
+    <!--end-->
+    <li class="page-item">
+      <a class="page-link" (click)="goToPage(pages.length)">
+        <span aria-hidden="true">&raquo;</span>
+        <span class="sr-only">{{'button.last' | translate}}</span>
+      </a>
+    </li>
+  </ul>
+
+  <div class="paging-total">
+    <span> {{'pagination.total' | translate}} : {{total}} {{'pagination.item' | translate}} </span>
+  </div>
+</nav>

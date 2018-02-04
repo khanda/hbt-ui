@@ -1,0 +1,18 @@
+.language-flag {
+  width: 30px;
+  height: 20px;
+  cursor: pointer;
+}
+
+.language-flag-wrap {
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+.account-name {
+  color: darkgreen;
+}
+
+.pointer {
+  cursor: pointer;
+}
