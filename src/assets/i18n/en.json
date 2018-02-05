@@ -24,5 +24,13 @@
   "menu.item.home": "Home",
   "menu.item.login": "Login",
   "menu.item.logout": "Logout",
-  "menu.item.management": "Management"
+  "menu.item.management": "Management",
+  "table.header.no": "STT",
+  "table.header.employee.firstName": "First name",
+  "table.header.employee.lastName": "Last name",
+  "table.header.employee.midName": "Mid name",
+  "table.header.employee.department": "Department",
+  "table.header.employee.account.name": "Account name",
+  "table.header.employee.isLeader": "Role",
+  "table.header.employee.code": "Employee code"
 }

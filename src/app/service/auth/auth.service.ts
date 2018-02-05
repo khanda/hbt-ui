@@ -52,6 +52,8 @@ export class AuthService {
     credentialData.id = +localStorage.getItem(CredentialConstant.ID);
     credentialData.userName = localStorage.getItem(CredentialConstant.USERNAME);
     credentialData.role = localStorage.getItem(CredentialConstant.ROLE);
+    credentialData.roleDescription = localStorage.getItem(CredentialConstant.ROLE_DESCRIPTION);
+
     return credentialData;
   }
 

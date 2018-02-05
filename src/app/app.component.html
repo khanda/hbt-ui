@@ -1,3 +1,10 @@
+<simple-notifications [options]="options"></simple-notifications>
+
+<ng-progress [direction]="'ltr+'" [min]="20" [max]="1" [speed]="200" [trickleSpeed]="300"
+             [spinner]="true" [spinnerPosition]="'right'" [thick]="false" [meteor]="true"
+             [color]="'red'" [ease]="'linear'">
+</ng-progress>
+
 <app-my-nav-bar [language]="language"
                 (changeLanguage)="switchLanguage($event)">
 </app-my-nav-bar>

@@ -23,5 +23,9 @@ export class AppComponent {
     this.translate.use(this.language);
   }
 
-
+  public options = {
+    position: [MessageConstant.VERTICAL_POSITION, MessageConstant.HORIZONTAL_POSITION],
+    timeOut: MessageConstant.TIMEOUT,
+    lastOnBottom: true
+  };
 }

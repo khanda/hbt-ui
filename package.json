@@ -25,6 +25,7 @@
     "@angular/router": "^5.2.0",
     "@jaspero/ng-confirmations": "^0.4.2",
     "@jaspero/ng2-confirmations": "^0.3.3",
+    "@ngx-progressbar/core": "^4.0.1",
     "@ngx-translate/core": "^9.1.1",
     "@ngx-translate/http-loader": "^2.0.1",
     "angular-in-memory-web-api": "^0.5.2",
@@ -38,7 +39,7 @@
     "zone.js": "^0.8.19"
   },
   "devDependencies": {
-    "@angular/cli": "1.6.5",
+    "@angular/cli": "1.6.7",
     "@angular/compiler-cli": "^5.2.0",
     "@angular/language-service": "^5.2.0",
     "@types/jasmine": "~2.8.3",

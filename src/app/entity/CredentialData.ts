@@ -6,4 +6,5 @@ export class CredentialData {
   id: number;
   userName: string;
   role: string;
+  roleDescription?: string;
 }

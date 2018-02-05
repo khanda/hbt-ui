@@ -25,5 +25,13 @@
   "menu.item.home": "Trang chủ",
   "menu.item.login": "Đăng nhập",
   "menu.item.logout": "Thoát",
-  "menu.item.management": "Quản trị"
+  "menu.item.management": "Quản trị",
+  "no": "STT",
+  "employee.firstName": "Tên",
+  "employee.lastName": "Họ",
+  "employee.midName": "Đệm",
+  "employee.department": "Phòng",
+  "employee.account.name": "Tên tài khoản",
+  "employee.isLeader": "Vai trò",
+  "employee.code": "Mã nhân viên"
 }

@@ -30,6 +30,7 @@ import {AuthGuard} from './service/auth/auth-guard.service';
 import {AuthService} from './service/auth/auth.service';
 import {TokenInterceptor} from './interceptor/token.interceptor';
 import {MyTranslate} from './service/my-translate.service';
+import {NgProgressModule} from '@ngx-progressbar/core';
 
 
 @NgModule({
@@ -55,6 +56,7 @@ import {MyTranslate} from './service/my-translate.service';
     ReactiveFormsModule,
     AppRoutingModule,
     HttpClientModule,
+    NgProgressModule.forRoot(),
     PaginationModule.forRoot(),
     BsDropdownModule.forRoot(),
     TooltipModule.forRoot(),

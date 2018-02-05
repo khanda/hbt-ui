@@ -20,8 +20,8 @@ export class AccountSaveComponent implements OnInit {
   readonly PASSWORD_MIX = LengthContant.PASSWORD_MIN_LENGTH;
   readonly USERNAME_MAX = LengthContant.ACCOUNT_NAME_MAX_LENGTH;
   readonly PASSWORD_MAX = LengthContant.PASSWORD_MAX_LENGTH;
-  readonly USERNAME_REG = /^[a-z0-9_-]*$/i;
-  readonly PASSWORD_REG = /^[a-z0-9_-]*$/i;
+  readonly USERNAME_REG = /^[a-zA-Z0-9]+(?:[_ - @ .]?[a-zA-Z0-9]?)*$/i;
+  readonly PASSWORD_REG = /^[a-zA-Z0-9]+(?:[_ - @ .]?[a-zA-Z0-9]?)*$/i;
 
   roleList: UserRole[] = [];
   selectedUserRole: UserRole;

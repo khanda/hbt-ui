@@ -20,19 +20,18 @@ import {TranslateService} from '@ngx-translate/core';
 })
 
 export class AccountManagementComponent implements OnInit {
-// alert
-  public options = {
-    position: [MessageConstant.VERTICAL_POSITION, MessageConstant.HORIZONTAL_POSITION],
-    timeOut: MessageConstant.TIMEOUT,
-    lastOnBottom: true
-  };
+// // alert
+//   public options = {
+//     position: [MessageConstant.VERTICAL_POSITION, MessageConstant.HORIZONTAL_POSITION],
+//     timeOut: MessageConstant.TIMEOUT,
+//     lastOnBottom: true
+//   };
 
   // pagination
   currentPage = 1;
   itemPerPage = MyConstant.ITEM_PER_PAGE;
   total = 0;
   numPages = 0;
-  bigCurrentPage = 1;
   pages: number[] = [];
 
   listAccount: Account[] = [];

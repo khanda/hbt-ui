@@ -5,6 +5,7 @@ export class CredentialConstant {
   public static readonly USERNAME = CredentialConstant.prefix + 'username';
   public static readonly ID = CredentialConstant.prefix + 'id';
   public static readonly ROLE = CredentialConstant.prefix + 'role';
+  public static readonly ROLE_DESCRIPTION = CredentialConstant.prefix + 'description';
   public static readonly TOKEN_PREFIX = 'Bearer ';
   // Roles
   public static readonly HBT_TEAM_LEADER = CredentialConstant.PREFIX + 'TEAM_LEADER';

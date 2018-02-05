@@ -5,6 +5,7 @@ import {RouteConstant} from '../constant/RouteConstant';
 import {CredentialConstant} from '../constant/CredentialConstant';
 import {AuthService} from '../service/auth/auth.service';
 import {CredentialData} from '../entity/CredentialData';
+import {NgProgress} from '@ngx-progressbar/core';
 
 @Component({
   selector: 'app-login',
@@ -20,6 +21,7 @@ export class LoginComponent implements OnInit {
 
   constructor(private loginService: LoginService,
               private authService: AuthService,
+              public progress: NgProgress,
               private router: Router) {
   }
 
@@ -31,6 +33,7 @@ export class LoginComponent implements OnInit {
   onclickSubmit() {
     this.submitted = true;
     // send data to api to login
+    this.startLoading();
     this.loginService.login(this.loginName, this.password).subscribe(credentialData => {
       if (credentialData !== null && credentialData.token && credentialData.token.length) {
         this.saveCredentialData(credentialData);
@@ -38,6 +41,8 @@ export class LoginComponent implements OnInit {
       } else {
         this.showLoginError = true;
       }
+
+      this.completeLoading();
     });
   }
 
@@ -53,5 +58,18 @@ export class LoginComponent implements OnInit {
     localStorage.setItem(CredentialConstant.ID, credentialData.id + '');
     localStorage.setItem(CredentialConstant.USERNAME, credentialData.userName);
     localStorage.setItem(CredentialConstant.ROLE, credentialData.role);
+    localStorage.setItem(CredentialConstant.ROLE_DESCRIPTION, credentialData.roleDescription);
+  }
+
+  startLoading() {
+    this.progress.start();
+  }
+
+  completeLoading() {
+    this.progress.complete();
+  }
+
+  changeProgressColor() {
+    this.progress.setConfig({color: 'green'});
   }
 }

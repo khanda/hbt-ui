@@ -1,3 +1,76 @@
-<p>
-  employee-management works!
-</p>
+<!--header, action button-->
+<div class="sticky-top top-sticky-main-content">
+  <div class="d-flex flex-row justify-content-between">
+    <h4 class="align-self-center">{{'management.account.header' | translate}}</h4>
+    <div class=" text-right align-self-center">
+      <button class="btn btn-success">Add</button>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="mode == LIST">
+  <div class="table-responsive-sm table-wrapper">
+    <table class="table table-hover table-bordered">
+      <caption>{{'management.account.caption' | translate}}</caption>
+      <thead>
+      <tr>
+        <th scope="col" class="text-center">{{'no' | translate}}</th>
+        <th></th>
+        <th scope="col" class="text-center">{{'employee.lastName' | translate}}</th>
+        <th scope="col" class="text-center">{{'employee.midName' | translate}}</th>
+        <th scope="col" class="text-center">{{'employee.firstName' | translate}}</th>
+        <th scope="col" class="text-center">{{'employee.code' | translate}}</th>
+        <th scope="col" class="text-center">{{'employee.account.name' | translate}}</th>
+        <th scope="col" class="text-center">{{'employee.department' | translate}}</th>
+        <th scope="col" class="text-center">{{'employee.isLeader' | translate}}</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let employee of listEmployee; let index = index">
+        <td scope="row">{{(pagingData.page - 1) * 10 + index + 1}}</td>
+        <td class="td-action-btn">
+          <app-action-table-button (clickView)="onClickView(index)"
+                                   (clickUpdate)="onClickUpdate(index)"
+                                   (clickDelete)="onClickDelete(index)">
+          </app-action-table-button>
+        </td>
+        <td>{{employee.lastName}}</td>
+        <td>{{employee.midName}}</td>
+        <td>{{employee.firstName}}</td>
+        <td>{{employee.code}}</td>
+        <td>{{employee.account.name}}</td>
+        <td>{{employee.department.name}}</td>
+        <td>{{employee.isLeader}}</td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!--panigation-->
+  <div class="row">
+    <div class="col-xs-12 col-12">
+      {{'label.page' | translate}}: {{pagingData.page}} / {{pagingData.totalPage}}
+      <pagination [totalItems]="pagingData.total"
+                  [(ngModel)]="pagingData.page"
+                  [maxSize]="pagingData.pageSize"
+                  class="pagination-sm"
+                  [boundaryLinks]="true"
+                  [rotate]="false"
+                  (numPages)="numPages = $event"
+                  previousText="{{'button.previous' | translate}}"
+                  nextText="{{'button.next' | translate}}"
+                  firstText="{{'button.first' | translate}}"
+                  lastText="{{'button.last' | translate}}"
+                  (pageChanged)="pageChanged($event)">
+      </pagination>
+    </div>
+  </div>
+</div>
+
+<!--new account form-->
+<div *ngIf="mode != LIST" class="form-wrapper">
+  <app-account-save [mode]="mode" [account]="selectedEmployee"
+                    (backToList)="backFromSaveForm($event)">
+  </app-account-save>
+</div>
+<jaspero-confirmations></jaspero-confirmations>
