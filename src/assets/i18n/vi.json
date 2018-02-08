@@ -33,5 +33,7 @@
   "employee.department": "Phòng",
   "employee.account.name": "Tên tài khoản",
   "employee.isLeader": "Vai trò",
+  "employee.leader": "Tổ trưởng",
+  "employee.role.normal": "Thành viên thường",
   "employee.code": "Mã nhân viên"
 }

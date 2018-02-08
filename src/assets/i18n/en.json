@@ -32,5 +32,7 @@
   "table.header.employee.department": "Department",
   "table.header.employee.account.name": "Account name",
   "table.header.employee.isLeader": "Role",
+  "employee.leader": "Leader",
+  "employee.role.normal": "Normal",
   "table.header.employee.code": "Employee code"
 }

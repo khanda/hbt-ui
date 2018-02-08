@@ -14,9 +14,9 @@ export class AccountService {
   constructor(private http: HttpClient) {
   }
 
-  getListAccount(token: string, page: number, itemPerPage: number): Observable<PagingData<Account>> | any {
+  getListAccount(page: number, pageSize: number): Observable<PagingData<Account>> {
     const url = ApiUrlConstant.BASE_URL + ApiUrlConstant.ACCOUNT_GET_LIST_URL;
-    return this.http.post<PagingData<Account>>(url, {'page': page, 'itemPerPage': itemPerPage})
+    return this.http.post<PagingData<Account>>(url, {'page': page, 'pageSize': pageSize})
       .pipe(
         tap(_ => console.log('found accounts')
         ),

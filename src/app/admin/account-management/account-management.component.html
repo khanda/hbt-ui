@@ -4,10 +4,7 @@
   <div class="d-flex flex-row justify-content-between">
     <h4 class="align-self-center">{{'management.account.header' | translate}}</h4>
     <div class=" text-right align-self-center">
-      <app-action-button (clickAdd)="onClickAdd($event)"
-                         (clickExportExcel)="onClickExportExcel($event)"
-                         [showAddButton]="true">
-      </app-action-button>
+      <app-button-new (clickAdd)="onClickAdd($event)"></app-button-new>
     </div>
   </div>
 </div>

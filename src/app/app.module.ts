@@ -10,7 +10,7 @@ import {ManagementComponent} from './admin/management/management.component';
 import {EmployeeManagementComponent} from './admin/employee-management/employee-management.component';
 import {AccountService} from './service/account.service';
 import {PaginationComponent} from './pagination/pagination.component';
-import {ActionButtonComponent} from './admin/action-button/action-button.component';
+import {ButtonNewComponent} from './buttons/button-new/button-new.component';
 import {AccountSaveComponent} from './admin/account-save/account-save.component';
 import {ForbiddenValidatorDirective} from './directive/regExp-validator.directive';
 import {ActionTableButtonComponent} from './action-table-button/action-table-button.component';
@@ -31,6 +31,8 @@ import {AuthService} from './service/auth/auth.service';
 import {TokenInterceptor} from './interceptor/token.interceptor';
 import {MyTranslate} from './service/my-translate.service';
 import {NgProgressModule} from '@ngx-progressbar/core';
+import {EmployeeService} from './service/employee.service';
+import { EmployeeSaveComponent } from './admin/employee-save/employee-save.component';
 
 
 @NgModule({
@@ -41,13 +43,14 @@ import {NgProgressModule} from '@ngx-progressbar/core';
     ManagementComponent,
     EmployeeManagementComponent,
     PaginationComponent,
-    ActionButtonComponent,
+    ButtonNewComponent,
     AccountSaveComponent,
     ForbiddenValidatorDirective,
     ActionTableButtonComponent,
     MyNavBarComponent,
     MyFooterComponent,
     LoginComponent,
+    EmployeeSaveComponent,
   ],
   imports: [
     BrowserModule,
@@ -73,6 +76,7 @@ import {NgProgressModule} from '@ngx-progressbar/core';
   ],
   providers: [
     AccountService,
+    EmployeeService,
     LoginService,
     AuthGuard,
     MyTranslate,

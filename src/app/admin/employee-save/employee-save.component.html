@@ -1,0 +1,105 @@
+<div class="col-xl-5 col-lg-7 col-md-9 col-sm-12">
+  <form (ngSubmit)="onSubmit()">
+    <div class="form-group row">
+      <label for="last_name" class="col-3 col-form-label">{{'employee.firstName' | translate}}
+        <span class="text-danger">&#042;</span></label>
+      <div class="col-9">
+        <input type="text" class="form-control" id="last_name" name="last_name"
+               required
+               [readonly]="mode != NEW">
+      </div>
+    </div>
+    <div class="form-group row">
+      <label for="mid_name" class="col-3 col-form-label">{{'employee.midName' | translate}}
+        <span class="text-danger">&#042;</span></label>
+      <div class="col-9">
+        <input type="text" class="form-control" id="mid_name" name="mid_name"
+               [readonly]="mode != NEW">
+      </div>
+    </div>
+    <div class="form-group row">
+      <label for="first_name" class="col-3 col-form-label">{{'employee.firstName' | translate}}
+        <span class="text-danger">&#042;</span></label>
+      <div class="col-9">
+        <input type="text" class="form-control" id="first_name" name="first_name"
+               required
+               [readonly]="mode != NEW">
+      </div>
+    </div>
+    <!--department-->
+    <div class="form-group row">
+      <label for="employee_departments" class="col-3 col-form-label">{{'employee.department'| translate}}
+        <span class="message-invalid">&#042;</span>
+      </label>
+      <div class="col-9">
+        <select class="custom-select form-control"
+                id="employee_departments" name="employee_departments"
+                formControlName="userRole"
+                required
+                (change)="onSelectDepartment($event.target.value)">
+          <option *ngFor="let deparment of departmentList; let index = index" [value]="deparment.id">
+            {{deparment.name}}
+          </option>
+        </select>
+      </div>
+    </div>
+
+    <!--employee code-->
+    <div class="form-group row">
+      <label for="employee_code" class="col-3 col-form-label">{{'employee.code' | translate}}
+        <span class="text-danger">&#042;</span></label>
+      <div class="col-9">
+        <input type="text"
+               class="form-control"
+               id="employee_code"
+               name="employee_code"
+               required
+               [readonly]="mode != NEW">
+      </div>
+    </div>
+
+    <!--manager-->
+    <div class="form-group row">
+      <label for="employee_manager" class="col-3 col-form-label">{{'employee.department'| translate}}
+        <span class="message-invalid">&#042;</span>
+      </label>
+      <div class="col-9">
+        <select class="custom-select form-control" id="employee_manager" name="employee_manager"
+                (change)="onSelectDepartment($event.target.value)">
+          <option *ngFor="let manager of managerList; let index = index" [value]="manager.id">
+            {{manager.lastName}} {{manager.midName}} {{manager.firstName}} ({{manager.code}})
+          </option>
+        </select>
+      </div>
+    </div>
+
+    <!--is leader-->
+    <div class="form-group row">
+      <label for="employee_is_leader" class="col-3 col-form-label">{{'employee.isLeader'| translate}}</label>
+      <div class="col-9">
+        <input type="checkbox" class="form-control" id="employee_is_leader" name="employee_is_leader"
+               [readonly]="mode != NEW">
+      </div>
+    </div>
+
+
+    <!--message area-->
+    <div class="alert alert-danger" *ngIf="showMessageKey == ERROR">
+      <span> Đã xảy ra lỗi </span>
+    </div>
+    <div class="alert alert-success" *ngIf="showMessageKey == SUCCESS">
+      <span> Thành công  </span>
+    </div>
+    <!--message area-->
+    <!--button action area-->
+    <div class="button-form-action text-center">
+      <button type="button" class="btn btn-light" (click)="onClickBack()">
+        {{'button.back' | translate}}
+      </button>
+      <button type="submit" class="btn btn-success">
+        {{'button.save' | translate}}
+      </button>
+    </div>
+    <!--button action area-->
+  </form>
+</div>

@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {Employee} from '../../entity/Employee';
 import {MessageConstant} from '../../constant/MessageConstant';
 import {PagingData} from '../../entity/PagingData';
+import {EmployeeService} from '../../service/employee.service';
 
 @Component({
   selector: 'app-employee-management',
@@ -14,13 +15,13 @@ export class EmployeeManagementComponent implements OnInit {
   LIST = MessageConstant.LIST;
   mode = this.LIST;
 
-  pagingData = new PagingData();
+  pagingData = new PagingData<Employee>();
 
-  constructor() {
+  constructor(private employeeService: EmployeeService) {
   }
 
   ngOnInit() {
-    this.getListEmployee(this.currentPage, this.itemPerPage);
+    this.getListEmployee(this.pagingData.page, this.pagingData.pageSize);
   }
 
   onClickAdd() {
@@ -45,10 +46,14 @@ export class EmployeeManagementComponent implements OnInit {
 
   pageChanged(event: any): void {
     this.pagingData.page = event.page;
-    this.getListEmployee(this.currentPage, this.itemPerPage);
+    this.getListEmployee(this.pagingData.page, this.pagingData.pageSize);
   }
 
   getListEmployee(page: number, pageSize: number) {
-
+    this.employeeService.getListEmployee(page, pageSize)
+      .subscribe(pagingData => {
+        this.pagingData = pagingData;
+        console.log(this.pagingData);
+      });
   }
 }

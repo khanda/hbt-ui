@@ -20,12 +20,12 @@ import {TranslateService} from '@ngx-translate/core';
 })
 
 export class AccountManagementComponent implements OnInit {
-// // alert
-//   public options = {
-//     position: [MessageConstant.VERTICAL_POSITION, MessageConstant.HORIZONTAL_POSITION],
-//     timeOut: MessageConstant.TIMEOUT,
-//     lastOnBottom: true
-//   };
+// alert
+  public options = {
+    position: [MessageConstant.VERTICAL_POSITION, MessageConstant.HORIZONTAL_POSITION],
+    timeOut: MessageConstant.TIMEOUT,
+    lastOnBottom: true
+  };
 
   // pagination
   currentPage = 1;
@@ -57,9 +57,9 @@ export class AccountManagementComponent implements OnInit {
     this.getListAccount(this.currentPage, this.itemPerPage);
   }
 
-  getListAccount(page: number, itemPerPage: number) {
+  getListAccount(page: number, pageSize: number) {
     const token = localStorage.getItem(CredentialConstant.TOKEN);
-    this.accountService.getListAccount(token, page, itemPerPage).subscribe(pagingData => {
+    this.accountService.getListAccount(page, pageSize).subscribe(pagingData => {
       const returnData: PagingData<Account> = pagingData;
       if (returnData) {
         this.listAccount = returnData.data;

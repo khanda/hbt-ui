@@ -3,7 +3,7 @@
   <div class="d-flex flex-row justify-content-between">
     <h4 class="align-self-center">{{'management.account.header' | translate}}</h4>
     <div class=" text-right align-self-center">
-      <button class="btn btn-success">Add</button>
+      <app-button-new (clickAdd)="onClickAdd($event)"></app-button-new>
     </div>
   </div>
 </div>
@@ -26,7 +26,7 @@
       </tr>
       </thead>
       <tbody>
-      <tr *ngFor="let employee of listEmployee; let index = index">
+      <tr *ngFor="let employee of pagingData.data; let index = index">
         <td scope="row">{{(pagingData.page - 1) * 10 + index + 1}}</td>
         <td class="td-action-btn">
           <app-action-table-button (clickView)="onClickView(index)"
@@ -38,9 +38,12 @@
         <td>{{employee.midName}}</td>
         <td>{{employee.firstName}}</td>
         <td>{{employee.code}}</td>
-        <td>{{employee.account.name}}</td>
+        <td>{{employee.account.userName}}</td>
         <td>{{employee.department.name}}</td>
-        <td>{{employee.isLeader}}</td>
+        <td>
+          <span *ngIf="employee.isLeader === 1">{{'employee.leader' | translate}}</span>
+          <span *ngIf="employee.isLeader === 0">{{'employee.role.normal' | translate}}</span>
+        </td>
       </tr>
       </tbody>
     </table>
@@ -49,28 +52,29 @@
   <!--panigation-->
   <div class="row">
     <div class="col-xs-12 col-12">
-      {{'label.page' | translate}}: {{pagingData.page}} / {{pagingData.totalPage}}
-      <pagination [totalItems]="pagingData.total"
-                  [(ngModel)]="pagingData.page"
-                  [maxSize]="pagingData.pageSize"
-                  class="pagination-sm"
-                  [boundaryLinks]="true"
-                  [rotate]="false"
-                  (numPages)="numPages = $event"
-                  previousText="{{'button.previous' | translate}}"
-                  nextText="{{'button.next' | translate}}"
-                  firstText="{{'button.first' | translate}}"
-                  lastText="{{'button.last' | translate}}"
-                  (pageChanged)="pageChanged($event)">
-      </pagination>
+      <div *ngIf="pagingData.totalPage > 0">
+        {{'label.page' | translate}}: {{pagingData.page}} / {{pagingData.totalPage}}
+
+        <pagination [totalItems]="pagingData.total"
+                    [(ngModel)]="pagingData.page"
+                    [maxSize]="pagingData.pageSize"
+                    class="pagination-sm"
+                    [boundaryLinks]="true"
+                    [rotate]="false"
+                    (numPages)="numPages = $event"
+                    previousText="{{'button.previous' | translate}}"
+                    nextText="{{'button.next' | translate}}"
+                    firstText="{{'button.first' | translate}}"
+                    lastText="{{'button.last' | translate}}"
+                    (pageChanged)="pageChanged($event)">
+        </pagination>
+      </div>
     </div>
   </div>
 </div>
 
-<!--new account form-->
+<!--nemployee form-->
 <div *ngIf="mode != LIST" class="form-wrapper">
-  <app-account-save [mode]="mode" [account]="selectedEmployee"
-                    (backToList)="backFromSaveForm($event)">
-  </app-account-save>
+  <app-employee-save [mode]="mode" [employee]="selectedEmployee">
+  </app-employee-save>
 </div>
-<jaspero-confirmations></jaspero-confirmations>
