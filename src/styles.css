@@ -103,3 +103,6 @@ body {
   color: #dc3545;
   padding-top: 5px;
 }
+.hbt-label-form.right{
+  text-align: right;
+}

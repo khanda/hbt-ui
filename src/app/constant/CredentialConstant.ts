@@ -11,4 +11,6 @@ export class CredentialConstant {
   public static readonly HBT_TEAM_LEADER = CredentialConstant.PREFIX + 'TEAM_LEADER';
   public static readonly HBT_SUPER_ADMIN = CredentialConstant.PREFIX + 'SUPER_ADMIN';
   public static readonly HBT_NORMAL = CredentialConstant.PREFIX + 'NORMAL';
+  public static readonly HBT_PRINCIPLE = CredentialConstant.PREFIX + 'PRINCIPLE';
+  public static readonly HBT_ASSISTANT_PRINCIPLE = CredentialConstant.PREFIX + 'ASSISTANT_PRINCIPLE';
 }

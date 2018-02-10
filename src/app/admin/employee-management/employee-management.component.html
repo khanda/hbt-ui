@@ -1,7 +1,7 @@
 <!--header, action button-->
 <div class="sticky-top top-sticky-main-content">
   <div class="d-flex flex-row justify-content-between">
-    <h4 class="align-self-center">{{'management.account.header' | translate}}</h4>
+    <h4 class="align-self-center">{{'management.employee.header' | translate}}</h4>
     <div class=" text-right align-self-center">
       <app-button-new (clickAdd)="onClickAdd($event)"></app-button-new>
     </div>
@@ -22,7 +22,7 @@
         <th scope="col" class="text-center">{{'employee.code' | translate}}</th>
         <th scope="col" class="text-center">{{'employee.account.name' | translate}}</th>
         <th scope="col" class="text-center">{{'employee.department' | translate}}</th>
-        <th scope="col" class="text-center">{{'employee.isLeader' | translate}}</th>
+        <th scope="col" class="text-center">{{'employee.role' | translate}}</th>
       </tr>
       </thead>
       <tbody>

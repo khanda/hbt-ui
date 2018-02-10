@@ -3,6 +3,8 @@ import {MessageData} from '../../entity/MessageData';
 import {Employee} from '../../entity/Employee';
 import {MessageConstant} from '../../constant/MessageConstant';
 import {Department} from '../../entity/Department';
+import {LengthContant} from '../../constant/LengthContant';
+import {EmployeeService} from "../../service/employee.service";
 
 @Component({
   selector: 'app-employee-save',
@@ -15,6 +17,9 @@ export class EmployeeSaveComponent implements OnInit {
   readonly VIEW = MessageConstant.VIEW;
   readonly ERROR = MessageConstant.ERROR;
   readonly SUCCESS = MessageConstant.SUCCESS;
+  readonly NAME_MIN = LengthContant.NAME_MIN_LENGTH;
+  readonly NAME_MAX = LengthContant.NAME_MAX_LENGTH;
+  readonly NAME_REG = LengthContant.VN_NAME_REG;
   @Input() mode = MessageConstant.VIEW;
   @Input() employee: Employee = new Employee();
   @Output() backToList: EventEmitter<MessageData> = new EventEmitter();
@@ -23,10 +28,11 @@ export class EmployeeSaveComponent implements OnInit {
   departmentList: Department[] = [];
   managerList: Employee[] = [];
 
-  constructor() {
+  constructor(private  employeeService: EmployeeService) {
   }
 
   ngOnInit() {
+    this.getDepartments();
   }
 
   onClickBack() {
@@ -44,5 +50,9 @@ export class EmployeeSaveComponent implements OnInit {
 
   onSelectDepartment() {
 
+  }
+
+  getDepartments() {
+    this.employeeService.getListDepartment().subscribe(departments => this.departmentList = departments);
   }
 }

@@ -6,6 +6,7 @@ import {PagingData} from '../entity/PagingData';
 import {ApiUrlConstant} from '../constant/ApiUrlConstant';
 import {MyHttpUtil} from '../util/MyHttpUtil';
 import {catchError, tap} from 'rxjs/operators';
+import {Department} from '../entity/Department';
 
 @Injectable()
 export class EmployeeService {
@@ -20,6 +21,16 @@ export class EmployeeService {
         tap(_ => console.log()
         ),
         catchError(MyHttpUtil.handleError<PagingData<Employee>>('getListEmployee'))
+      );
+  }
+
+  getListDepartment(): Observable<Department[]> {
+    const url = ApiUrlConstant.BASE_URL + ApiUrlConstant.DEPARTMENT_GET_LIST_URL;
+    return this.http.post<Department[]>(url, null)
+      .pipe(
+        tap(_ => console.log(_)
+        ),
+        catchError(MyHttpUtil.handleError<Department[]>('getListDepartment'))
       );
   }
 }

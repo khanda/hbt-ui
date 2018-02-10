@@ -1,105 +1,146 @@
-<div class="col-xl-5 col-lg-7 col-md-9 col-sm-12">
-  <form (ngSubmit)="onSubmit()">
-    <div class="form-group row">
-      <label for="last_name" class="col-3 col-form-label">{{'employee.firstName' | translate}}
-        <span class="text-danger">&#042;</span></label>
-      <div class="col-9">
+<div class="d-flex flex-row align-items-center justify-content-center">
+  <div class="col-xl-5 col-lg-7 col-md-9 col-sm-12">
+    <form (ngSubmit)="onSubmit()">
+      <!--last name-->
+      <div class="form-group">
+        <label for="last_name">{{'employee.lastName' | translate}}<span class="text-danger">&#042;</span></label>
         <input type="text" class="form-control" id="last_name" name="last_name"
+               [(ngModel)]="employee.lastName"
                required
+               minlength="{{NAME_MIN}}"
+               maxlength="{{NAME_MAX}}"
+               appForbiddenName="{{NAME_REG}}"
+               #lastName="ngModel"
                [readonly]="mode != NEW">
+        <!--validate message-->
+        <div *ngIf="lastName.invalid && (lastName.dirty || lastName.touched)" class="message-invalid">
+          <div *ngIf="lastName.errors.required"> {{'message.validation.require' | translate}}</div>
+          <div *ngIf="lastName.errors.minlength">
+            {{'message.validation.min' | translate}} {{NAME_MIN}} {{'message.validation.character' | translate}}
+          </div>
+          <div *ngIf="lastName.errors.maxlength">
+            {{'message.validation.max' | translate}} {{NAME_MAX}} {{'message.validation.character' | translate}}
+          </div>
+          <div *ngIf="lastName.errors.invalidExp">{{'message.validation.character.only' | translate}}</div>
+        </div>
       </div>
-    </div>
-    <div class="form-group row">
-      <label for="mid_name" class="col-3 col-form-label">{{'employee.midName' | translate}}
-        <span class="text-danger">&#042;</span></label>
-      <div class="col-9">
+      <!--mid name-->
+      <div class="form-group">
+        <label for="mid_name">{{'employee.midName' | translate}}</label>
         <input type="text" class="form-control" id="mid_name" name="mid_name"
-               [readonly]="mode != NEW">
+               [(ngModel)]="employee.midName"
+               [readonly]="mode != NEW"
+               minlength="{{NAME_MIN}}"
+               maxlength="{{NAME_MAX}}"
+               appForbiddenName="{{NAME_REG}}"
+               #midName="ngModel">
+        <div *ngIf="midName.invalid && (midName.dirty || midName.touched)" class="message-invalid">
+          <div *ngIf="midName.errors.required"> {{'message.validation.require' | translate}}</div>
+          <div *ngIf="midName.errors.minlength">
+            {{'message.validation.min' | translate}} {{NAME_MIN}} {{'message.validation.character' | translate}}
+          </div>
+          <div *ngIf="midName.errors.maxlength">
+            {{'message.validation.max' | translate}} {{NAME_MAX}} {{'message.validation.character' | translate}}
+          </div>
+          <div *ngIf="midName.errors.invalidExp">{{'message.validation.character.only' | translate}}</div>
+        </div>
       </div>
-    </div>
-    <div class="form-group row">
-      <label for="first_name" class="col-3 col-form-label">{{'employee.firstName' | translate}}
-        <span class="text-danger">&#042;</span></label>
-      <div class="col-9">
+      <!--first name-->
+      <div class="form-group">
+        <label for="first_name">{{'employee.firstName' | translate}}
+          <span class="text-danger">&#042;</span></label>
         <input type="text" class="form-control" id="first_name" name="first_name"
-               required
-               [readonly]="mode != NEW">
+               [(ngModel)]="employee.firstName"
+               [readonly]="mode != NEW"
+               required minlength="{{NAME_MIN}}"
+               maxlength="{{NAME_MAX}}"
+               appForbiddenName="{{NAME_REG}}"
+               #firstName="ngModel">
+        <div *ngIf="firstName.invalid && (firstName.dirty || firstName.touched)" class="message-invalid">
+          <div *ngIf="firstName.errors.required"> {{'message.validation.require' | translate}}</div>
+          <div *ngIf="firstName.errors.minlength">
+            {{'message.validation.min' | translate}} {{NAME_MIN}} {{'message.validation.character' | translate}}
+          </div>
+          <div *ngIf="firstName.errors.maxlength">
+            {{'message.validation.max' | translate}} {{NAME_MAX}} {{'message.validation.character' | translate}}
+          </div>
+          <div *ngIf="firstName.errors.invalidExp">{{'message.validation.character.only' | translate}}</div>
+        </div>
       </div>
-    </div>
-    <!--department-->
-    <div class="form-group row">
-      <label for="employee_departments" class="col-3 col-form-label">{{'employee.department'| translate}}
-        <span class="message-invalid">&#042;</span>
-      </label>
-      <div class="col-9">
+      <!--department-->
+      <div class="form-group">
+        <label for="employee_departments">{{'employee.department'|translate}}
+          <span class="message-invalid">&#042;</span>
+        </label>
         <select class="custom-select form-control"
                 id="employee_departments" name="employee_departments"
-                formControlName="userRole"
                 required
+                [(ngModel)]="employee.departmentId"
                 (change)="onSelectDepartment($event.target.value)">
-          <option *ngFor="let deparment of departmentList; let index = index" [value]="deparment.id">
-            {{deparment.name}}
+          <option *ngFor="let department of departmentList; let index = index" [value]="department.id">
+            {{department.name}}
           </option>
         </select>
       </div>
-    </div>
 
-    <!--employee code-->
-    <div class="form-group row">
-      <label for="employee_code" class="col-3 col-form-label">{{'employee.code' | translate}}
-        <span class="text-danger">&#042;</span></label>
-      <div class="col-9">
-        <input type="text"
-               class="form-control"
-               id="employee_code"
-               name="employee_code"
-               required
-               [readonly]="mode != NEW">
-      </div>
-    </div>
+      <!--employee code-->
+      <!--<div class="form-group row">-->
+      <!--<label for="employee_code" class="col-4 col-form-label hbt-label-form right">{{'employee.code' | translate}}-->
+      <!--<span class="text-danger">&#042;</span></label>-->
+      <!--<div class="col-8">-->
+      <!--<input type="text"-->
+      <!--class="form-control"-->
+      <!--id="employee_code"-->
+      <!--name="employee_code"-->
+      <!--required-->
+      <!--[(ngModel)]="employee.code"-->
+      <!--[readonly]="mode != NEW">-->
+      <!--</div>-->
+      <!--</div>-->
 
-    <!--manager-->
-    <div class="form-group row">
-      <label for="employee_manager" class="col-3 col-form-label">{{'employee.department'| translate}}
-        <span class="message-invalid">&#042;</span>
-      </label>
-      <div class="col-9">
+      <!--manager-->
+      <div class="form-group">
+        <label for="employee_manager">{{'employee.manager'| translate}}
+          <span class="message-invalid">&#042;</span>
+        </label>
         <select class="custom-select form-control" id="employee_manager" name="employee_manager"
+                [(ngModel)]="employee.managerId"
                 (change)="onSelectDepartment($event.target.value)">
           <option *ngFor="let manager of managerList; let index = index" [value]="manager.id">
             {{manager.lastName}} {{manager.midName}} {{manager.firstName}} ({{manager.code}})
           </option>
         </select>
       </div>
-    </div>
 
-    <!--is leader-->
-    <div class="form-group row">
-      <label for="employee_is_leader" class="col-3 col-form-label">{{'employee.isLeader'| translate}}</label>
-      <div class="col-9">
-        <input type="checkbox" class="form-control" id="employee_is_leader" name="employee_is_leader"
-               [readonly]="mode != NEW">
+      <!--is leader-->
+      <!--<div class="form-group row">-->
+      <!--<label for="employee_is_leader" class="col-4 col-form-label">{{'employee.isLeader'| translate}}</label>-->
+      <!--<div class="col-1 d-flex align-items-baseline flex-column">-->
+      <!--<input  class="form-check-input form-control" type="checkbox" id="employee_is_leader" name="employee_is_leader"-->
+      <!--[(ngModel)]="employee.isLeader"-->
+      <!--[readonly]="mode != NEW">-->
+      <!--</div>-->
+      <!--</div>-->
+
+
+      <!--message area-->
+      <div class="alert alert-danger" *ngIf="showMessageKey == ERROR">
+        <span> Đã xảy ra lỗi </span>
       </div>
-    </div>
-
-
-    <!--message area-->
-    <div class="alert alert-danger" *ngIf="showMessageKey == ERROR">
-      <span> Đã xảy ra lỗi </span>
-    </div>
-    <div class="alert alert-success" *ngIf="showMessageKey == SUCCESS">
-      <span> Thành công  </span>
-    </div>
-    <!--message area-->
-    <!--button action area-->
-    <div class="button-form-action text-center">
-      <button type="button" class="btn btn-light" (click)="onClickBack()">
-        {{'button.back' | translate}}
-      </button>
-      <button type="submit" class="btn btn-success">
-        {{'button.save' | translate}}
-      </button>
-    </div>
-    <!--button action area-->
-  </form>
+      <div class="alert alert-success" *ngIf="showMessageKey == SUCCESS">
+        <span> Thành công  </span>
+      </div>
+      <!--message area-->
+      <!--button action area-->
+      <div class="button-form-action text-center">
+        <button type="button" class="btn btn-light" (click)="onClickBack()">
+          {{'button.back' | translate}}
+        </button>
+        <button type="submit" class="btn btn-success">
+          {{'button.save' | translate}}
+        </button>
+      </div>
+      <!--button action area-->
+    </form>
+  </div>
 </div>

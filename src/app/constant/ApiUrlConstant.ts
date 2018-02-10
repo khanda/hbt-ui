@@ -6,5 +6,5 @@ export class ApiUrlConstant {
   public static readonly ACCOUNT_DELETE_URL = '/api/account/delete';
   public static readonly LOGIN_URL = '/login';
   public static readonly EMPLOYEE_GET_LIST_URL = '/api/employee/getList';
-
+  public static readonly DEPARTMENT_GET_LIST_URL = '/api/department/getList';
 }
