@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {RouteConstant} from '../../constant/RouteConstant';
 
 @Component({
@@ -9,7 +9,18 @@ import {RouteConstant} from '../../constant/RouteConstant';
 export class ManagementComponent implements OnInit {
   MANAGEMENT_EMPLOYEES_ROUTE = RouteConstant.EMPLOYEES;
   MANAGEMENT_ACCOUNTS_ROUTE = RouteConstant.ACCOUNTS;
-  constructor() { }
+  isCollapsed: boolean = false;
+
+  collapsed(event: any): void {
+    console.log(event);
+  }
+
+  expanded(event: any): void {
+    console.log(event);
+  }
+
+  constructor() {
+  }
 
   ngOnInit() {
   }

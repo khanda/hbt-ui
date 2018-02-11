@@ -20,7 +20,7 @@ import {SimpleNotificationsModule} from 'angular2-notifications';
 import {TranslateLoader, TranslateModule} from '@ngx-translate/core';
 import {TranslateHttpLoader} from '@ngx-translate/http-loader';
 import {JasperoConfirmationsModule} from '@jaspero/ng2-confirmations';
-import {BsDropdownModule, PaginationModule} from 'ngx-bootstrap';
+import {AccordionModule, BsDropdownModule, CollapseModule, PaginationModule} from 'ngx-bootstrap';
 import {ModalModule} from 'ngx-bootstrap/modal';
 import {TooltipModule} from 'ngx-bootstrap/tooltip';
 import {MyFooterComponent} from './my-footer/my-footer.component';
@@ -62,6 +62,8 @@ import {MaterialModule} from './material.module';
     FormsModule,
     MaterialModule,
     NgxDatatableModule,
+    AccordionModule.forRoot(),
+    CollapseModule.forRoot(),
     BrowserAnimationsModule,
     ReactiveFormsModule,
     AppRoutingModule,

@@ -43,4 +43,13 @@ export class EmployeeService {
         catchError(MyHttpUtil.handleError<boolean>('saveEmployee'))
       );
   }
+  deleteEmployee(employee: Employee): Observable<boolean> {
+    const url = ApiUrlConstant.BASE_URL + ApiUrlConstant.EMPLOYEE_DELETE_URL;
+    return this.http.post<boolean>(url, employee.id)
+      .pipe(
+        tap(() => console.log('delete employee success')
+        ),
+        catchError(MyHttpUtil.handleError<boolean>('delete employee'))
+      );
+  }
 }

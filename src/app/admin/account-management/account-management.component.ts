@@ -121,8 +121,6 @@ export class AccountManagementComponent implements OnInit {
           });
         }
       });
-
-
   }
 
   showAlertMessage(content: string, type: string, title: string) {

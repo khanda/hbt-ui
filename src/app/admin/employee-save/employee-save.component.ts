@@ -6,6 +6,7 @@ import {Department} from '../../entity/Department';
 import {LengthContant} from '../../constant/LengthContant';
 import {EmployeeService} from '../../service/employee.service';
 import {MyTranslate} from '../../service/my-translate.service';
+import {ConfirmationService} from "@jaspero/ng2-confirmations";
 
 @Component({
   selector: 'app-employee-save',
@@ -30,6 +31,7 @@ export class EmployeeSaveComponent implements OnInit {
   managerList: Employee[] = [];
 
   constructor(private  employeeService: EmployeeService,
+              private _confirmation: ConfirmationService,
               private translate: MyTranslate) {
   }
 

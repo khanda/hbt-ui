@@ -6,6 +6,9 @@ import {EmployeeService} from '../../service/employee.service';
 import {MessageData} from '../../entity/MessageData';
 import {MyAlertService} from '../../service/alert/my-alert.service';
 import {BreadcrumbData} from '../../entity/BreadcrumbData';
+import {ResolveEmit} from '@jaspero/ng2-confirmations/src/interfaces/resolve-emit';
+import {ConfirmationService} from '@jaspero/ng2-confirmations';
+import {MatSnackBar} from '@angular/material';
 
 @Component({
   selector: 'app-employee-management',
@@ -22,6 +25,8 @@ export class EmployeeManagementComponent implements OnInit {
   breadcrumb: BreadcrumbData[] = [];
 
   constructor(private employeeService: EmployeeService,
+              private _confirmation: ConfirmationService,
+              public snackBar: MatSnackBar,
               private  alertService: MyAlertService) {
   }
 
@@ -52,7 +57,24 @@ export class EmployeeManagementComponent implements OnInit {
   }
 
   onClickDelete(index: number) {
-
+    this._confirmation.create('Chú ý', 'Bạn có chắc chắn muốn xóa ?')
+    // The confirmation returns an Observable Subject which will notify you about the outcome
+      .subscribe((ans: ResolveEmit) => {
+        if (ans.resolved) {
+          this.employeeService.deleteEmployee(this.pagingData.data[index]).subscribe(result => {
+            if (result) {
+              console.log('thanh cong');
+              this.alertService.showAlertMessage('Xóa tài khoản thành công', MessageConstant.ALERT_SUCCESS, 'Thành công');
+              this.openSnackBar('q', 'q');
+              this.pagingData.page = 1;
+              this.getListEmployee(this.pagingData.page, this.pagingData.pageSize);
+            } else {
+              this.alertService.showAlertMessage('Xóa tài khoản không thành công',
+                MessageConstant.ALERT_DANGER, 'Lỗi');
+            }
+          });
+        }
+      });
   }
 
   pageChanged(event: any): void {
@@ -94,5 +116,11 @@ export class EmployeeManagementComponent implements OnInit {
     } else if (MessageConstant.VIEW === mode) {
       this.breadcrumb.push(new BreadcrumbData('management.employee.view', ''));
     }
+  }
+
+  openSnackBar(message: string, action: string) {
+    this.snackBar.open(message, action, {
+      duration: 2000,
+    });
   }
 }

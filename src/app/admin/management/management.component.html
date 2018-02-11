@@ -1,10 +1,19 @@
 <div class="container-fluid">
   <div class="row flex-xl-nowrap">
     <!--side bar-->
-    <div class="col-12 col-md-3 col-xl-2 bd-sidebar">
+    <div class="col-12 col-md-3 col-xl-2 bd-sidebar"
+         (collapsed)="collapsed($event)" (expanded)="expanded($event)" [collapse]="isCollapsed">
+      <!--<div class="text-right">-->
+      <!--<button mat-icon-button (click)="isCollapsed = !isCollapsed">-->
+      <!--<mat-icon><i class="fa fa-caret-left" aria-hidden="true"></i></mat-icon>-->
+      <!--</button>-->
+      <!--</div>-->
+
       <nav class="nav flex-column nav-pills management-side-bar-content">
-        <a class="nav-link" href="#" routerLink="{{MANAGEMENT_ACCOUNTS_ROUTE}}" routerLinkActive="active">{{'management.account.header' | translate}}</a>
-        <a class="nav-link" href="#" routerLink="{{MANAGEMENT_EMPLOYEES_ROUTE}}" routerLinkActive="active">{{'management.employee.header' | translate}}</a>
+        <a class="nav-link" href="#" routerLink="{{MANAGEMENT_ACCOUNTS_ROUTE}}"
+           routerLinkActive="active">{{'management.account.header' | translate}}</a>
+        <a class="nav-link" href="#" routerLink="{{MANAGEMENT_EMPLOYEES_ROUTE}}"
+           routerLinkActive="active">{{'management.employee.header' | translate}}</a>
       </nav>
     </div>
     <!--content-->

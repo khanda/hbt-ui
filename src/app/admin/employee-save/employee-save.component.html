@@ -106,7 +106,7 @@
                       name="employee_is_leader"
                       [(ngModel)]="employee.isLeader"
                       [disabled]="mode != NEW && mode != UPDATE">
-            {{'employee.isLeader'| translate}}
+          {{'employee.isLeader'| translate}}
         </mat-checkbox>
       </div>
 
@@ -121,10 +121,12 @@
       <!--message area-->
       <!--button action area-->
       <div class="button-form-action text-center">
-        <button type="button" class="btn btn-light" (click)="onClickBack()">
+        <button mat-raised-button type="button" (click)="onClickBack()">
           {{'button.back' | translate}}
         </button>
-        <button type="submit" class="btn btn-success"
+        <button type="submit"
+                mat-raised-button
+                color="primary"
                 *ngIf="mode!=VIEW"
                 [disabled]="!employeeForm.form.valid  || !employeeForm.form.dirty || !employeeForm.form.touched">
           {{'button.save' | translate}}
@@ -134,9 +136,3 @@
     </form>
   </div>
 </div>
-<mat-card>
-  <button mat-button>All</button>
-  <button mat-raised-button>Of</button>
-  <button mat-raised-button color="primary">The</button>
-  <button mat-raised-button color="accent">Buttons</button>
-</mat-card>
