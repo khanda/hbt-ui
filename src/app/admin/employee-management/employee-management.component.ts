@@ -13,7 +13,7 @@ import {BreadcrumbData} from '../../entity/BreadcrumbData';
   styleUrls: ['./employee-management.component.css']
 })
 export class EmployeeManagementComponent implements OnInit {
-  listEmployee: Employee[] = [];
+  // listEmployee: Employee[] = [];
   selectedEmployee: Employee = new Employee();
   LIST = MessageConstant.LIST;
   mode = this.LIST;
@@ -39,12 +39,16 @@ export class EmployeeManagementComponent implements OnInit {
 
   onClickView(index: number) {
     this.mode = MessageConstant.VIEW;
-    this.selectedEmployee = this.listEmployee[index];
+    console.log(index);
+    this.selectedEmployee = this.pagingData.data[index];
+    console.log(this.selectedEmployee);
+    this.changeBreadcrumb(this.mode);
   }
 
   onClickUpdate(index: number) {
     this.mode = MessageConstant.UPDATE;
-    this.selectedEmployee = this.listEmployee[index];
+    this.selectedEmployee = this.pagingData.data[index];
+    this.changeBreadcrumb(this.mode);
   }
 
   onClickDelete(index: number) {
@@ -67,7 +71,7 @@ export class EmployeeManagementComponent implements OnInit {
 
   backFromSaveForm(data: MessageData) {
     this.mode = this.LIST;
-    this.listEmployee = [];
+    // this.listEmployee = [];
     this.getListEmployee(this.pagingData.page, this.pagingData.pageSize);
     if (data && data.showMessage) {
       this.alertService.showAlertMessage(data.message, data.type, data.title);
@@ -87,6 +91,8 @@ export class EmployeeManagementComponent implements OnInit {
       this.breadcrumb.push(new BreadcrumbData('management.employee.new', ''));
     } else if (MessageConstant.UPDATE === mode) {
       this.breadcrumb.push(new BreadcrumbData('management.employee.update', ''));
+    } else if (MessageConstant.VIEW === mode) {
+      this.breadcrumb.push(new BreadcrumbData('management.employee.view', ''));
     }
   }
 }

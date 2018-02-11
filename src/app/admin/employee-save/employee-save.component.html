@@ -11,7 +11,7 @@
                maxlength="{{NAME_MAX}}"
                appForbiddenName="{{NAME_REG}}"
                #lastName="ngModel"
-               [readonly]="mode != NEW"
+               [readonly]="mode != NEW && mode != UPDATE"
                [class.is-invalid]="lastName.invalid && (lastName.dirty || lastName.touched)">
         <!--validate message-->
         <div *ngIf="lastName.invalid && (lastName.dirty || lastName.touched)" class="invalid-feedback">
@@ -30,7 +30,7 @@
         <label for="mid_name">{{'employee.midName' | translate}}</label>
         <input type="text" class="form-control" id="mid_name" name="mid_name"
                [(ngModel)]="employee.midName"
-               [readonly]="mode != NEW"
+               [readonly]="mode != NEW && mode != UPDATE"
                minlength="{{NAME_MIN}}"
                maxlength="{{NAME_MAX}}"
                appForbiddenName="{{NAME_REG}}"
@@ -53,7 +53,7 @@
           <span class="text-danger">&#042;</span></label>
         <input type="text" class="form-control" id="first_name" name="first_name"
                [(ngModel)]="employee.firstName"
-               [readonly]="mode != NEW"
+               [readonly]="mode != NEW && mode != UPDATE"
                required minlength="{{NAME_MIN}}"
                maxlength="{{NAME_MAX}}"
                appForbiddenName="{{NAME_REG}}"
@@ -73,10 +73,11 @@
       <!--department-->
       <div class="form-group">
         <label for="employee_departments">{{'employee.department'|translate}}
-          <span class="text-danger">&#042;</span>
+          <span class="invalid-feedback">&#042;</span>
         </label>
         <select class="custom-select form-control"
                 id="employee_departments" name="employee_departments"
+                [disabled]="mode != NEW && mode != UPDATE"
                 required
                 [(ngModel)]="employee.departmentId"
                 (change)="onSelectDepartment($event.target.value)">
@@ -90,6 +91,7 @@
       <div class="form-group">
         <label for="employee_manager">{{'employee.manager'| translate}}</label>
         <select class="custom-select form-control" id="employee_manager" name="employee_manager"
+                [disabled]="mode != NEW && mode != UPDATE"
                 [(ngModel)]="employee.managerId"
                 (change)="onSelectDepartment($event.target.value)">
           <option *ngFor="let manager of managerList; let index = index" [value]="manager.id">
@@ -100,14 +102,12 @@
 
       <!--is leader-->
       <div class="form-group">
-        <div class="custom-control custom-checkbox">
-          <input class="custom-control-input" type="checkbox" value="" id="employee_is_leader" name="employee_is_leader"
-                 [(ngModel)]="employee.isLeader"
-                 [readonly]="mode != NEW">
-          <label class="custom-control-label" for="employee_is_leader">
+        <mat-checkbox id="employee_is_leader"
+                      name="employee_is_leader"
+                      [(ngModel)]="employee.isLeader"
+                      [disabled]="mode != NEW && mode != UPDATE">
             {{'employee.isLeader'| translate}}
-          </label>
-        </div>
+        </mat-checkbox>
       </div>
 
 
@@ -134,3 +134,9 @@
     </form>
   </div>
 </div>
+<mat-card>
+  <button mat-button>All</button>
+  <button mat-raised-button>Of</button>
+  <button mat-raised-button color="primary">The</button>
+  <button mat-raised-button color="accent">Buttons</button>
+</mat-card>

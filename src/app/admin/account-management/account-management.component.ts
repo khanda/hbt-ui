@@ -11,6 +11,7 @@ import {ResolveEmit} from '@jaspero/ng2-confirmations/src/interfaces/resolve-emi
 import {MessageData} from '../../entity/MessageData';
 import {CredentialConstant} from '../../constant/CredentialConstant';
 import {TranslateService} from '@ngx-translate/core';
+import {BreadcrumbData} from "../../entity/BreadcrumbData";
 
 @Component({
   selector: 'app-account-management',
@@ -37,7 +38,7 @@ export class AccountManagementComponent implements OnInit {
   selectedAccount: Account = new Account();
   LIST = MessageConstant.LIST;
   mode = this.LIST;
-
+  breadcrumb: BreadcrumbData[] = [];
 
   pageChanged(event: any): void {
     this.currentPage = event.page;
@@ -53,6 +54,7 @@ export class AccountManagementComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.initBreadcrumb();
     this.getListAccount(this.currentPage, this.itemPerPage);
   }
 
@@ -71,7 +73,6 @@ export class AccountManagementComponent implements OnInit {
         this.pages = [];
         for (let i = 0; i < max; i++) {
           this.pages.push(i + 1);
-
         }
       }
     });
@@ -85,20 +86,19 @@ export class AccountManagementComponent implements OnInit {
   onClickAdd() {
     this.mode = MessageConstant.NEW;
     this.selectedAccount = new Account();
-  }
-
-  onClickExportExcel() {
-
+    this.changeBreadcrumb(this.mode);
   }
 
   onClickView(index: number) {
     this.mode = MessageConstant.VIEW;
     this.selectedAccount = this.listAccount[index];
+    this.changeBreadcrumb(this.mode);
   }
 
   onClickUpdate(index: number) {
     this.mode = MessageConstant.UPDATE;
     this.selectedAccount = this.listAccount[index];
+    this.changeBreadcrumb(this.mode);
   }
 
   onClickDelete(index: number) {
@@ -140,4 +140,21 @@ export class AccountManagementComponent implements OnInit {
     }
   }
 
+  initBreadcrumb() {
+    this.breadcrumb.push(new BreadcrumbData('management.account.caption', ''));
+  }
+
+  changeBreadcrumb(mode: number) {
+    this.breadcrumb.splice(-1, 1);
+    console.log(this.breadcrumb);
+    if (MessageConstant.LIST === mode) {
+      this.breadcrumb.push(new BreadcrumbData('management.account.caption', ''));
+    } else if (MessageConstant.NEW === mode) {
+      this.breadcrumb.push(new BreadcrumbData('management.account.new', ''));
+    } else if (MessageConstant.UPDATE === mode) {
+      this.breadcrumb.push(new BreadcrumbData('management.account.update', ''));
+    } else if (MessageConstant.VIEW === mode) {
+      this.breadcrumb.push(new BreadcrumbData('management.account.view', ''));
+    }
+  }
 }

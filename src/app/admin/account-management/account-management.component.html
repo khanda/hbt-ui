@@ -2,7 +2,8 @@
 <!--header, action button-->
 <div class="sticky-top top-sticky-main-content">
   <div class="d-flex flex-row justify-content-between">
-    <span class="align-self-center header-management">{{'management.account.header' | translate}}</span>
+    <app-breadcrumb [items]="breadcrumb" class="align-self-center"></app-breadcrumb>
+    <!--<span class="align-self-center header-management">{{'management.account.header' | translate}}</span>-->
     <div class=" text-right align-self-center">
       <app-button-new (clickAdd)="onClickAdd($event)"></app-button-new>
     </div>

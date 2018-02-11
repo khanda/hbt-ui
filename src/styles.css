@@ -3,6 +3,7 @@
 @import "~font-awesome/css/font-awesome.css";
 @import "assets/font/font-noto-serif.css";
 @import "assets/font/font-roboto-resif.css";
+@import '~@angular/material/prebuilt-themes/indigo-pink.css';
 
 * {
   font-family: Roboto, sans-serif;
