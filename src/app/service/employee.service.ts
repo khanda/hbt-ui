@@ -15,8 +15,8 @@ export class EmployeeService {
   }
 
   getListEmployee(page: number, pageSize: number): Observable<PagingData<Employee>> {
-    const url = ApiUrlConstant.BASE_URL + ApiUrlConstant.EMPLOYEE_GET_LIST_URL;
-    return this.http.post<PagingData<Employee>>(url, {'page': page, 'pageSize': pageSize})
+    const url = ApiUrlConstant.BASE_URL + ApiUrlConstant.EMPLOYEE_GET_FILTER_URL;
+    return this.http.post<PagingData<Employee>>(url, {'page': page, 'pageSize': pageSize, 'filterData': new Employee()})
       .pipe(
         tap(_ => console.log()
         ),

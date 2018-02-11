@@ -65,7 +65,6 @@ export class EmployeeManagementComponent implements OnInit {
             if (result) {
               console.log('thanh cong');
               this.alertService.showAlertMessage('Xóa tài khoản thành công', MessageConstant.ALERT_SUCCESS, 'Thành công');
-              this.openSnackBar('q', 'q');
               this.pagingData.page = 1;
               this.getListEmployee(this.pagingData.page, this.pagingData.pageSize);
             } else {

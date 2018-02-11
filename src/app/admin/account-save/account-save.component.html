@@ -1,12 +1,6 @@
 <div class="row align-items-center justify-content-center">
   <div class="col-xl-5 col-lg-7 col-md-9 col-sm-12">
     <div class="card">
-      <div class="card-header text-center">
-        <h4 class="card-title" *ngIf="mode == VIEW">Thông tin tài khoản</h4>
-        <h4 class="card-title" *ngIf="mode == NEW">Thêm tài khoản</h4>
-        <h4 class="card-title" *ngIf="mode == UPDATE">Chỉnh sửa tài khoản</h4>
-      </div>
-
       <div class="card-body">
         <form [formGroup]="accountForm" #accountFormDir="ngForm" (ngSubmit)="onSubmit()">
           <!--user name-->
