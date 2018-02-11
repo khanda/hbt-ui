@@ -12,7 +12,10 @@
 .wrapper-management {
   width: 100vh;
 }
+.bd-sidebar{
+  /*background-color: #dc3545;*/
 
+}
 @media (min-width: 1200px) {
   .bd-sidebar {
     flex: 0 1 320px;
@@ -21,11 +24,16 @@
 
 @media (min-width: 768px) {
   .bd-sidebar {
+    /*position: -webkit-sticky;*/
+    /*position: sticky;*/
+    /*top: 4rem;*/
+    z-index: 100;
+    /*height: calc(100vh - 4rem);*/
+  }
+  .management-side-bar-content{
     position: -webkit-sticky;
     position: sticky;
-    top: 4rem;
-    z-index: 100;
-    height: calc(100vh - 4rem);
+    top: 50px;
   }
 }
 
