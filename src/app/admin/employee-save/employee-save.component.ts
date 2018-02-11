@@ -4,7 +4,8 @@ import {Employee} from '../../entity/Employee';
 import {MessageConstant} from '../../constant/MessageConstant';
 import {Department} from '../../entity/Department';
 import {LengthContant} from '../../constant/LengthContant';
-import {EmployeeService} from "../../service/employee.service";
+import {EmployeeService} from '../../service/employee.service';
+import {MyTranslate} from '../../service/my-translate.service';
 
 @Component({
   selector: 'app-employee-save',
@@ -28,11 +29,35 @@ export class EmployeeSaveComponent implements OnInit {
   departmentList: Department[] = [];
   managerList: Employee[] = [];
 
-  constructor(private  employeeService: EmployeeService) {
+  constructor(private  employeeService: EmployeeService,
+              private translate: MyTranslate) {
   }
 
   ngOnInit() {
     this.getDepartments();
+  }
+
+  onSubmit() {
+    console.log(this.employee);
+    if (this.employee.isLeader) {
+      this.employee.isLeader = 1;
+    }
+    this.employeeService.saveEmployee(this.employee).subscribe(isSuccess => {
+      if (isSuccess) {
+        const data = new MessageData();
+        data.title = this.translate.translateString('message.title.success');
+        data.message = this.translate.translateString('message.save.content.success');
+        data.showMessage = true;
+        data.type = MessageConstant.ALERT_SUCCESS;
+        this.backToList.emit(data);
+      } else {
+        this.showMessageKey = this.ERROR;
+      }
+    });
+  }
+
+  onSelectDepartment() {
+
   }
 
   onClickBack() {
@@ -42,14 +67,6 @@ export class EmployeeSaveComponent implements OnInit {
     data.showMessage = false;
     data.type = MessageConstant.ALERT_SUCCESS;
     this.backToList.emit(data);
-  }
-
-  onSubmit() {
-
-  }
-
-  onSelectDepartment() {
-
   }
 
   getDepartments() {

@@ -2,12 +2,14 @@
 <!--header, action button-->
 <div class="sticky-top top-sticky-main-content">
   <div class="d-flex flex-row justify-content-between">
-    <h4 class="align-self-center">{{'management.account.header' | translate}}</h4>
+    <h5 class="align-self-center">{{'management.account.header' | translate}}</h5>
     <div class=" text-right align-self-center">
       <app-button-new (clickAdd)="onClickAdd($event)"></app-button-new>
     </div>
   </div>
 </div>
+
+
 
 <div *ngIf="mode == LIST">
   <div class="table-responsive-sm table-wrapper">

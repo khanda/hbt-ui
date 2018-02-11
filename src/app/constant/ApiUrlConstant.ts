@@ -7,4 +7,5 @@ export class ApiUrlConstant {
   public static readonly LOGIN_URL = '/login';
   public static readonly EMPLOYEE_GET_LIST_URL = '/api/employee/getList';
   public static readonly DEPARTMENT_GET_LIST_URL = '/api/department/getList';
+  public static readonly EMPLOYEE_SAVE_URL = '/api/employee/save';
 }

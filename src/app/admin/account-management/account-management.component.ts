@@ -9,7 +9,6 @@ import {MyConstant} from '../../constant/MyConstant';
 import {ConfirmationService} from '@jaspero/ng2-confirmations';
 import {ResolveEmit} from '@jaspero/ng2-confirmations/src/interfaces/resolve-emit';
 import {MessageData} from '../../entity/MessageData';
-import {CredentialData} from '../../entity/CredentialData';
 import {CredentialConstant} from '../../constant/CredentialConstant';
 import {TranslateService} from '@ngx-translate/core';
 

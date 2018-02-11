@@ -1,6 +1,6 @@
 <div class="d-flex flex-row align-items-center justify-content-center">
   <div class="col-xl-5 col-lg-7 col-md-9 col-sm-12">
-    <form (ngSubmit)="onSubmit()">
+    <form #employeeForm="ngForm" (ngSubmit)="onSubmit()">
       <!--last name-->
       <div class="form-group">
         <label for="last_name">{{'employee.lastName' | translate}}<span class="text-danger">&#042;</span></label>
@@ -11,9 +11,10 @@
                maxlength="{{NAME_MAX}}"
                appForbiddenName="{{NAME_REG}}"
                #lastName="ngModel"
-               [readonly]="mode != NEW">
+               [readonly]="mode != NEW"
+               [class.is-invalid]="lastName.invalid && (lastName.dirty || lastName.touched)">
         <!--validate message-->
-        <div *ngIf="lastName.invalid && (lastName.dirty || lastName.touched)" class="message-invalid">
+        <div *ngIf="lastName.invalid && (lastName.dirty || lastName.touched)" class="invalid-feedback">
           <div *ngIf="lastName.errors.required"> {{'message.validation.require' | translate}}</div>
           <div *ngIf="lastName.errors.minlength">
             {{'message.validation.min' | translate}} {{NAME_MIN}} {{'message.validation.character' | translate}}
@@ -33,8 +34,9 @@
                minlength="{{NAME_MIN}}"
                maxlength="{{NAME_MAX}}"
                appForbiddenName="{{NAME_REG}}"
-               #midName="ngModel">
-        <div *ngIf="midName.invalid && (midName.dirty || midName.touched)" class="message-invalid">
+               #midName="ngModel"
+               [class.is-invalid]="midName.invalid && (midName.dirty || midName.touched)">
+        <div *ngIf="midName.invalid && (midName.dirty || midName.touched)" class="invalid-feedback">
           <div *ngIf="midName.errors.required"> {{'message.validation.require' | translate}}</div>
           <div *ngIf="midName.errors.minlength">
             {{'message.validation.min' | translate}} {{NAME_MIN}} {{'message.validation.character' | translate}}
@@ -55,8 +57,9 @@
                required minlength="{{NAME_MIN}}"
                maxlength="{{NAME_MAX}}"
                appForbiddenName="{{NAME_REG}}"
-               #firstName="ngModel">
-        <div *ngIf="firstName.invalid && (firstName.dirty || firstName.touched)" class="message-invalid">
+               #firstName="ngModel"
+               [class.is-invalid]="firstName.invalid && (firstName.dirty || firstName.touched)">
+        <div *ngIf="firstName.invalid && (firstName.dirty || firstName.touched)" class="invalid-feedback">
           <div *ngIf="firstName.errors.required"> {{'message.validation.require' | translate}}</div>
           <div *ngIf="firstName.errors.minlength">
             {{'message.validation.min' | translate}} {{NAME_MIN}} {{'message.validation.character' | translate}}
@@ -70,7 +73,7 @@
       <!--department-->
       <div class="form-group">
         <label for="employee_departments">{{'employee.department'|translate}}
-          <span class="message-invalid">&#042;</span>
+          <span class="invalid-feedback">&#042;</span>
         </label>
         <select class="custom-select form-control"
                 id="employee_departments" name="employee_departments"
@@ -83,26 +86,9 @@
         </select>
       </div>
 
-      <!--employee code-->
-      <!--<div class="form-group row">-->
-      <!--<label for="employee_code" class="col-4 col-form-label hbt-label-form right">{{'employee.code' | translate}}-->
-      <!--<span class="text-danger">&#042;</span></label>-->
-      <!--<div class="col-8">-->
-      <!--<input type="text"-->
-      <!--class="form-control"-->
-      <!--id="employee_code"-->
-      <!--name="employee_code"-->
-      <!--required-->
-      <!--[(ngModel)]="employee.code"-->
-      <!--[readonly]="mode != NEW">-->
-      <!--</div>-->
-      <!--</div>-->
-
       <!--manager-->
       <div class="form-group">
-        <label for="employee_manager">{{'employee.manager'| translate}}
-          <span class="message-invalid">&#042;</span>
-        </label>
+        <label for="employee_manager">{{'employee.manager'| translate}}</label>
         <select class="custom-select form-control" id="employee_manager" name="employee_manager"
                 [(ngModel)]="employee.managerId"
                 (change)="onSelectDepartment($event.target.value)">
@@ -113,14 +99,16 @@
       </div>
 
       <!--is leader-->
-      <!--<div class="form-group row">-->
-      <!--<label for="employee_is_leader" class="col-4 col-form-label">{{'employee.isLeader'| translate}}</label>-->
-      <!--<div class="col-1 d-flex align-items-baseline flex-column">-->
-      <!--<input  class="form-check-input form-control" type="checkbox" id="employee_is_leader" name="employee_is_leader"-->
-      <!--[(ngModel)]="employee.isLeader"-->
-      <!--[readonly]="mode != NEW">-->
-      <!--</div>-->
-      <!--</div>-->
+      <div class="form-group">
+        <div class="custom-control custom-checkbox">
+          <input class="custom-control-input" type="checkbox" value="" id="employee_is_leader" name="employee_is_leader"
+                 [(ngModel)]="employee.isLeader"
+                 [readonly]="mode != NEW">
+          <label class="custom-control-label" for="employee_is_leader">
+            {{'employee.isLeader'| translate}}
+          </label>
+        </div>
+      </div>
 
 
       <!--message area-->
@@ -136,7 +124,9 @@
         <button type="button" class="btn btn-light" (click)="onClickBack()">
           {{'button.back' | translate}}
         </button>
-        <button type="submit" class="btn btn-success">
+        <button type="submit" class="btn btn-success"
+                *ngIf="mode!=VIEW"
+                [disabled]="!employeeForm.form.valid  || !employeeForm.form.dirty || !employeeForm.form.touched">
           {{'button.save' | translate}}
         </button>
       </div>

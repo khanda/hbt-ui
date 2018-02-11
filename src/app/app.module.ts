@@ -32,7 +32,8 @@ import {TokenInterceptor} from './interceptor/token.interceptor';
 import {MyTranslate} from './service/my-translate.service';
 import {NgProgressModule} from '@ngx-progressbar/core';
 import {EmployeeService} from './service/employee.service';
-import { EmployeeSaveComponent } from './admin/employee-save/employee-save.component';
+import {EmployeeSaveComponent} from './admin/employee-save/employee-save.component';
+import {MyAlertService} from "./service/alert/my-alert.service";
 
 
 @NgModule({
@@ -81,6 +82,7 @@ import { EmployeeSaveComponent } from './admin/employee-save/employee-save.compo
     AuthGuard,
     MyTranslate,
     AuthService,
+    MyAlertService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptor,

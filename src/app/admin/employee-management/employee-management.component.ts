@@ -3,6 +3,8 @@ import {Employee} from '../../entity/Employee';
 import {MessageConstant} from '../../constant/MessageConstant';
 import {PagingData} from '../../entity/PagingData';
 import {EmployeeService} from '../../service/employee.service';
+import {MessageData} from '../../entity/MessageData';
+import {MyAlertService} from '../../service/alert/my-alert.service';
 
 @Component({
   selector: 'app-employee-management',
@@ -17,7 +19,8 @@ export class EmployeeManagementComponent implements OnInit {
 
   pagingData = new PagingData<Employee>();
 
-  constructor(private employeeService: EmployeeService) {
+  constructor(private employeeService: EmployeeService,
+              private  alertService: MyAlertService) {
   }
 
   ngOnInit() {
@@ -55,5 +58,15 @@ export class EmployeeManagementComponent implements OnInit {
         this.pagingData = pagingData;
         console.log(this.pagingData);
       });
+  }
+
+
+  backFromSaveForm(data: MessageData) {
+    this.mode = this.LIST;
+    this.listEmployee = [];
+    this.getListEmployee(this.pagingData.page, this.pagingData.pageSize);
+    if (data && data.showMessage) {
+      this.alertService.showAlertMessage(data.message, data.type, data.title);
+    }
   }
 }

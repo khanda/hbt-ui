@@ -1,9 +1,7 @@
-import {Component, TemplateRef} from '@angular/core';
+import {Component} from '@angular/core';
 import {TranslateService} from '@ngx-translate/core';
 import {MyConstant} from './constant/MyConstant';
-import {BsModalRef, BsModalService} from 'ngx-bootstrap';
-import {NotificationsService} from 'angular2-notifications';
-import {MessageConstant} from './constant/MessageConstant';
+import {MyAlertService} from './service/alert/my-alert.service';
 
 @Component({
   selector: 'app-root',
@@ -12,20 +10,16 @@ import {MessageConstant} from './constant/MessageConstant';
 })
 export class AppComponent {
   language: string;
-
-  constructor(private translate: TranslateService) {
+  public options = {}
+  constructor(private translate: TranslateService,
+              private  alertService: MyAlertService) {
     this.language = MyConstant.DEFAULT_LANGUAGE;
     translate.setDefaultLang(this.language);
+    this.options = this.alertService.options;
   }
 
   switchLanguage(language: string) {
     this.language = language;
     this.translate.use(this.language);
   }
-
-  public options = {
-    position: [MessageConstant.VERTICAL_POSITION, MessageConstant.HORIZONTAL_POSITION],
-    timeOut: MessageConstant.TIMEOUT,
-    lastOnBottom: true
-  };
 }

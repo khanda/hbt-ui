@@ -1,7 +1,7 @@
 <!--header, action button-->
 <div class="sticky-top top-sticky-main-content">
   <div class="d-flex flex-row justify-content-between">
-    <h4 class="align-self-center">{{'management.employee.header' | translate}}</h4>
+    <h5 class="align-self-center">{{'management.employee.header' | translate}}</h5>
     <div class=" text-right align-self-center">
       <app-button-new (clickAdd)="onClickAdd($event)"></app-button-new>
     </div>
@@ -38,7 +38,7 @@
         <td>{{employee.midName}}</td>
         <td>{{employee.firstName}}</td>
         <td>{{employee.code}}</td>
-        <td>{{employee.account.userName}}</td>
+        <td>{{employee.account ? employee.account : ''}}</td>
         <td>{{employee.department.name}}</td>
         <td>
           <span *ngIf="employee.isLeader === 1">{{'employee.leader' | translate}}</span>
@@ -75,6 +75,7 @@
 
 <!--nemployee form-->
 <div *ngIf="mode != LIST" class="form-wrapper">
-  <app-employee-save [mode]="mode" [employee]="selectedEmployee">
+  <app-employee-save [mode]="mode" [employee]="selectedEmployee"
+                     (backToList)="backFromSaveForm($event)">
   </app-employee-save>
 </div>
