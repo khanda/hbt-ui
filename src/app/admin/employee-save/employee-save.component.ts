@@ -6,7 +6,7 @@ import {Department} from '../../entity/Department';
 import {LengthContant} from '../../constant/LengthContant';
 import {EmployeeService} from '../../service/employee.service';
 import {MyTranslate} from '../../service/my-translate.service';
-import {ConfirmationService} from "@jaspero/ng2-confirmations";
+import {ConfirmationService} from '@jaspero/ng2-confirmations';
 
 @Component({
   selector: 'app-employee-save',
@@ -37,13 +37,14 @@ export class EmployeeSaveComponent implements OnInit {
 
   ngOnInit() {
     this.getDepartments();
+    if (this.mode === this.UPDATE || this.mode === this.VIEW) {
+      this.getManagers(this.employee.departmentId);
+    }
+
   }
 
   onSubmit() {
-    console.log(this.employee);
-    if (this.employee.isLeader) {
-      this.employee.isLeader = 1;
-    }
+    this.employee.isLeader = this.employee.isLeader ? 1 : 0;
     this.employeeService.saveEmployee(this.employee).subscribe(isSuccess => {
       if (isSuccess) {
         const data = new MessageData();
@@ -58,8 +59,11 @@ export class EmployeeSaveComponent implements OnInit {
     });
   }
 
-  onSelectDepartment() {
+  onSelectDepartment(index) {
+    this.getManagers(index);
+  }
 
+  onSelectManager(index) {
   }
 
   onClickBack() {
@@ -73,5 +77,11 @@ export class EmployeeSaveComponent implements OnInit {
 
   getDepartments() {
     this.employeeService.getListDepartment().subscribe(departments => this.departmentList = departments);
+  }
+
+  getManagers(departmentId: number) {
+    this.employeeService.getListManagers(departmentId).subscribe(managers => {
+      this.managerList = managers ? managers : [];
+    });
   }
 }

@@ -24,6 +24,16 @@ export class EmployeeService {
       );
   }
 
+  getListManagers(departmentId: number): Observable<Employee[]> {
+    const url = ApiUrlConstant.BASE_URL + ApiUrlConstant.EMPLOYEE_GET_MANAGERS_URL;
+    return this.http.post<Employee[]>(url, departmentId)
+      .pipe(
+        tap(_ => console.log()
+        ),
+        catchError(MyHttpUtil.handleError<Employee[]>('getListManagers'))
+      );
+  }
+
   getListDepartment(): Observable<Department[]> {
     const url = ApiUrlConstant.BASE_URL + ApiUrlConstant.DEPARTMENT_GET_LIST_URL;
     return this.http.post<Department[]>(url, null)
@@ -33,6 +43,7 @@ export class EmployeeService {
         catchError(MyHttpUtil.handleError<Department[]>('getListDepartment'))
       );
   }
+
   saveEmployee(employee: Employee): Observable<boolean> {
     const url = ApiUrlConstant.BASE_URL + ApiUrlConstant.EMPLOYEE_SAVE_URL;
     console.log(employee);
@@ -43,6 +54,7 @@ export class EmployeeService {
         catchError(MyHttpUtil.handleError<boolean>('saveEmployee'))
       );
   }
+
   deleteEmployee(employee: Employee): Observable<boolean> {
     const url = ApiUrlConstant.BASE_URL + ApiUrlConstant.EMPLOYEE_DELETE_URL;
     return this.http.post<boolean>(url, employee.id)

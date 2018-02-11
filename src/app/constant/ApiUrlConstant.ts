@@ -10,4 +10,5 @@ export class ApiUrlConstant {
   public static readonly DEPARTMENT_GET_LIST_URL = '/api/department/getList';
   public static readonly EMPLOYEE_SAVE_URL = '/api/employee/save';
   public static readonly EMPLOYEE_DELETE_URL = '/api/employee/delete';
+  public static readonly EMPLOYEE_GET_MANAGERS_URL = '/api/employee/managers';
 }

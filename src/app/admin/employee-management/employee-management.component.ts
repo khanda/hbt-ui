@@ -44,10 +44,10 @@ export class EmployeeManagementComponent implements OnInit {
 
   onClickView(index: number) {
     this.mode = MessageConstant.VIEW;
-    console.log(index);
     this.selectedEmployee = this.pagingData.data[index];
-    console.log(this.selectedEmployee);
     this.changeBreadcrumb(this.mode);
+
+    console.log(this.selectedEmployee);
   }
 
   onClickUpdate(index: number) {
@@ -63,7 +63,6 @@ export class EmployeeManagementComponent implements OnInit {
         if (ans.resolved) {
           this.employeeService.deleteEmployee(this.pagingData.data[index]).subscribe(result => {
             if (result) {
-              console.log('thanh cong');
               this.alertService.showAlertMessage('Xóa tài khoản thành công', MessageConstant.ALERT_SUCCESS, 'Thành công');
               this.pagingData.page = 1;
               this.getListEmployee(this.pagingData.page, this.pagingData.pageSize);
@@ -85,7 +84,6 @@ export class EmployeeManagementComponent implements OnInit {
     this.employeeService.getListEmployee(page, pageSize)
       .subscribe(pagingData => {
         this.pagingData = pagingData;
-        console.log(this.pagingData);
       });
   }
 
