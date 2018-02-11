@@ -2,7 +2,7 @@
 <!--header, action button-->
 <div class="sticky-top top-sticky-main-content">
   <div class="d-flex flex-row justify-content-between">
-    <h5 class="align-self-center">{{'management.account.header' | translate}}</h5>
+    <span class="align-self-center header-management">{{'management.account.header' | translate}}</span>
     <div class=" text-right align-self-center">
       <app-button-new (clickAdd)="onClickAdd($event)"></app-button-new>
     </div>
@@ -17,8 +17,8 @@
       <caption>{{'management.account.caption' | translate}}</caption>
       <thead>
       <tr>
-        <th scope="col" class="text-center">#</th>
-        <th></th>
+        <th scope="col" class="text-center">{{'no' | translate}}</th>
+        <th scope="col" class="text-center">{{'action' | translate}}</th>
         <th scope="col" class="text-center">Tên đăng nhập</th>
         <th scope="col" class="text-center">Vai trò</th>
         <th scope="col" class="text-center">Người tạo</th>

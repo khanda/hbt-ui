@@ -2,7 +2,7 @@ export class PagingData<T> {
   private _page: number;
   private _pageSize: number;
   private _total: number;
-  private _totalPage?: number;
+  private _totalPages?: number;
   private _data: T[];
 
 
@@ -10,7 +10,7 @@ export class PagingData<T> {
     this._page = 1;
     this._pageSize = 10;
     this._total = 0;
-    this._totalPage = 0;
+    this._totalPages = 0;
     this._data = [];
   }
 
@@ -39,12 +39,12 @@ export class PagingData<T> {
     this._total = value;
   }
 
-  get totalPage(): number {
-    return this._totalPage;
+  get totalPages(): number {
+    return this._totalPages;
   }
 
-  set totalPage(value: number) {
-    this._totalPage = value;
+  set totalPages(value: number) {
+    this._totalPages = value;
   }
 
   get data(): T[] {

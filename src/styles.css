@@ -26,11 +26,11 @@ h1, h2, h3, h4, h5 {
 }
 
 /*.ng-valid[required], .ng-valid.required {*/
-  /*border-left: 5px solid #42A948; !* green *!*/
+/*border-left: 5px solid #42A948; !* green *!*/
 /*}*/
 
 /*.ng-invalid:not(.my-exclude-invalid-form):not(form) {*/
-  /*border-left: 5px solid #a94442; !* red *!*/
+/*border-left: 5px solid #a94442; !* red *!*/
 /*}*/
 
 .td-action-btn {
@@ -61,7 +61,7 @@ h1, h2, h3, h4, h5 {
 
 .top-sticky-main-content {
   top: 43px;
-  background-color: #e9ecef;
+  background-color: #ffffff;
   border-bottom: 1px solid #e9ecef;
   padding: 5px;
   z-index: 100;
@@ -87,6 +87,7 @@ html {
 body {
   /* Margin bottom by footer height */
   margin-bottom: 60px;
+  font-size: 0.9rem;
 }
 
 .footer {
@@ -103,6 +104,16 @@ body {
   color: #dc3545;
   padding-top: 5px;
 }
-.hbt-label-form.right{
+
+.hbt-label-form.right {
   text-align: right;
+}
+
+.header-management {
+  font-size: 1.1rem;
+  font-family: Roboto, sans-serif;
+}
+
+.f1-1rem {
+  font-size: 1.1rem;
 }

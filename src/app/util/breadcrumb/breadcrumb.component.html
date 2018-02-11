@@ -1,0 +1,10 @@
+<nav aria-label="breadcrumb">
+  <ol class="breadcrumb my-0 bg-white f1-1rem">
+    <li class="breadcrumb-item"
+        *ngFor="let item of items; let first=first; let last = last; let index = index"
+        [class.active]="last">
+      <a href="#" *ngIf="!last&&!first">{{item.text | translate}}</a>
+      <span *ngIf="last||first">{{item.text | translate}}</span>
+    </li>
+  </ol>
+</nav>

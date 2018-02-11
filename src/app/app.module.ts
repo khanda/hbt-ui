@@ -34,6 +34,7 @@ import {NgProgressModule} from '@ngx-progressbar/core';
 import {EmployeeService} from './service/employee.service';
 import {EmployeeSaveComponent} from './admin/employee-save/employee-save.component';
 import {MyAlertService} from "./service/alert/my-alert.service";
+import { BreadcrumbComponent } from './util/breadcrumb/breadcrumb.component';
 
 
 @NgModule({
@@ -52,6 +53,7 @@ import {MyAlertService} from "./service/alert/my-alert.service";
     MyFooterComponent,
     LoginComponent,
     EmployeeSaveComponent,
+    BreadcrumbComponent,
   ],
   imports: [
     BrowserModule,
