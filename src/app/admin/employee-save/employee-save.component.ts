@@ -7,6 +7,8 @@ import {LengthContant} from '../../constant/LengthContant';
 import {EmployeeService} from '../../service/employee.service';
 import {MyTranslate} from '../../service/my-translate.service';
 import {ConfirmationService} from '@jaspero/ng2-confirmations';
+import {CredentialData} from "../../entity/CredentialData";
+import {AuthService} from "../../service/auth/auth.service";
 
 @Component({
   selector: 'app-employee-save',
@@ -29,9 +31,11 @@ export class EmployeeSaveComponent implements OnInit {
 
   departmentList: Department[] = [];
   managerList: Employee[] = [];
+  credentialData: CredentialData;
 
   constructor(private  employeeService: EmployeeService,
               private _confirmation: ConfirmationService,
+              private authService: AuthService,
               private translate: MyTranslate) {
   }
 
@@ -40,11 +44,13 @@ export class EmployeeSaveComponent implements OnInit {
     if (this.mode === this.UPDATE || this.mode === this.VIEW) {
       this.getManagers(this.employee.departmentId);
     }
-
+    this.credentialData = this.authService.getCredentialData();
   }
 
   onSubmit() {
     this.employee.isLeader = this.employee.isLeader ? 1 : 0;
+    this.employee.createBy = this.credentialData.userName;
+    this.employee.updateBy = this.credentialData.userName;
     this.employeeService.saveEmployee(this.employee).subscribe(isSuccess => {
       if (isSuccess) {
         const data = new MessageData();

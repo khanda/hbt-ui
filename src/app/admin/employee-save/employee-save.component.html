@@ -75,18 +75,25 @@
           <!--department-->
           <div class="form-group">
             <label for="employee_departments">{{'employee.department'|translate}}
-              <span class="invalid-feedback">&#042;</span>
+              <span class="text-danger">&#042;</span>
             </label>
             <select class="custom-select form-control"
                     id="employee_departments" name="employee_departments"
                     [disabled]="mode != NEW && mode != UPDATE"
+                    #emDepartment="ngModel"
                     required
                     [(ngModel)]="employee.departmentId"
-                    (change)="onSelectDepartment($event.target.value)">
+                    (change)="onSelectDepartment($event.target.value)"
+                    [class.is-invalid]="emDepartment.invalid && (emDepartment.dirty || emDepartment.touched)">
               <option *ngFor="let department of departmentList; let index = index" [value]="department.id">
                 {{department.name}}
               </option>
             </select>
+            <div *ngIf="emDepartment.invalid && (emDepartment.dirty || emDepartment.touched)" class="invalid-feedback">
+              <div *ngIf="emDepartment.errors.required">
+                <span> Thông tin này là bắt buộc.</span>
+              </div>
+            </div>
           </div>
 
           <!--manager-->

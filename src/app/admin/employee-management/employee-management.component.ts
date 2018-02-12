@@ -103,7 +103,6 @@ export class EmployeeManagementComponent implements OnInit {
 
   changeBreadcrumb(mode: number) {
     this.breadcrumb.splice(-1, 1);
-    console.log(this.breadcrumb);
     if (MessageConstant.LIST === mode) {
       this.breadcrumb.push(new BreadcrumbData('management.employee.caption', ''));
     } else if (MessageConstant.NEW === mode) {

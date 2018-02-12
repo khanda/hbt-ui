@@ -36,7 +36,8 @@ export class LoginComponent implements OnInit {
     this.startLoading();
     this.loginService.login(this.loginName, this.password).subscribe(credentialData => {
       if (credentialData !== null && credentialData.token && credentialData.token.length) {
-        this.saveCredentialData(credentialData);
+        console.log(credentialData);
+        this.authService.saveCredentialData(credentialData);
         this.router.navigate([RouteConstant.HOME]);
       } else {
         this.showLoginError = true;
@@ -53,13 +54,7 @@ export class LoginComponent implements OnInit {
     }
   }
 
-  private saveCredentialData(credentialData: CredentialData) {
-    localStorage.setItem(CredentialConstant.TOKEN, credentialData.token);
-    localStorage.setItem(CredentialConstant.ID, credentialData.id + '');
-    localStorage.setItem(CredentialConstant.USERNAME, credentialData.userName);
-    localStorage.setItem(CredentialConstant.ROLE, credentialData.role);
-    localStorage.setItem(CredentialConstant.ROLE_DESCRIPTION, credentialData.roleDescription);
-  }
+
 
   startLoading() {
     this.progress.start();
@@ -67,9 +62,5 @@ export class LoginComponent implements OnInit {
 
   completeLoading() {
     this.progress.complete();
-  }
-
-  changeProgressColor() {
-    this.progress.setConfig({color: 'green'});
   }
 }

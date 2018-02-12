@@ -59,11 +59,11 @@ export class AccountManagementComponent implements OnInit {
   }
 
   getListAccount(page: number, pageSize: number) {
-    const token = localStorage.getItem(CredentialConstant.TOKEN);
     this.accountService.getListAccount(page, pageSize).subscribe(pagingData => {
       const returnData: PagingData<Account> = pagingData;
       if (returnData) {
         this.listAccount = returnData.data;
+        console.log(this.listAccount);
         this.total = returnData.total;
         let max = Math.floor(this.total / this.itemPerPage);
         if (this.total % this.itemPerPage > 0) {
@@ -144,7 +144,6 @@ export class AccountManagementComponent implements OnInit {
 
   changeBreadcrumb(mode: number) {
     this.breadcrumb.splice(-1, 1);
-    console.log(this.breadcrumb);
     if (MessageConstant.LIST === mode) {
       this.breadcrumb.push(new BreadcrumbData('management.account.caption', ''));
     } else if (MessageConstant.NEW === mode) {

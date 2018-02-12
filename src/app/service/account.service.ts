@@ -18,7 +18,7 @@ export class AccountService {
     const url = ApiUrlConstant.BASE_URL + ApiUrlConstant.ACCOUNT_GET_LIST_URL;
     return this.http.post<PagingData<Account>>(url, {'page': page, 'pageSize': pageSize})
       .pipe(
-        tap(_ => console.log('found accounts')
+        tap(_ => console.log()
         ),
         catchError(MyHttpUtil.handleError<PagingData<Account>>('Get account'))
       );

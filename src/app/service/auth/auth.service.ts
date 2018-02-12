@@ -57,6 +57,14 @@ export class AuthService {
     return credentialData;
   }
 
+  public saveCredentialData(credentialData: CredentialData) {
+    localStorage.setItem(CredentialConstant.TOKEN, credentialData.token);
+    localStorage.setItem(CredentialConstant.ID, credentialData.id + '');
+    localStorage.setItem(CredentialConstant.USERNAME, credentialData.userName);
+    localStorage.setItem(CredentialConstant.ROLE, credentialData.role);
+    localStorage.setItem(CredentialConstant.ROLE_DESCRIPTION, credentialData.roleDescription);
+  }
+
   public collectFailedRequest(request): void {
     this.cachedRequests.push(request);
   }

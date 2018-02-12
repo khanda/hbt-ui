@@ -9,6 +9,8 @@ import {MessageConstant} from '../../constant/MessageConstant';
 import {Router} from '@angular/router';
 import {MessageData} from '../../entity/MessageData';
 import {MyTranslate} from '../../service/my-translate.service';
+import {CredentialData} from "../../entity/CredentialData";
+import {AuthService} from "../../service/auth/auth.service";
 
 @Component({
   selector: 'app-account-save',
@@ -42,9 +44,11 @@ export class AccountSaveComponent implements OnInit {
   @Input() mode = MessageConstant.VIEW;
   @Input() account: Account = new Account();
   @Output() backToList: EventEmitter<MessageData> = new EventEmitter();
+  credentialData: CredentialData;
 
   constructor(private accountService: AccountService,
               private fb: FormBuilder,
+              private authService: AuthService,
               private translate: MyTranslate,
               private router: Router) {
   }
@@ -53,6 +57,7 @@ export class AccountSaveComponent implements OnInit {
     console.log('AccountSaveComponent: init');
     this.createForm();
     this.getRoles();
+    this.credentialData = this.authService.getCredentialData();
   }
 
   createForm() {
@@ -159,7 +164,11 @@ export class AccountSaveComponent implements OnInit {
     acc.roleId = formValue.userRole;
     acc.userRole = roleList.find(role => role.id === acc.roleId);
     acc.status = 1;
-
+    if (this.mode === this.NEW) {
+      acc.createBy = this.credentialData.userName;
+    } else if (this.mode === this.UPDATE) {
+      acc.updateBy = this.credentialData.userName;
+    }
     return acc;
   }
 
@@ -171,8 +180,6 @@ export class AccountSaveComponent implements OnInit {
 
   onChangeConfirmedPassword(event) {
     const password = this.accountForm.value.passwords.password;
-    console.log(event);
-    console.log(password);
     this.showMessagePasswordNotMatch = password !== event;
   }
 }

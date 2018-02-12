@@ -14,10 +14,10 @@
                    aria-describedby="Tên đăng nhập"
                    formControlName="userName"
                    required
-                   [readonly]="mode != NEW">
+                   [readonly]="mode != NEW"
+                   [class.is-invalid]="userName.invalid && (userName.dirty || userName.touched)">
 
-            <div *ngIf="userName.invalid && (userName.dirty || userName.touched)"
-                 class="message-invalid">
+            <div *ngIf="userName.invalid && (userName.dirty || userName.touched)" class="invalid-feedback">
               <div *ngIf="userName.errors.required">
                 <span> Thông tin này là bắt buộc.</span>
               </div>
@@ -49,10 +49,10 @@
                      formControlName="password"
                      required
                      [readonly]="mode == VIEW"
-                     (keyup)="getPasswordValue($event.target.value)">
+                     (keyup)="getPasswordValue($event.target.value)"
+                     [class.is-invalid]="password.invalid && (password.dirty || password.touched)">
 
-              <div *ngIf="password.invalid && (password.dirty || password.touched)"
-                   class="message-invalid">
+              <div *ngIf="password.invalid && (password.dirty || password.touched)" class="invalid-feedback">
                 <div *ngIf="password.errors.required">
                   <span> Thông tin này là bắt buộc.</span>
                 </div>
@@ -80,10 +80,11 @@
                      (keyup)="onChangeConfirmedPassword($event.target.value)"
                      formControlName="passwordConfirm"
                      required
-                     [readonly]="mode == VIEW">
+                     [readonly]="mode == VIEW"
+                     [class.is-invalid]="passwordConfirm.invalid && (passwordConfirm.dirty || passwordConfirm.touched)">
 
               <div *ngIf="passwordConfirm.invalid && (passwordConfirm.dirty || passwordConfirm.touched)"
-                   class="message-invalid">
+                   class="invalid-feedback">
                 <div *ngIf="passwordConfirm.errors.required">
                   <span> Thông tin này là bắt buộc.</span>
                 </div>
@@ -98,7 +99,7 @@
                 </div>
               </div>
 
-              <div *ngIf="showMessagePasswordNotMatch" class="text-danger">
+              <div *ngIf="showMessagePasswordNotMatch" class="invalid-feedback">
                 <span> Mật khẩu không khớp</span>
               </div>
             </div>
@@ -115,11 +116,11 @@
                     id="userRole" name="userRole"
                     formControlName="userRole"
                     required
-                    (change)="onSelectRole($event.target.value)">
+                    (change)="onSelectRole($event.target.value)"
+                    [class.is-invalid]="userRole.invalid && (userRole.dirty || userRole.touched)">
               <option *ngFor="let role of roleList; let index = index" [value]="role.id">{{role.name}}</option>
             </select>
-            <div *ngIf="userRole.invalid && (userRole.dirty || userRole.touched)"
-                 class="message-invalid">
+            <div *ngIf="userRole.invalid && (userRole.dirty || userRole.touched)" class="invalid-feedback">
               <div *ngIf="userRole.errors.required">
                 <span> Thông tin này là bắt buộc.</span>
               </div>
@@ -138,15 +139,12 @@
 
           <!--button action area-->
           <div class="button-form-action text-center">
-            <button type="button" class="btn btn-light" (click)="onClickBack()">
+            <button mat-raised-button type="button" (click)="onClickBack()">
               {{'button.back' | translate}}
             </button>
-            <button type="submit" class="btn btn-success"
+            <button mat-raised-button type="submit" color="primary"
                     *ngIf="mode!=VIEW"
-                    [disabled]="!accountFormDir.form.valid  ||
-                     showMessageKey == SUCCESS ||
-                      !accountFormDir.form.dirty ||
-                       !accountFormDir.form.touched || showMessagePasswordNotMatch">
+                    [disabled]="showMessagePasswordNotMatch || !accountFormDir.form.touched || !accountFormDir.form.dirty || showMessageKey == SUCCESS || !accountFormDir.form.valid">
               {{'button.save' | translate}}
             </button>
           </div>
