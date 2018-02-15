@@ -37,6 +37,8 @@ import {MyAlertService} from './service/alert/my-alert.service';
 import {BreadcrumbComponent} from './util/breadcrumb/breadcrumb.component';
 import {NgxDatatableModule} from '@swimlane/ngx-datatable';
 import {MaterialModule} from './material.module';
+import { KhoiManagementComponent } from './admin/khoi-management/khoi-management.component';
+import {KhoiService} from "./service/khoi.service";
 
 
 @NgModule({
@@ -56,6 +58,7 @@ import {MaterialModule} from './material.module';
     LoginComponent,
     EmployeeSaveComponent,
     BreadcrumbComponent,
+    KhoiManagementComponent,
   ],
   imports: [
     BrowserModule,
@@ -91,6 +94,7 @@ import {MaterialModule} from './material.module';
     MyTranslate,
     AuthService,
     MyAlertService,
+    KhoiService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptor,

@@ -1,0 +1,29 @@
+<!--header, action button-->
+<div class="sticky-top top-sticky-main-content">
+  <div class="d-flex flex-row justify-content-between">
+    <app-breadcrumb [items]="breadcrumb" class="align-self-center"></app-breadcrumb>
+    <div class=" text-right align-self-center">
+    </div>
+  </div>
+</div>
+
+<div class="table-responsive-sm table-wrapper">
+  <table class="table table-hover table-bordered">
+    <thead>
+    <tr>
+      <th scope="col" class="text-center">{{'no' | translate}}</th>
+      <th scope="col" class="text-center">{{'khoi.name' | translate}}</th>
+      <th scope="col" class="text-center">{{'khoi.leader.name' | translate}}</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let khoi of khois; let index = index">
+      <td scope="row">{{index + 1}}</td>
+      <td>{{khoi.name}}</td>
+      <td>
+        <span *ngIf="khoi.leaderId">{{khoi.leader.lastName}} {{khoi.leader.midName}} {{khoi.leader.firstName}}</span>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</div>

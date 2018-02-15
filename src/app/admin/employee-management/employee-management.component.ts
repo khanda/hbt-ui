@@ -9,6 +9,7 @@ import {BreadcrumbData} from '../../entity/BreadcrumbData';
 import {ResolveEmit} from '@jaspero/ng2-confirmations/src/interfaces/resolve-emit';
 import {ConfirmationService} from '@jaspero/ng2-confirmations';
 import {MatSnackBar} from '@angular/material';
+import {NgProgress} from "@ngx-progressbar/core";
 
 @Component({
   selector: 'app-employee-management',
@@ -27,6 +28,7 @@ export class EmployeeManagementComponent implements OnInit {
   constructor(private employeeService: EmployeeService,
               private _confirmation: ConfirmationService,
               public snackBar: MatSnackBar,
+              public progress: NgProgress,
               private  alertService: MyAlertService) {
   }
 
@@ -61,6 +63,7 @@ export class EmployeeManagementComponent implements OnInit {
     // The confirmation returns an Observable Subject which will notify you about the outcome
       .subscribe((ans: ResolveEmit) => {
         if (ans.resolved) {
+          this.progress.start();
           this.employeeService.deleteEmployee(this.pagingData.data[index]).subscribe(result => {
             if (result) {
               this.alertService.showAlertMessage('Xóa tài khoản thành công', MessageConstant.ALERT_SUCCESS, 'Thành công');
@@ -70,6 +73,7 @@ export class EmployeeManagementComponent implements OnInit {
               this.alertService.showAlertMessage('Xóa tài khoản không thành công',
                 MessageConstant.ALERT_DANGER, 'Lỗi');
             }
+            this.progress.complete();
           });
         }
       });
@@ -81,9 +85,13 @@ export class EmployeeManagementComponent implements OnInit {
   }
 
   getListEmployee(page: number, pageSize: number) {
+    this.progress.start();
     this.employeeService.getListEmployee(page, pageSize)
       .subscribe(pagingData => {
-        this.pagingData = pagingData;
+        if (pagingData) {
+          this.pagingData = pagingData;
+        }
+        this.progress.complete();
       });
   }
 

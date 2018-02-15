@@ -9,6 +9,7 @@ import {MyTranslate} from '../../service/my-translate.service';
 import {ConfirmationService} from '@jaspero/ng2-confirmations';
 import {CredentialData} from "../../entity/CredentialData";
 import {AuthService} from "../../service/auth/auth.service";
+import {NgProgress} from "@ngx-progressbar/core";
 
 @Component({
   selector: 'app-employee-save',
@@ -36,6 +37,7 @@ export class EmployeeSaveComponent implements OnInit {
   constructor(private  employeeService: EmployeeService,
               private _confirmation: ConfirmationService,
               private authService: AuthService,
+              public progress: NgProgress,
               private translate: MyTranslate) {
   }
 
@@ -48,6 +50,7 @@ export class EmployeeSaveComponent implements OnInit {
   }
 
   onSubmit() {
+    this.progress.start();
     this.employee.isLeader = this.employee.isLeader ? 1 : 0;
     this.employee.createBy = this.credentialData.userName;
     this.employee.updateBy = this.credentialData.userName;
@@ -62,6 +65,7 @@ export class EmployeeSaveComponent implements OnInit {
       } else {
         this.showMessageKey = this.ERROR;
       }
+      this.progress.complete();
     });
   }
 
@@ -82,12 +86,18 @@ export class EmployeeSaveComponent implements OnInit {
   }
 
   getDepartments() {
-    this.employeeService.getListDepartment().subscribe(departments => this.departmentList = departments);
+    this.progress.start();
+    this.employeeService.getListDepartment().subscribe(departments => {
+      this.departmentList = departments;
+      this.progress.complete();
+    });
   }
 
   getManagers(departmentId: number) {
+    this.progress.start();
     this.employeeService.getListManagers(departmentId).subscribe(managers => {
       this.managerList = managers ? managers : [];
+      this.progress.complete();
     });
   }
 }

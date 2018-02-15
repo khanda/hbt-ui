@@ -8,6 +8,7 @@ export class RouteConstant {
   public static readonly ACCOUNTS = 'accounts';
   public static readonly SAVE_ACCOUNT = 'save-account';
   public static readonly EMPLOYEES = 'employees';
+  public static readonly KHOI = 'khois';
   // full route
   public static readonly MANAGEMENT_ACCOUNTS = RouteConstant.MANAGEMENT + '/' + RouteConstant.ACCOUNTS;
   public static readonly MANAGEMENT_SAVE_ACCOUNT = RouteConstant.MANAGEMENT + '/' + RouteConstant.SAVE_ACCOUNT;

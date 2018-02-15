@@ -8,6 +8,7 @@ import {AccountSaveComponent} from './admin/account-save/account-save.component'
 import {LoginComponent} from './login/login.component';
 import {RouteConstant} from './constant/RouteConstant';
 import {AuthGuard} from './service/auth/auth-guard.service';
+import {KhoiManagementComponent} from "./admin/khoi-management/khoi-management.component";
 
 const routes: Routes = [
   {path: RouteConstant.NONE, redirectTo: RouteConstant.HOME, pathMatch: 'full'},
@@ -32,6 +33,11 @@ const routes: Routes = [
         path: RouteConstant.EMPLOYEES,
         canActivateChild: [AuthGuard],
         component: EmployeeManagementComponent
+      },
+      {
+        path: RouteConstant.KHOI,
+        canActivateChild: [AuthGuard],
+        component: KhoiManagementComponent
       }
     ]
   },

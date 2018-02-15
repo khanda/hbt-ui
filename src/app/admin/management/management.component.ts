@@ -9,7 +9,8 @@ import {RouteConstant} from '../../constant/RouteConstant';
 export class ManagementComponent implements OnInit {
   MANAGEMENT_EMPLOYEES_ROUTE = RouteConstant.EMPLOYEES;
   MANAGEMENT_ACCOUNTS_ROUTE = RouteConstant.ACCOUNTS;
-  isCollapsed: boolean = false;
+  KHOI_ACCOUNTS_ROUTE = RouteConstant.KHOI;
+  isCollapsed = false;
 
   collapsed(event: any): void {
     console.log(event);

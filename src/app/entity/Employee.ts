@@ -21,4 +21,10 @@ export class Employee {
   status: number;
   department?: Department;
   account?: Account;
+
+
+  constructor() {
+    this.account = new Account();
+    this.department = new Department();
+  }
 }

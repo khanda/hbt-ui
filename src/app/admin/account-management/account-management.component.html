@@ -4,7 +4,7 @@
   <div class="d-flex flex-row justify-content-between">
     <app-breadcrumb [items]="breadcrumb" class="align-self-center"></app-breadcrumb>
     <div class=" text-right align-self-center">
-      <app-button-new (clickAdd)="onClickAdd($event)"></app-button-new>
+      <app-button-new (clickAdd)="onClickAdd($event)" *ngIf="mode === LIST"></app-button-new>
     </div>
   </div>
 </div>

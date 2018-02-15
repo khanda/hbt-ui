@@ -12,6 +12,7 @@ import {MessageData} from '../../entity/MessageData';
 import {CredentialConstant} from '../../constant/CredentialConstant';
 import {TranslateService} from '@ngx-translate/core';
 import {BreadcrumbData} from "../../entity/BreadcrumbData";
+import {NgProgress} from "@ngx-progressbar/core";
 
 @Component({
   selector: 'app-account-management',
@@ -48,6 +49,7 @@ export class AccountManagementComponent implements OnInit {
   constructor(private accountService: AccountService,
               private router: Router,
               private translate: TranslateService,
+              public progress: NgProgress,
               private _confirmation: ConfirmationService,
               private _notificationsService: NotificationsService) {
 
@@ -59,6 +61,7 @@ export class AccountManagementComponent implements OnInit {
   }
 
   getListAccount(page: number, pageSize: number) {
+    this.progress.start();
     this.accountService.getListAccount(page, pageSize).subscribe(pagingData => {
       const returnData: PagingData<Account> = pagingData;
       if (returnData) {
@@ -75,12 +78,8 @@ export class AccountManagementComponent implements OnInit {
           this.pages.push(i + 1);
         }
       }
+      this.progress.complete();
     });
-  }
-
-  goToPage(event) {
-    this.currentPage = event;
-    this.getListAccount(this.currentPage, this.itemPerPage);
   }
 
   onClickAdd() {
@@ -106,7 +105,7 @@ export class AccountManagementComponent implements OnInit {
     // The confirmation returns an Observable Subject which will notify you about the outcome
       .subscribe((ans: ResolveEmit) => {
         if (ans.resolved) {
-          console.log(ans.resolved);
+          this.progress.start();
           this.accountService.deleteAccount(this.listAccount[index]).subscribe(result => {
             if (result) {
               this.showAlertMessage('Xóa tài khoản thành công',
@@ -118,6 +117,7 @@ export class AccountManagementComponent implements OnInit {
               this.showAlertMessage('Xóa tài khoản không thành công',
                 MessageConstant.ALERT_DANGER, 'Lỗi');
             }
+            this.progress.complete();
           });
         }
       });
