@@ -39,6 +39,7 @@ import {NgxDatatableModule} from '@swimlane/ngx-datatable';
 import {MaterialModule} from './material.module';
 import { KhoiManagementComponent } from './admin/khoi-management/khoi-management.component';
 import {KhoiService} from "./service/khoi.service";
+import { EmployeeSearchComponent } from './admin/employee-search/employee-search.component';
 
 
 @NgModule({
@@ -59,6 +60,7 @@ import {KhoiService} from "./service/khoi.service";
     EmployeeSaveComponent,
     BreadcrumbComponent,
     KhoiManagementComponent,
+    EmployeeSearchComponent,
   ],
   imports: [
     BrowserModule,

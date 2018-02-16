@@ -22,6 +22,7 @@
       <td>{{khoi.name}}</td>
       <td>
         <span *ngIf="khoi.leaderId">{{khoi.leader.lastName}} {{khoi.leader.midName}} {{khoi.leader.firstName}}</span>
+        <app-employee-search *ngIf="!khoi.leaderId"></app-employee-search>
       </td>
     </tr>
     </tbody>
