@@ -4,8 +4,8 @@ import {Employee} from '../../entity/Employee';
 import {PagingData} from '../../entity/PagingData';
 import {EmployeeService} from '../../service/employee.service';
 import {NgProgress} from '@ngx-progressbar/core';
-import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material";
-import {Khoi} from "../../entity/Khoi";
+import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
+import {Khoi} from '../../entity/Khoi';
 
 @Component({
   selector: 'app-employee-search',

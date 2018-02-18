@@ -9,7 +9,10 @@ import {Employee} from '../../entity/Employee';
 import {ConfirmDialogComponent} from '../../util/confirm-dialog/confirm-dialog.component';
 import {TranslateService} from '@ngx-translate/core';
 import {MyConstant} from '../../constant/MyConstant';
-import {ConvertUtil} from "../../util/ConvertUtil";
+import {ConvertUtil} from '../../util/ConvertUtil';
+import {NgProgress} from '@ngx-progressbar/core';
+import {MyAlertService} from '../../service/alert/my-alert.service';
+import {MessageConstant} from '../../constant/MessageConstant';
 
 @Component({
   selector: 'app-khoi-management',
@@ -19,13 +22,14 @@ import {ConvertUtil} from "../../util/ConvertUtil";
 export class KhoiManagementComponent implements OnInit {
   khois: Khoi[] = [];
   breadcrumb: BreadcrumbData[] = [];
-  bsModalRef: BsModalRef;
   selectedEmployee: Employee[] = [];
   selectedEmployeeFromModal: boolean[] = [];
   selectedIndex = -1;
 
   constructor(private khoiService: KhoiService,
               private translate: TranslateService,
+              public progress: NgProgress,
+              private  alertService: MyAlertService,
               public dialog: MatDialog) {
   }
 
@@ -80,8 +84,23 @@ export class KhoiManagementComponent implements OnInit {
     });
     dialogRef.afterClosed().subscribe(agree => {
       if (agree) {
-        console.log(agree);
+        this.saveKhoi(khoi, employee);
       }
+    });
+  }
+
+  saveKhoi(khoi: Khoi, employee: Employee) {
+    khoi.leaderId = employee.id;
+    this.progress.start();
+
+    this.khoiService.saveKhoi(khoi).subscribe(savedkhoi => {
+      console.log(savedkhoi);
+      if (savedkhoi != null && savedkhoi.id !== 0) {
+        this.alertService.showAlertMessage('Thành công', MessageConstant.ALERT_SUCCESS, '');
+      } else {
+        this.alertService.showAlertMessage('Da xay ra loi', MessageConstant.ALERT_WARNING, '');
+      }
+      this.progress.complete();
     });
   }
 }

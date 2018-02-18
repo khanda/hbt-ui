@@ -19,4 +19,11 @@ export class KhoiService {
         catchError(MyHttpUtil.handleError<Khoi[]>('getListEmployee'))
       );
   }
+  saveKhoi(khoi: Khoi): Observable<Khoi> {
+    const url = ApiUrlConstant.BASE_URL + ApiUrlConstant.KHOI_SAVE_URL;
+    return this.http.post<Khoi>(url, khoi)
+      .pipe(
+        catchError(MyHttpUtil.handleError<Khoi>('saveKhoi'))
+      );
+  }
 }

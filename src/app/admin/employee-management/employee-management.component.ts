@@ -68,8 +68,7 @@ export class EmployeeManagementComponent implements OnInit {
               this.pagingData.page = 1;
               this.getListEmployee(this.pagingData.page, this.pagingData.pageSize);
             } else {
-              this.alertService.showAlertMessage('Xóa tài khoản không thành công',
-                MessageConstant.ALERT_DANGER, 'Lỗi');
+              this.alertService.showAlertMessage('Xóa tài khoản không thành công',MessageConstant.ALERT_DANGER, 'Lỗi');
             }
             this.progress.complete();
           });

@@ -22,7 +22,9 @@
       <td scope="row">{{index + 1}}</td>
       <td>{{khoi.name}}</td>
       <td>
-        <span *ngIf="khoi.leaderId">{{khoi.leader.lastName}} {{khoi.leader.midName}} {{khoi.leader.firstName}}</span>
+        <div *ngIf="khoi.leaderId && khoi.leader">
+          <span>{{khoi.leader.lastName}} {{khoi.leader.midName}} {{khoi.leader.firstName}}</span>
+        </div>
 
         <div *ngIf="selectedEmployeeFromModal[index]">
           <span>{{selectedEmployee[index].lastName}} {{selectedEmployee[index].midName}} {{selectedEmployee[index].firstName}}</span>
