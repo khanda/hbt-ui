@@ -14,6 +14,7 @@
       <th scope="col" class="text-center">{{'no' | translate}}</th>
       <th scope="col" class="text-center">{{'khoi.name' | translate}}</th>
       <th scope="col" class="text-center">{{'khoi.leader.name' | translate}}</th>
+      <th scope="col" class="text-center"></th>
     </tr>
     </thead>
     <tbody>
@@ -22,7 +23,19 @@
       <td>{{khoi.name}}</td>
       <td>
         <span *ngIf="khoi.leaderId">{{khoi.leader.lastName}} {{khoi.leader.midName}} {{khoi.leader.firstName}}</span>
-        <app-employee-search *ngIf="!khoi.leaderId"></app-employee-search>
+
+        <div *ngIf="selectedEmployeeFromModal[index]">
+          <span>{{selectedEmployee[index].lastName}} {{selectedEmployee[index].midName}} {{selectedEmployee[index].firstName}}</span>
+        </div>
+      </td>
+      <td class="btn-action-khoi">
+        <button
+          type="button" class="btn btn-sm btn-primary  badge badge-primary"
+          (click)="openDialog(index)">{{'button.choose.leader' | translate}}
+        </button>
+        <button type="button" class="btn btn-sm btn-danger  badge badge-danger" (click)="onClickDelete(index)"
+                data-toggle="tooltip" title="Xóa">{{'button.delete' | translate}}
+        </button>
       </td>
     </tr>
     </tbody>

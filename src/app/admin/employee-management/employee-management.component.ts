@@ -9,7 +9,7 @@ import {BreadcrumbData} from '../../entity/BreadcrumbData';
 import {ResolveEmit} from '@jaspero/ng2-confirmations/src/interfaces/resolve-emit';
 import {ConfirmationService} from '@jaspero/ng2-confirmations';
 import {MatSnackBar} from '@angular/material';
-import {NgProgress} from "@ngx-progressbar/core";
+import {NgProgress} from '@ngx-progressbar/core';
 
 @Component({
   selector: 'app-employee-management',
@@ -17,7 +17,6 @@ import {NgProgress} from "@ngx-progressbar/core";
   styleUrls: ['./employee-management.component.css']
 })
 export class EmployeeManagementComponent implements OnInit {
-  // listEmployee: Employee[] = [];
   selectedEmployee: Employee = new Employee();
   LIST = MessageConstant.LIST;
   mode = this.LIST;
@@ -27,7 +26,6 @@ export class EmployeeManagementComponent implements OnInit {
 
   constructor(private employeeService: EmployeeService,
               private _confirmation: ConfirmationService,
-              public snackBar: MatSnackBar,
               public progress: NgProgress,
               private  alertService: MyAlertService) {
   }
@@ -120,11 +118,5 @@ export class EmployeeManagementComponent implements OnInit {
     } else if (MessageConstant.VIEW === mode) {
       this.breadcrumb.push(new BreadcrumbData('management.employee.view', ''));
     }
-  }
-
-  openSnackBar(message: string, action: string) {
-    this.snackBar.open(message, action, {
-      duration: 2000,
-    });
   }
 }

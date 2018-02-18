@@ -1,20 +1,66 @@
-<form class="example-form">
-  <mat-form-field class="example-full-width">
-    <input matInput placeholder="State" aria-label="State" [matAutocomplete]="auto" [formControl]="stateCtrl">
-    <mat-autocomplete #auto="matAutocomplete">
-      <mat-option *ngFor="let state of filteredStates | async" [value]="state.name">
-        <img style="vertical-align:middle;" aria-hidden src="{{state.flag}}" height="25"/>
-        <span>{{ state.name }}</span> |
-        <small>Population: {{state.population}}</small>
-      </mat-option>
-    </mat-autocomplete>
-  </mat-form-field>
+<div class="modal-lg">
+  <h1 mat-dialog-title>{{'label.choose.leader' | translate}} {{khoi.name}}</h1>
+  <div mat-dialog-content>
+    <div class="table-wrapper">
+      <table class="table table-hover table-bordered">
+        <thead>
+        <tr>
+          <th scope="col" class="text-center">{{'no' | translate}}</th>
+          <!--<th scope="col" class="text-center">{{'label.choose.leader' | translate}}</th>-->
+          <th scope="col" class="text-center">{{'employee.lastName' | translate}}</th>
+          <th scope="col" class="text-center">{{'employee.midName' | translate}}</th>
+          <th scope="col" class="text-center">{{'employee.firstName' | translate}}</th>
+          <th scope="col" class="text-center">{{'employee.code' | translate}}</th>
+          <th scope="col" class="text-center">{{'employee.department' | translate}}</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let employee of pagingData.data; let index = index">
+          <td scope="row" [class.chosen]="selectedIndex == index">{{(pagingData.page - 1) * 10 + index + 1}}</td>
+          <!--<td [class.chosen]="selectedIndex == index" class="text-center">-->
+            <!--<button type="button" class="btn btn-primary  badge badge-primary"-->
+                    <!--(click)="onChoose(employee, index)">{{'label.choose' | translate}}-->
+            <!--</button>-->
+          <!--</td>-->
+          <td [class.chosen]="selectedIndex == index" (click)="onChoose(employee, index)">{{employee.lastName}}</td>
+          <td [class.chosen]="selectedIndex == index" (click)="onChoose(employee, index)">{{employee.midName}}</td>
+          <td [class.chosen]="selectedIndex == index" (click)="onChoose(employee, index)">{{employee.firstName}}</td>
+          <td [class.chosen]="selectedIndex == index" (click)="onChoose(employee, index)">{{employee.code}}</td>
+          <td [class.chosen]="selectedIndex == index" (click)="onChoose(employee, index)">{{employee.department.name}}</td>
+        </tr>
+        </tbody>
+      </table>
 
-  <br/>
+    </div>
 
-  <mat-slide-toggle
-    [checked]="stateCtrl.disabled"
-    (change)="stateCtrl.disabled ? stateCtrl.enable() : stateCtrl.disable()">
-    Disable Input?
-  </mat-slide-toggle>
-</form>
+    <!--panigation-->
+    <div class="row">
+      <div class="col-xs-12 col-12">
+        <div *ngIf="pagingData.totalPages > 0">
+          {{'label.page' | translate}}: {{pagingData.page}} / {{pagingData.totalPages}}
+
+          <pagination [totalItems]="pagingData.total"
+                      [(ngModel)]="pagingData.page"
+                      [maxSize]="pagingData.pageSize"
+                      class="pagination-sm"
+                      [boundaryLinks]="true"
+                      [rotate]="false"
+                      (numPages)="numPages = $event"
+                      previousText="{{'button.previous' | translate}}"
+                      nextText="{{'button.next' | translate}}"
+                      firstText="{{'button.first' | translate}}"
+                      lastText="{{'button.last' | translate}}"
+                      (pageChanged)="pageChanged($event)">
+          </pagination>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div mat-dialog-actions class="d-flex justify-content-center">
+    <button mat-raised-button (click)="onNoClick()">{{'button.close'| translate}}</button>
+    <button mat-raised-button color="primary" [mat-dialog-close]="selectedEmployee" cdkFocusInitial
+            [disabled]="!selectedEmployee.id"> {{'button.agree' | translate}}
+    </button>
+  </div>
+</div>
+

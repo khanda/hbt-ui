@@ -1,0 +1,9 @@
+<h1 mat-dialog-title> {{title ? title : 'label.dialog.warning' | translate}}</h1>
+<div mat-dialog-content>
+  <p>{{message ? message : 'label.dialog.default.message' | translate}}</p>
+</div>
+<div mat-dialog-actions class="d-flex justify-content-center">
+  <button mat-raised-button (click)="onNoClick()" cdkFocusInitial>{{'button.back'| translate}}</button>
+  <button mat-raised-button color="primary" [mat-dialog-close]="true"> {{'button.agree' | translate}}
+  </button>
+</div>

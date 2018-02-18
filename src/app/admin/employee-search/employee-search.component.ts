@@ -1,133 +1,62 @@
-import {Component, OnInit} from '@angular/core';
-import {FormControl} from '@angular/forms';
+import {Component, Inject, OnInit} from '@angular/core';
+import 'rxjs/add/observable/of';
+import {Employee} from '../../entity/Employee';
+import {PagingData} from '../../entity/PagingData';
+import {EmployeeService} from '../../service/employee.service';
+import {NgProgress} from '@ngx-progressbar/core';
+import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material";
+import {Khoi} from "../../entity/Khoi";
 
-import {Observable} from 'rxjs/Observable';
-import {startWith} from 'rxjs/operators/startWith';
-import {map} from 'rxjs/operators/map';
-import {State} from "../../entity/State";
 @Component({
   selector: 'app-employee-search',
   templateUrl: './employee-search.component.html',
   styleUrls: ['./employee-search.component.css']
 })
 export class EmployeeSearchComponent implements OnInit {
+  selectedEmployee: Employee = new Employee();
+  pagingData = new PagingData<Employee>();
+  selectedIndex = -1;
+  khoi: Khoi = new Khoi;
 
-  stateCtrl: FormControl;
-  filteredStates: Observable<any[]>;
-
-  states: State[] = [
-    {
-      name: 'Arkansas',
-      population: '2.978M',
-      // https://commons.wikimedia.org/wiki/File:Flag_of_Arkansas.svg
-      flag: 'https://upload.wikimedia.org/wikipedia/commons/9/9d/Flag_of_Arkansas.svg'
-    },
-    {
-      name: 'California',
-      population: '39.14M',
-      // https://commons.wikimedia.org/wiki/File:Flag_of_California.svg
-      flag: 'https://upload.wikimedia.org/wikipedia/commons/0/01/Flag_of_California.svg'
-    },
-    {
-      name: 'Florida',
-      population: '20.27M',
-      // https://commons.wikimedia.org/wiki/File:Flag_of_Florida.svg
-      flag: 'https://upload.wikimedia.org/wikipedia/commons/f/f7/Flag_of_Florida.svg'
-    },
-    {
-      name: 'Texas',
-      population: '27.47M',
-      // https://commons.wikimedia.org/wiki/File:Flag_of_Texas.svg
-      flag: 'https://upload.wikimedia.org/wikipedia/commons/f/f7/Flag_of_Texas.svg'
-    },
-    {
-      name: 'Arkansas',
-      population: '2.978M',
-      // https://commons.wikimedia.org/wiki/File:Flag_of_Arkansas.svg
-      flag: 'https://upload.wikimedia.org/wikipedia/commons/9/9d/Flag_of_Arkansas.svg'
-    },
-    {
-      name: 'California',
-      population: '39.14M',
-      // https://commons.wikimedia.org/wiki/File:Flag_of_California.svg
-      flag: 'https://upload.wikimedia.org/wikipedia/commons/0/01/Flag_of_California.svg'
-    },
-    {
-      name: 'Florida',
-      population: '20.27M',
-      // https://commons.wikimedia.org/wiki/File:Flag_of_Florida.svg
-      flag: 'https://upload.wikimedia.org/wikipedia/commons/f/f7/Flag_of_Florida.svg'
-    },
-    {
-      name: 'Texas',
-      population: '27.47M',
-      // https://commons.wikimedia.org/wiki/File:Flag_of_Texas.svg
-      flag: 'https://upload.wikimedia.org/wikipedia/commons/f/f7/Flag_of_Texas.svg'
-    },
-    {
-      name: 'Arkansas',
-      population: '2.978M',
-      // https://commons.wikimedia.org/wiki/File:Flag_of_Arkansas.svg
-      flag: 'https://upload.wikimedia.org/wikipedia/commons/9/9d/Flag_of_Arkansas.svg'
-    },
-    {
-      name: 'California',
-      population: '39.14M',
-      // https://commons.wikimedia.org/wiki/File:Flag_of_California.svg
-      flag: 'https://upload.wikimedia.org/wikipedia/commons/0/01/Flag_of_California.svg'
-    },
-    {
-      name: 'Florida',
-      population: '20.27M',
-      // https://commons.wikimedia.org/wiki/File:Flag_of_Florida.svg
-      flag: 'https://upload.wikimedia.org/wikipedia/commons/f/f7/Flag_of_Florida.svg'
-    },
-    {
-      name: 'Texas',
-      population: '27.47M',
-      // https://commons.wikimedia.org/wiki/File:Flag_of_Texas.svg
-      flag: 'https://upload.wikimedia.org/wikipedia/commons/f/f7/Flag_of_Texas.svg'
-    },
-    {
-      name: 'Arkansas',
-      population: '2.978M',
-      // https://commons.wikimedia.org/wiki/File:Flag_of_Arkansas.svg
-      flag: 'https://upload.wikimedia.org/wikipedia/commons/9/9d/Flag_of_Arkansas.svg'
-    },
-    {
-      name: 'California',
-      population: '39.14M',
-      // https://commons.wikimedia.org/wiki/File:Flag_of_California.svg
-      flag: 'https://upload.wikimedia.org/wikipedia/commons/0/01/Flag_of_California.svg'
-    },
-    {
-      name: 'Florida',
-      population: '20.27M',
-      // https://commons.wikimedia.org/wiki/File:Flag_of_Florida.svg
-      flag: 'https://upload.wikimedia.org/wikipedia/commons/f/f7/Flag_of_Florida.svg'
-    },
-    {
-      name: 'Texas',
-      population: '27.47M',
-      // https://commons.wikimedia.org/wiki/File:Flag_of_Texas.svg
-      flag: 'https://upload.wikimedia.org/wikipedia/commons/f/f7/Flag_of_Texas.svg'
-    }
-  ];
-
-  constructor() {
-    this.stateCtrl = new FormControl();
-    this.filteredStates = this.stateCtrl.valueChanges
-      .pipe(
-        startWith(''),
-        map(state => state ? this.filterStates(state) : this.states.slice())
-      );
-  }
-
-  filterStates(name: string) {
-    return this.states.filter(state =>
-    state.name.toLowerCase().indexOf(name.toLowerCase()) === 0);
+  constructor(private employeeService: EmployeeService,
+              public progress: NgProgress,
+              public dialogRef: MatDialogRef<EmployeeSearchComponent>,
+              @Inject(MAT_DIALOG_DATA) public data: any) {
+    this.khoi = data.khoi;
   }
 
   ngOnInit() {
+    this.getListEmployee(this.pagingData.page, this.pagingData.pageSize);
+  }
+
+  pageChanged(event: any): void {
+    this.clearSelected();
+    this.pagingData.page = event.page;
+    this.getListEmployee(this.pagingData.page, this.pagingData.pageSize);
+  }
+
+  getListEmployee(page: number, pageSize: number) {
+    this.progress.start();
+    this.employeeService.getListEmployee(page, pageSize)
+      .subscribe(pagingData => {
+        if (pagingData) {
+          this.pagingData = pagingData;
+        }
+        this.progress.complete();
+      });
+  }
+
+  onNoClick(): void {
+    this.dialogRef.close();
+  }
+
+  onChoose(employee: Employee, index: number) {
+    this.selectedIndex = index;
+    this.selectedEmployee = employee;
+  }
+
+  clearSelected() {
+    this.selectedIndex = -1;
+    this.selectedEmployee = new Employee();
   }
 }

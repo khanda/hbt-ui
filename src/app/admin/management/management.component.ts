@@ -13,11 +13,11 @@ export class ManagementComponent implements OnInit {
   isCollapsed = false;
 
   collapsed(event: any): void {
-    console.log(event);
+    // console.log(event);
   }
 
   expanded(event: any): void {
-    console.log(event);
+    // console.log(event);
   }
 
   constructor() {

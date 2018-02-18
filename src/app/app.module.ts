@@ -20,7 +20,7 @@ import {SimpleNotificationsModule} from 'angular2-notifications';
 import {TranslateLoader, TranslateModule} from '@ngx-translate/core';
 import {TranslateHttpLoader} from '@ngx-translate/http-loader';
 import {JasperoConfirmationsModule} from '@jaspero/ng2-confirmations';
-import {AccordionModule, BsDropdownModule, CollapseModule, PaginationModule} from 'ngx-bootstrap';
+import {AccordionModule, BsDropdownModule, CollapseModule, PaginationModule, TypeaheadModule} from 'ngx-bootstrap';
 import {ModalModule} from 'ngx-bootstrap/modal';
 import {TooltipModule} from 'ngx-bootstrap/tooltip';
 import {MyFooterComponent} from './my-footer/my-footer.component';
@@ -37,9 +37,10 @@ import {MyAlertService} from './service/alert/my-alert.service';
 import {BreadcrumbComponent} from './util/breadcrumb/breadcrumb.component';
 import {NgxDatatableModule} from '@swimlane/ngx-datatable';
 import {MaterialModule} from './material.module';
-import { KhoiManagementComponent } from './admin/khoi-management/khoi-management.component';
+import {KhoiManagementComponent} from './admin/khoi-management/khoi-management.component';
 import {KhoiService} from "./service/khoi.service";
-import { EmployeeSearchComponent } from './admin/employee-search/employee-search.component';
+import {EmployeeSearchComponent} from './admin/employee-search/employee-search.component';
+import {ConfirmDialogComponent} from './util/confirm-dialog/confirm-dialog.component';
 
 
 @NgModule({
@@ -61,6 +62,7 @@ import { EmployeeSearchComponent } from './admin/employee-search/employee-search
     BreadcrumbComponent,
     KhoiManagementComponent,
     EmployeeSearchComponent,
+    ConfirmDialogComponent,
   ],
   imports: [
     BrowserModule,
@@ -71,6 +73,7 @@ import { EmployeeSearchComponent } from './admin/employee-search/employee-search
     CollapseModule.forRoot(),
     BrowserAnimationsModule,
     ReactiveFormsModule,
+    TypeaheadModule.forRoot(),
     AppRoutingModule,
     HttpClientModule,
     NgProgressModule.forRoot(),
@@ -104,7 +107,10 @@ import { EmployeeSearchComponent } from './admin/employee-search/employee-search
     }
   ],
   bootstrap: [AppComponent],
-  entryComponents: []
+  entryComponents: [
+    EmployeeSearchComponent,
+    ConfirmDialogComponent
+  ]
 })
 export class AppModule {
 }
