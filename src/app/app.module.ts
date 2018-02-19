@@ -41,6 +41,7 @@ import {KhoiManagementComponent} from './admin/khoi-management/khoi-management.c
 import {KhoiService} from "./service/khoi.service";
 import {EmployeeSearchComponent} from './admin/employee-search/employee-search.component';
 import {ConfirmDialogComponent} from './util/confirm-dialog/confirm-dialog.component';
+import { SnackMessageComponent } from './util/snack-message/snack-message.component';
 
 
 @NgModule({
@@ -63,6 +64,7 @@ import {ConfirmDialogComponent} from './util/confirm-dialog/confirm-dialog.compo
     KhoiManagementComponent,
     EmployeeSearchComponent,
     ConfirmDialogComponent,
+    SnackMessageComponent,
   ],
   imports: [
     BrowserModule,
@@ -109,7 +111,8 @@ import {ConfirmDialogComponent} from './util/confirm-dialog/confirm-dialog.compo
   bootstrap: [AppComponent],
   entryComponents: [
     EmployeeSearchComponent,
-    ConfirmDialogComponent
+    ConfirmDialogComponent,
+    SnackMessageComponent
   ]
 })
 export class AppModule {

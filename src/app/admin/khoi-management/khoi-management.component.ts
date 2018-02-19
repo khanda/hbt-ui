@@ -3,7 +3,7 @@ import {Khoi} from '../../entity/Khoi';
 import {BreadcrumbData} from '../../entity/BreadcrumbData';
 import {KhoiService} from '../../service/khoi.service';
 import {EmployeeSearchComponent} from '../employee-search/employee-search.component';
-import {MatDialog} from '@angular/material';
+import {MatDialog, MatSnackBar} from '@angular/material';
 import {Employee} from '../../entity/Employee';
 import {ConfirmDialogComponent} from '../../util/confirm-dialog/confirm-dialog.component';
 import {TranslateService} from '@ngx-translate/core';
@@ -13,6 +13,7 @@ import {NgProgress} from '@ngx-progressbar/core';
 import {MyAlertService} from '../../service/alert/my-alert.service';
 import {MessageConstant} from '../../constant/MessageConstant';
 import {MyTranslate} from '../../service/my-translate.service';
+import {SnackMessageComponent} from "../../util/snack-message/snack-message.component";
 
 @Component({
   selector: 'app-khoi-management',
@@ -31,6 +32,7 @@ export class KhoiManagementComponent implements OnInit {
               public progress: NgProgress,
               private  alertService: MyAlertService,
               private myTranslate: MyTranslate,
+              public snackBar: MatSnackBar,
               public dialog: MatDialog) {
   }
 
@@ -89,14 +91,19 @@ export class KhoiManagementComponent implements OnInit {
     this.progress.start();
     this.khoiService.saveKhoi(khoi).subscribe(savedkhoi => {
       if (savedkhoi != null && savedkhoi.id != 0 && savedkhoi.id != null) {
-        console.log(savedkhoi.id);
-        this.alertService.showAlertMessage(this.myTranslate.translateString('message.title.success'), MessageConstant.ALERT_SUCCESS, '');
-        console.log(savedkhoi);
+        this.snackBar.openFromComponent(SnackMessageComponent, {
+          duration: 30000,
+          data: {message: this.myTranslate.translateString('message.title.success'), mode: MessageConstant.ALERT_SUCCESS}
+        });
         this.khois[index] = savedkhoi;
       } else {
-        this.alertService.showAlertMessage(this.myTranslate.translateString('message.title.error'), MessageConstant.ALERT_WARNING, '');
+        this.snackBar.openFromComponent(SnackMessageComponent, {
+          duration: 30000,
+          data: {message: this.myTranslate.translateString('message.title.error'), mode: MessageConstant.ALERT_DANGER}
+        });
       }
       this.progress.complete();
     });
   }
+
 }
