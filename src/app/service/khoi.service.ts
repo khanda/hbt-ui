@@ -31,4 +31,12 @@ export class KhoiService {
         catchError(MyHttpUtil.handleError<Khoi>('saveKhoi', new Khoi()))
       );
   }
+
+  deleteLeader(khoi: Khoi): Observable<boolean> {
+    const url = ApiUrlConstant.BASE_URL + ApiUrlConstant.KHOI_DELETE_LEADER_URL;
+    return this.http.post<boolean>(url, khoi)
+      .pipe(
+        catchError(MyHttpUtil.handleError<boolean>('saveKhoi', false))
+      );
+  }
 }

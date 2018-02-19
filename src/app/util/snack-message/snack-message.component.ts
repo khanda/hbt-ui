@@ -17,9 +17,8 @@ export class SnackMessageComponent implements OnInit {
 
   constructor(@Inject(MAT_SNACK_BAR_DATA) public data: any) {
     if (data) {
-      this.message = data.message ? data.message : '';
       this.mode = data.mode ? data.mode : MessageConstant.ALERT_INFO;
-      console.log(data);
+      this.message = data.message ? data.message : '';
     }
   }
 

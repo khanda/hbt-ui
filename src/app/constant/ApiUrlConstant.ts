@@ -13,4 +13,5 @@ export class ApiUrlConstant {
   public static readonly EMPLOYEE_GET_MANAGERS_URL = '/api/employee/managers';
   public static readonly KHOI_GET_LIST_URL = '/api/khoi/getList';
   public static readonly KHOI_SAVE_URL = '/api/khoi/save';
+  public static readonly KHOI_DELETE_LEADER_URL = '/api/khoi/deleteLeader';
 }

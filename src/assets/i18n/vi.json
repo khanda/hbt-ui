@@ -45,6 +45,7 @@
   "message.validation.max": "Quá dài, cần ít hơn hoặc bằng",
   "message.validation.character": "kí tự",
   "message.validation.character.only": " Vui lòng chỉ nhập chữ cái",
+  "message.confirm.delete.khoi.leader": "Bạn có chắc chắn muốn xóa quyền tổ trưởng của",
   "menu.item.home": "Trang chủ",
   "menu.item.login": "Đăng nhập",
   "menu.item.logout": "Thoát",

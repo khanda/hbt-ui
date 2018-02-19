@@ -13,7 +13,7 @@ import {NgProgress} from '@ngx-progressbar/core';
 import {MyAlertService} from '../../service/alert/my-alert.service';
 import {MessageConstant} from '../../constant/MessageConstant';
 import {MyTranslate} from '../../service/my-translate.service';
-import {SnackMessageComponent} from "../../util/snack-message/snack-message.component";
+import {SnackMessageComponent} from '../../util/snack-message/snack-message.component';
 
 @Component({
   selector: 'app-khoi-management',
@@ -30,7 +30,6 @@ export class KhoiManagementComponent implements OnInit {
   constructor(private khoiService: KhoiService,
               private translate: TranslateService,
               public progress: NgProgress,
-              private  alertService: MyAlertService,
               private myTranslate: MyTranslate,
               public snackBar: MatSnackBar,
               public dialog: MatDialog) {
@@ -92,13 +91,13 @@ export class KhoiManagementComponent implements OnInit {
     this.khoiService.saveKhoi(khoi).subscribe(savedkhoi => {
       if (savedkhoi != null && savedkhoi.id != 0 && savedkhoi.id != null) {
         this.snackBar.openFromComponent(SnackMessageComponent, {
-          duration: 30000,
+          duration: MessageConstant.TIMEOUT,
           data: {message: this.myTranslate.translateString('message.title.success'), mode: MessageConstant.ALERT_SUCCESS}
         });
         this.khois[index] = savedkhoi;
       } else {
         this.snackBar.openFromComponent(SnackMessageComponent, {
-          duration: 30000,
+          duration: MessageConstant.TIMEOUT,
           data: {message: this.myTranslate.translateString('message.title.error'), mode: MessageConstant.ALERT_DANGER}
         });
       }
@@ -106,4 +105,36 @@ export class KhoiManagementComponent implements OnInit {
     });
   }
 
+  onClickDelete(index: number) {
+    const employee = this.khois[index].leader;
+    const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+      data: {
+        title: '',
+        message: this.myTranslate.translateString('message.confirm.delete.khoi.leader') + ' ' + ConvertUtil.getFullName(employee)
+      }
+    });
+    dialogRef.afterClosed().subscribe(agree => {
+      if (agree) {
+        this.deleteLeader(index);
+      }
+    });
+
+  }
+
+  deleteLeader(index: number) {
+    this.khoiService.deleteLeader(this.khois[index]).subscribe(success => {
+      if (success) {
+        this.snackBar.openFromComponent(SnackMessageComponent, {
+          duration: MessageConstant.TIMEOUT,
+          data: {message: this.myTranslate.translateString('message.title.success'), mode: MessageConstant.ALERT_SUCCESS}
+        });
+        this.khois[index].leaderId = null;
+      } else {
+        this.snackBar.openFromComponent(SnackMessageComponent, {
+          duration: MessageConstant.TIMEOUT,
+          data: {message: this.myTranslate.translateString('message.title.error'), mode: MessageConstant.ALERT_DANGER}
+        });
+      }
+    });
+  }
 }
