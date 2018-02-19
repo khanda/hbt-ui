@@ -2,7 +2,6 @@ import {Component, OnInit} from '@angular/core';
 import {Khoi} from '../../entity/Khoi';
 import {BreadcrumbData} from '../../entity/BreadcrumbData';
 import {KhoiService} from '../../service/khoi.service';
-import {BsModalRef} from 'ngx-bootstrap';
 import {EmployeeSearchComponent} from '../employee-search/employee-search.component';
 import {MatDialog} from '@angular/material';
 import {Employee} from '../../entity/Employee';
@@ -13,6 +12,7 @@ import {ConvertUtil} from '../../util/ConvertUtil';
 import {NgProgress} from '@ngx-progressbar/core';
 import {MyAlertService} from '../../service/alert/my-alert.service';
 import {MessageConstant} from '../../constant/MessageConstant';
+import {MyTranslate} from '../../service/my-translate.service';
 
 @Component({
   selector: 'app-khoi-management',
@@ -30,6 +30,7 @@ export class KhoiManagementComponent implements OnInit {
               private translate: TranslateService,
               public progress: NgProgress,
               private  alertService: MyAlertService,
+              private myTranslate: MyTranslate,
               public dialog: MatDialog) {
   }
 
@@ -57,48 +58,43 @@ export class KhoiManagementComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(selectedEmployee => {
-      console.log(selectedEmployee);
       if (selectedEmployee) {
         this.selectedEmployee[this.selectedIndex] = selectedEmployee;
         this.selectedEmployeeFromModal[this.selectedIndex] = true;
-        this.updateLeader(this.khois[index], selectedEmployee);
+        this.updateLeader(this.khois[index], selectedEmployee, index);
       }
     });
   }
 
-  updateLeader(khoi: Khoi, employee: Employee) {
+  updateLeader(khoi: Khoi, employee: Employee, index: number) {
     const language = localStorage.getItem(MyConstant.LANGUAGE);
     this.translate.use(language);
-    let message: string;
-    this.translate.get('label.choose.leader.confirm',
+    const message = this.myTranslate.translateParam('label.choose.leader.confirm',
       {
         name: ConvertUtil.getFullName(employee),
         khoi: khoi.name
-      }).subscribe((res: string) => {
-      console.log(res);
-      message = res;
-    });
-
+      });
     const dialogRef = this.dialog.open(ConfirmDialogComponent, {
       data: {title: '', message: message}
     });
     dialogRef.afterClosed().subscribe(agree => {
       if (agree) {
-        this.saveKhoi(khoi, employee);
+        this.saveKhoi(khoi, employee, index);
       }
     });
   }
 
-  saveKhoi(khoi: Khoi, employee: Employee) {
+  saveKhoi(khoi: Khoi, employee: Employee, index: number) {
     khoi.leaderId = employee.id;
     this.progress.start();
-
     this.khoiService.saveKhoi(khoi).subscribe(savedkhoi => {
-      console.log(savedkhoi);
-      if (savedkhoi != null && savedkhoi.id !== 0) {
-        this.alertService.showAlertMessage('Thành công', MessageConstant.ALERT_SUCCESS, '');
+      if (savedkhoi != null && savedkhoi.id != 0 && savedkhoi.id != null) {
+        console.log(savedkhoi.id);
+        this.alertService.showAlertMessage(this.myTranslate.translateString('message.title.success'), MessageConstant.ALERT_SUCCESS, '');
+        console.log(savedkhoi);
+        this.khois[index] = savedkhoi;
       } else {
-        this.alertService.showAlertMessage('Da xay ra loi', MessageConstant.ALERT_WARNING, '');
+        this.alertService.showAlertMessage(this.myTranslate.translateString('message.title.error'), MessageConstant.ALERT_WARNING, '');
       }
       this.progress.complete();
     });

@@ -25,10 +25,6 @@
         <div *ngIf="khoi.leaderId && khoi.leader">
           <span>{{khoi.leader.lastName}} {{khoi.leader.midName}} {{khoi.leader.firstName}}</span>
         </div>
-
-        <div *ngIf="selectedEmployeeFromModal[index]">
-          <span>{{selectedEmployee[index].lastName}} {{selectedEmployee[index].midName}} {{selectedEmployee[index].firstName}}</span>
-        </div>
       </td>
       <td class="btn-action-khoi">
         <button
