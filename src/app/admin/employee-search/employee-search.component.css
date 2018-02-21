@@ -20,7 +20,7 @@
 }
 
 .mat-table {
-  overflow: auto;
+  overflow: hidden;
 }
 
 .mat-column-select {

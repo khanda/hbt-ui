@@ -4,7 +4,7 @@ import {Employee} from '../../entity/Employee';
 import {PagingData} from '../../entity/PagingData';
 import {EmployeeService} from '../../service/employee.service';
 import {NgProgress} from '@ngx-progressbar/core';
-import {MAT_DIALOG_DATA, MatDialogRef, MatPaginator, MatSort, MatTableDataSource} from '@angular/material';
+import {MAT_DIALOG_DATA, MatDialogRef, MatPaginator, MatSort, MatTableDataSource, Sort} from '@angular/material';
 import {Khoi} from '../../entity/Khoi';
 import {MyTranslate} from '../../service/my-translate.service';
 import {SelectionModel} from '@angular/cdk/collections';
@@ -21,10 +21,10 @@ export class EmployeeSearchComponent implements OnInit, AfterViewInit {
   selectedIndex = -1;
   khoi: Khoi = new Khoi;
   dataSource: MatTableDataSource<Employee> = new MatTableDataSource([]);
-  displayedColumns = ['select', 'position', 'name', 'weight', 'symbol'];
+  displayedColumns = ['select', 'lastName', 'midName', 'firstName', 'department.name'];
   selection = new SelectionModel<Employee>(false, []);
   @ViewChild(MatPaginator) paginator: MatPaginator;
-  @ViewChild(MatSort) sort: MatSort;
+
 
   constructor(private employeeService: EmployeeService,
               public progress: NgProgress,
@@ -39,7 +39,6 @@ export class EmployeeSearchComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit() {
-    this.dataSource.sort = this.sort;
   }
 
   applyFilter(filterValue: string) {
@@ -83,6 +82,6 @@ export class EmployeeSearchComponent implements OnInit, AfterViewInit {
 
   onChangeSelect(event) {
     this.selectedEmployee = this.selection.selected[0];
-    console.log(this.selectedEmployee);
   }
+
 }

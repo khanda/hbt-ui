@@ -52,7 +52,6 @@ export class KhoiManagementComponent implements OnInit {
     this.selectedIndex = index;
     const dialogRef = this.dialog.open(EmployeeSearchComponent, {
       width: '100vw',
-      panelClass: 'mt-3',
       data: {khoi: this.khois[index]}
     });
 

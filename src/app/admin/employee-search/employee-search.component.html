@@ -1,4 +1,4 @@
-<h1 mat-dialog-title class="border-bottom border-warning">{{'label.choose.leader' | translate}} {{khoi.name}}</h1>
+<h1 mat-dialog-title>{{'label.choose.leader' | translate}} {{khoi.name}}</h1>
 <div mat-dialog-content>
   <div class="example-container">
     <div class="example-header">
@@ -6,7 +6,7 @@
         <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
       </mat-form-field>
     </div>
-    <mat-table #table [dataSource]="dataSource" matSort>
+    <mat-table #table [dataSource]="dataSource">
       <!-- Checkbox Column -->
       <ng-container matColumnDef="select">
         <mat-header-cell *matHeaderCellDef>
@@ -22,26 +22,26 @@
         </mat-cell>
       </ng-container>
       <!-- Position Column -->
-      <ng-container matColumnDef="position">
-        <mat-header-cell *matHeaderCellDef mat-sort-header>{{'employee.lastName' | translate}}</mat-header-cell>
+      <ng-container matColumnDef="lastName">
+        <mat-header-cell *matHeaderCellDef>{{'employee.lastName' | translate}}</mat-header-cell>
         <mat-cell *matCellDef="let element"> {{element.lastName}}</mat-cell>
       </ng-container>
 
       <!-- Name Column -->
-      <ng-container matColumnDef="name">
-        <mat-header-cell *matHeaderCellDef mat-sort-header>{{'employee.midName' | translate}}</mat-header-cell>
+      <ng-container matColumnDef="midName">
+        <mat-header-cell *matHeaderCellDef>{{'employee.midName' | translate}}</mat-header-cell>
         <mat-cell *matCellDef="let element"> {{element.midName}}</mat-cell>
       </ng-container>
 
       <!-- Weight Column -->
-      <ng-container matColumnDef="weight">
-        <mat-header-cell *matHeaderCellDef mat-sort-header>{{'employee.firstName' | translate}}</mat-header-cell>
+      <ng-container matColumnDef="firstName">
+        <mat-header-cell *matHeaderCellDef>{{'employee.firstName' | translate}}</mat-header-cell>
         <mat-cell *matCellDef="let element"> {{element.firstName}}</mat-cell>
       </ng-container>
 
       <!-- Symbol Column -->
-      <ng-container matColumnDef="symbol">
-        <mat-header-cell *matHeaderCellDef mat-sort-header>{{'employee.department' | translate}}</mat-header-cell>
+      <ng-container matColumnDef="department.name">
+        <mat-header-cell *matHeaderCellDef>{{'employee.department' | translate}}</mat-header-cell>
         <mat-cell *matCellDef="let element"> {{element.department.name}}</mat-cell>
       </ng-container>
 
@@ -51,31 +51,24 @@
 
       </mat-row>
     </mat-table>
-    <!--panigation-->
-    <div class="p-2 justify-content-end d-flex">
-      <div class="row">
-        <div class="col-xs-12 col-12">
-          <div *ngIf="pagingData.totalPages > 0">
-            <pagination [totalItems]="pagingData.total"
-                        [(ngModel)]="pagingData.page"
-                        [maxSize]="pagingData.pageSize"
-                        class="pagination-sm"
-                        [boundaryLinks]="true"
-                        [rotate]="false"
-                        (numPages)="numPages = $event"
-                        previousText="{{'button.previous' | translate}}"
-                        nextText="{{'button.next' | translate}}"
-                        firstText="{{'button.first' | translate}}"
-                        lastText="{{'button.last' | translate}}"
-                        (pageChanged)="pageChanged($event)">
-            </pagination>
-          </div>
-        </div>
-      </div>
-    </div>
-    <!--panigation-->
   </div>
+
 </div>
+<pagination *ngIf="pagingData.totalPages > 0"
+            [totalItems]="pagingData.total"
+            [(ngModel)]="pagingData.page"
+            [maxSize]="pagingData.pageSize"
+            class="pagination-sm pt-3"
+            [boundaryLinks]="true"
+            [rotate]="false"
+            (numPages)="numPages = $event"
+            previousText="{{'button.previous' | translate}}"
+            nextText="{{'button.next' | translate}}"
+            firstText="{{'button.first' | translate}}"
+            lastText="{{'button.last' | translate}}"
+            (pageChanged)="pageChanged($event)"
+            align="right">
+</pagination>
 <div mat-dialog-actions class="d-flex justify-content-center">
   <button mat-raised-button (click)="onNoClick()">{{'button.close'| translate}}</button>
   <button mat-raised-button color="primary" [mat-dialog-close]="selectedEmployee" cdkFocusInitial
