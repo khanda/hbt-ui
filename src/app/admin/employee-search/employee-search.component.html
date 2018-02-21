@@ -13,9 +13,11 @@
           <mat-checkbox [disabled]="true"></mat-checkbox>
         </mat-header-cell>
         <mat-cell *matCellDef="let row">
-          <mat-checkbox (click)="$event.stopPropagation()"
-                        (change)="$event ? selection.toggle(row) : null; onChangeSelect($event)"
-                        [checked]="selection.isSelected(row)">
+          <mat-checkbox
+            aria-label=""
+            (click)="$event.stopPropagation()"
+            (change)="$event ? selection.toggle(row) : null; onChangeSelect($event)"
+            [checked]="selection.isSelected(row)">
           </mat-checkbox>
         </mat-cell>
       </ng-container>
@@ -44,7 +46,10 @@
       </ng-container>
 
       <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-      <mat-row *matRowDef="let row; columns: displayedColumns;" [class.chosen]="selection.isSelected(row)"></mat-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns;"
+               [class.chosen]="selection.isSelected(row)">
+
+      </mat-row>
     </mat-table>
     <!--panigation-->
     <div class="p-2 justify-content-end d-flex">

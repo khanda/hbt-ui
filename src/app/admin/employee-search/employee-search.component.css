@@ -15,15 +15,14 @@
 }
 
 .mat-form-field {
-  font-size: 14px;
+  font-size: 12px;
   width: 100%;
 }
 
 .mat-table {
   overflow: auto;
-  /*max-height: 250px;*/
 }
 
-mat-column-select {
-  overflow: initial;
+.mat-column-select {
+  overflow: visible;
 }

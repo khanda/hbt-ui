@@ -118,3 +118,8 @@ body {
 .f1-1rem {
   font-size: 1.1rem;
 }
+
+/*avoid mat-checkbox margin-bottom*/
+.mat-checkbox-layout {
+  margin-bottom: 0 !important;
+}
