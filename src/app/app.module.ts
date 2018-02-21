@@ -42,6 +42,7 @@ import {KhoiService} from "./service/khoi.service";
 import {EmployeeSearchComponent} from './admin/employee-search/employee-search.component';
 import {ConfirmDialogComponent} from './util/confirm-dialog/confirm-dialog.component';
 import { SnackMessageComponent } from './util/snack-message/snack-message.component';
+import {MatPaginator, MatSort} from "@angular/material";
 
 
 @NgModule({

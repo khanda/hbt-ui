@@ -1,25 +1,34 @@
-import {Component, Inject, OnInit} from '@angular/core';
+import {AfterViewInit, Component, Inject, OnInit, ViewChild} from '@angular/core';
 import 'rxjs/add/observable/of';
 import {Employee} from '../../entity/Employee';
 import {PagingData} from '../../entity/PagingData';
 import {EmployeeService} from '../../service/employee.service';
 import {NgProgress} from '@ngx-progressbar/core';
-import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
+import {MAT_DIALOG_DATA, MatDialogRef, MatPaginator, MatSort, MatTableDataSource} from '@angular/material';
 import {Khoi} from '../../entity/Khoi';
+import {MyTranslate} from '../../service/my-translate.service';
+import {SelectionModel} from '@angular/cdk/collections';
+
 
 @Component({
   selector: 'app-employee-search',
   templateUrl: './employee-search.component.html',
   styleUrls: ['./employee-search.component.css']
 })
-export class EmployeeSearchComponent implements OnInit {
+export class EmployeeSearchComponent implements OnInit, AfterViewInit {
   selectedEmployee: Employee = new Employee();
   pagingData = new PagingData<Employee>();
   selectedIndex = -1;
   khoi: Khoi = new Khoi;
+  dataSource: MatTableDataSource<Employee> = new MatTableDataSource([]);
+  displayedColumns = ['select', 'position', 'name', 'weight', 'symbol'];
+  selection = new SelectionModel<Employee>(false, []);
+  @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild(MatSort) sort: MatSort;
 
   constructor(private employeeService: EmployeeService,
               public progress: NgProgress,
+              private myTranslate: MyTranslate,
               public dialogRef: MatDialogRef<EmployeeSearchComponent>,
               @Inject(MAT_DIALOG_DATA) public data: any) {
     this.khoi = data.khoi;
@@ -27,6 +36,16 @@ export class EmployeeSearchComponent implements OnInit {
 
   ngOnInit() {
     this.getListEmployee(this.pagingData.page, this.pagingData.pageSize);
+  }
+
+  ngAfterViewInit() {
+    this.dataSource.sort = this.sort;
+  }
+
+  applyFilter(filterValue: string) {
+    filterValue = filterValue.trim(); // Remove whitespace
+    filterValue = filterValue.toLowerCase(); // MatTableDataSource defaults to lowercase matches
+    this.dataSource.filter = filterValue;
   }
 
   pageChanged(event: any): void {
@@ -41,6 +60,8 @@ export class EmployeeSearchComponent implements OnInit {
       .subscribe(pagingData => {
         if (pagingData) {
           this.pagingData = pagingData;
+          this.dataSource = new MatTableDataSource(this.pagingData.data);
+
         }
         this.progress.complete();
       });
@@ -58,5 +79,10 @@ export class EmployeeSearchComponent implements OnInit {
   clearSelected() {
     this.selectedIndex = -1;
     this.selectedEmployee = new Employee();
+  }
+
+  onChangeSelect(event) {
+    this.selectedEmployee = this.selection.selected[0];
+    console.log(this.selectedEmployee);
   }
 }

@@ -7,9 +7,9 @@ import {LengthContant} from '../../constant/LengthContant';
 import {EmployeeService} from '../../service/employee.service';
 import {MyTranslate} from '../../service/my-translate.service';
 import {ConfirmationService} from '@jaspero/ng2-confirmations';
-import {CredentialData} from "../../entity/CredentialData";
-import {AuthService} from "../../service/auth/auth.service";
-import {NgProgress} from "@ngx-progressbar/core";
+import {CredentialData} from '../../entity/CredentialData';
+import {AuthService} from '../../service/auth/auth.service';
+import {NgProgress} from '@ngx-progressbar/core';
 
 @Component({
   selector: 'app-employee-save',

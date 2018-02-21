@@ -6,11 +6,8 @@ import {EmployeeSearchComponent} from '../employee-search/employee-search.compon
 import {MatDialog, MatSnackBar} from '@angular/material';
 import {Employee} from '../../entity/Employee';
 import {ConfirmDialogComponent} from '../../util/confirm-dialog/confirm-dialog.component';
-import {TranslateService} from '@ngx-translate/core';
-import {MyConstant} from '../../constant/MyConstant';
 import {ConvertUtil} from '../../util/ConvertUtil';
 import {NgProgress} from '@ngx-progressbar/core';
-import {MyAlertService} from '../../service/alert/my-alert.service';
 import {MessageConstant} from '../../constant/MessageConstant';
 import {MyTranslate} from '../../service/my-translate.service';
 import {SnackMessageComponent} from '../../util/snack-message/snack-message.component';
@@ -28,7 +25,6 @@ export class KhoiManagementComponent implements OnInit {
   selectedIndex = -1;
 
   constructor(private khoiService: KhoiService,
-              private translate: TranslateService,
               public progress: NgProgress,
               private myTranslate: MyTranslate,
               public snackBar: MatSnackBar,
@@ -55,6 +51,8 @@ export class KhoiManagementComponent implements OnInit {
   openDialog(index: number): void {
     this.selectedIndex = index;
     const dialogRef = this.dialog.open(EmployeeSearchComponent, {
+      width: '100vw',
+      panelClass: 'mt-3',
       data: {khoi: this.khois[index]}
     });
 
@@ -68,8 +66,6 @@ export class KhoiManagementComponent implements OnInit {
   }
 
   updateLeader(khoi: Khoi, employee: Employee, index: number) {
-    const language = localStorage.getItem(MyConstant.LANGUAGE);
-    this.translate.use(language);
     const message = this.myTranslate.translateParam('label.choose.leader.confirm',
       {
         name: ConvertUtil.getFullName(employee),

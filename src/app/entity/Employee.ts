@@ -27,4 +27,5 @@ export class Employee {
     this.account = new Account();
     this.department = new Department();
   }
+
 }
