@@ -33,6 +33,7 @@
   "label.dialog.warning": "Xác nhận",
   "label.dialog.default.message": "Bạn có chắc chắn muốn thực hiện.",
   "label.choose": "Chọn",
+  "label.search": "Tìm kiếm",
   "pagination.total": "Tổng số",
   "pagination.item": "Bản ghi",
   "message.title.success": "Thành công",
@@ -63,5 +64,4 @@
   "employee.role.normal": "Thành viên thường",
   "employee.code": "Mã nhân viên",
   "employee.manager": "Người quản lý"
-
 }

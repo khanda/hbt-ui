@@ -35,7 +35,7 @@ export class EmployeeSearchComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit() {
-    this.getListEmployee(this.pagingData.page, this.pagingData.pageSize);
+    this.getListEmployee(this.pagingData.page, this.pagingData.pageSize, null);
   }
 
   ngAfterViewInit() {
@@ -44,23 +44,23 @@ export class EmployeeSearchComponent implements OnInit, AfterViewInit {
   applyFilter(filterValue: string) {
     filterValue = filterValue.trim(); // Remove whitespace
     filterValue = filterValue.toLowerCase(); // MatTableDataSource defaults to lowercase matches
-    this.dataSource.filter = filterValue;
+    // this.dataSource.filter = filterValue;
+    this.getListEmployee(this.pagingData.page, this.pagingData.pageSize, filterValue);
   }
 
   pageChanged(event: any): void {
     this.clearSelected();
     this.pagingData.page = event.page;
-    this.getListEmployee(this.pagingData.page, this.pagingData.pageSize);
+    this.getListEmployee(this.pagingData.page, this.pagingData.pageSize, null);
   }
 
-  getListEmployee(page: number, pageSize: number) {
+  getListEmployee(page: number, pageSize: number, searchTerm: string) {
     this.progress.start();
-    this.employeeService.getListEmployee(page, pageSize)
+    this.employeeService.getListEmployee(page, pageSize, searchTerm)
       .subscribe(pagingData => {
         if (pagingData) {
           this.pagingData = pagingData;
           this.dataSource = new MatTableDataSource(this.pagingData.data);
-
         }
         this.progress.complete();
       });

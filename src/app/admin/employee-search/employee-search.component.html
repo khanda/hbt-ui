@@ -3,7 +3,7 @@
   <div class="example-container">
     <div class="example-header">
       <mat-form-field>
-        <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
+        <input matInput (keyup)="applyFilter($event.target.value)" placeholder="{{'label.search' | translate}}">
       </mat-form-field>
     </div>
     <mat-table #table [dataSource]="dataSource">
