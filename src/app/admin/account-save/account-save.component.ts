@@ -4,7 +4,7 @@ import {AccountService} from '../../service/account.service';
 import {Account} from '../../entity/Account';
 import {AbstractControl, FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {regExpValidator} from '../../directive/regExp-validator.directive';
-import {LengthContant} from '../../constant/LengthContant';
+import {LengthConstant} from '../../constant/LengthContant';
 import {MessageConstant} from '../../constant/MessageConstant';
 import {Router} from '@angular/router';
 import {MessageData} from '../../entity/MessageData';
@@ -18,10 +18,10 @@ import {AuthService} from "../../service/auth/auth.service";
   styleUrls: ['./account-save.component.css']
 })
 export class AccountSaveComponent implements OnInit {
-  readonly USERNAME_MIX = LengthContant.ACCOUNT_NAME_MIN_LENGTH;
-  readonly PASSWORD_MIX = LengthContant.PASSWORD_MIN_LENGTH;
-  readonly USERNAME_MAX = LengthContant.ACCOUNT_NAME_MAX_LENGTH;
-  readonly PASSWORD_MAX = LengthContant.PASSWORD_MAX_LENGTH;
+  readonly USERNAME_MIX = LengthConstant.ACCOUNT_NAME_MIN_LENGTH;
+  readonly PASSWORD_MIX = LengthConstant.PASSWORD_MIN_LENGTH;
+  readonly USERNAME_MAX = LengthConstant.ACCOUNT_NAME_MAX_LENGTH;
+  readonly PASSWORD_MAX = LengthConstant.PASSWORD_MAX_LENGTH;
   readonly USERNAME_REG = /^[a-zA-Z0-9]+(?:[_ - @ .]?[a-zA-Z0-9]?)*$/i;
   readonly PASSWORD_REG = /^[a-zA-Z0-9]+(?:[_ - @ .]?[a-zA-Z0-9]?)*$/i;
 

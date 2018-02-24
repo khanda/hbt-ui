@@ -1,4 +1,4 @@
-export class LengthContant {
+export class LengthConstant {
 
   public static readonly ACCOUNT_NAME_MAX_LENGTH = 30;
   public static readonly PASSWORD_MAX_LENGTH = 30;

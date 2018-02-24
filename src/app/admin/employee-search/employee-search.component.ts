@@ -4,11 +4,14 @@ import {Employee} from '../../entity/Employee';
 import {PagingData} from '../../entity/PagingData';
 import {EmployeeService} from '../../service/employee.service';
 import {NgProgress} from '@ngx-progressbar/core';
-import {MAT_DIALOG_DATA, MatDialogRef, MatPaginator, MatSort, MatTableDataSource, Sort} from '@angular/material';
+import {MAT_DIALOG_DATA, MatDialogRef, MatPaginator, MatTableDataSource} from '@angular/material';
 import {Khoi} from '../../entity/Khoi';
 import {MyTranslate} from '../../service/my-translate.service';
 import {SelectionModel} from '@angular/cdk/collections';
-import {forEach} from '@angular/router/src/utils/collection';
+import {ValidationUtil} from '../../util/ValidationUtil';
+import {RegexConstant} from '../../constant/RegexConstant';
+import {Subject} from "rxjs/Subject";
+import {debounceTime, distinctUntilChanged, switchMap} from "rxjs/operators";
 
 
 @Component({
@@ -26,6 +29,8 @@ export class EmployeeSearchComponent implements OnInit, AfterViewInit {
   selection = new SelectionModel<Employee>(false, []);
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
+  inValidSearchString = false;
+  private searchTerms = new Subject<string>();
 
   constructor(private employeeService: EmployeeService,
               public progress: NgProgress,
@@ -36,24 +41,58 @@ export class EmployeeSearchComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit() {
-    this.getListEmployee(this.pagingData.page, this.pagingData.pageSize, '');
+    // this.getListEmployee(this.pagingData.page, this.pagingData.pageSize, '');
+    this.searchTerms.pipe(
+      // wait 300ms after each keystroke before considering the term
+      debounceTime(300),
+
+      // ignore new term if same as previous term
+      distinctUntilChanged(),
+
+      // switch to new search observable each time the term changes
+      switchMap((term: string) => {
+        this.progress.start();
+        return this.employeeService.getListEmployee(this.pagingData.page, this.pagingData.pageSize, term);
+      }),
+    ).subscribe(pagingData => {
+      if (pagingData) {
+        this.pagingData = pagingData;
+        this.dataSource = new MatTableDataSource(this.pagingData.data);
+      }
+      this.progress.complete();
+    });
+
+    this.search('');
   }
 
   ngAfterViewInit() {
   }
 
+// Push a search term into the observable stream.
+  search(term: string): void {
+    this.searchTerms.next(term);
+  }
+
   applyFilter(filterValue: string) {
-    filterValue = filterValue.trim(); // Remove whitespace
-    filterValue = filterValue.toLowerCase(); // MatTableDataSource defaults to lowercase matches
-    // this.dataSource.filter = filterValue;
-    filterValue = this.buildSearchTerm(filterValue);
-    console.log(filterValue);
-    this.getListEmployee(this.pagingData.page, this.pagingData.pageSize, filterValue);
+    this.pagingData.page = 1;
+    filterValue = filterValue.trim();
+    filterValue = filterValue.toLowerCase();
+    if (!ValidationUtil.isMatchRegex(RegexConstant.searchRegex, filterValue)) {
+      this.inValidSearchString = true;
+      this.pagingData.data = [];
+      this.dataSource = new MatTableDataSource(this.pagingData.data);
+      return;
+    }
+    console.log('applyFilter');
+    this.inValidSearchString = false;
+    this.search(filterValue);
+    // this.getListEmployee(this.pagingData.page, this.pagingData.pageSize, filterValue);
   }
 
   pageChanged(event: any): void {
     this.clearSelected();
     this.pagingData.page = event.page;
+    // this.search('');
     this.getListEmployee(this.pagingData.page, this.pagingData.pageSize, '');
   }
 

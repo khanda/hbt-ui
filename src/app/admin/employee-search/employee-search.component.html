@@ -2,9 +2,13 @@
 <div mat-dialog-content>
   <div class="example-container">
     <div class="example-header">
+
       <mat-form-field>
-        <input matInput (keyup)="applyFilter($event.target.value)" placeholder="{{'label.search' | translate}}">
+        <input matInput (keyup)="applyFilter($event.target.value)" placeholder="{{'label.search' | translate}}"
+               [class.invalid]="inValidSearchString">
       </mat-form-field>
+      <span class="text-danger" *ngIf="inValidSearchString">khong hop le</span>
+
     </div>
     <mat-table #table [dataSource]="dataSource">
       <!-- Checkbox Column -->
