@@ -8,7 +8,6 @@ import {MyAlertService} from '../../service/alert/my-alert.service';
 import {BreadcrumbData} from '../../entity/BreadcrumbData';
 import {ResolveEmit} from '@jaspero/ng2-confirmations/src/interfaces/resolve-emit';
 import {ConfirmationService} from '@jaspero/ng2-confirmations';
-import {MatSnackBar} from '@angular/material';
 import {NgProgress} from '@ngx-progressbar/core';
 
 @Component({
@@ -32,7 +31,7 @@ export class EmployeeManagementComponent implements OnInit {
 
   ngOnInit() {
     this.initBreadcrumb();
-    this.getListEmployee(this.pagingData.page, this.pagingData.pageSize);
+    this.getListEmployee(this.pagingData.page, this.pagingData.pageSize, '');
   }
 
   onClickAdd() {
@@ -66,9 +65,9 @@ export class EmployeeManagementComponent implements OnInit {
             if (result) {
               this.alertService.showAlertMessage('Xóa tài khoản thành công', MessageConstant.ALERT_SUCCESS, 'Thành công');
               this.pagingData.page = 1;
-              this.getListEmployee(this.pagingData.page, this.pagingData.pageSize);
+              this.getListEmployee(this.pagingData.page, this.pagingData.pageSize, '');
             } else {
-              this.alertService.showAlertMessage('Xóa tài khoản không thành công',MessageConstant.ALERT_DANGER, 'Lỗi');
+              this.alertService.showAlertMessage('Xóa tài khoản không thành công', MessageConstant.ALERT_DANGER, 'Lỗi');
             }
             this.progress.complete();
           });
@@ -78,12 +77,12 @@ export class EmployeeManagementComponent implements OnInit {
 
   pageChanged(event: any): void {
     this.pagingData.page = event.page;
-    this.getListEmployee(this.pagingData.page, this.pagingData.pageSize);
+    this.getListEmployee(this.pagingData.page, this.pagingData.pageSize, '');
   }
 
-  getListEmployee(page: number, pageSize: number) {
+  getListEmployee(page: number, pageSize: number, searchTerm: string = '') {
     this.progress.start();
-    this.employeeService.getListEmployee(page, pageSize)
+    this.employeeService.getListEmployee(page, pageSize, searchTerm)
       .subscribe(pagingData => {
         if (pagingData) {
           this.pagingData = pagingData;

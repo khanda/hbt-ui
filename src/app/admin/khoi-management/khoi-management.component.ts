@@ -85,7 +85,7 @@ export class KhoiManagementComponent implements OnInit {
     khoi.leaderId = employee.id;
     this.progress.start();
     this.khoiService.saveKhoi(khoi).subscribe(savedkhoi => {
-      if (savedkhoi != null && savedkhoi.id != 0 && savedkhoi.id != null) {
+      if (savedkhoi != null && savedkhoi.id !== 0 && savedkhoi.id != null) {
         this.snackBar.openFromComponent(SnackMessageComponent, {
           duration: MessageConstant.TIMEOUT,
           data: {message: this.myTranslate.translateString('message.title.success'), mode: MessageConstant.ALERT_SUCCESS}

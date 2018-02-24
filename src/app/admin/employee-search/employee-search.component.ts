@@ -8,6 +8,7 @@ import {MAT_DIALOG_DATA, MatDialogRef, MatPaginator, MatSort, MatTableDataSource
 import {Khoi} from '../../entity/Khoi';
 import {MyTranslate} from '../../service/my-translate.service';
 import {SelectionModel} from '@angular/cdk/collections';
+import {forEach} from '@angular/router/src/utils/collection';
 
 
 @Component({
@@ -35,7 +36,7 @@ export class EmployeeSearchComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit() {
-    this.getListEmployee(this.pagingData.page, this.pagingData.pageSize, null);
+    this.getListEmployee(this.pagingData.page, this.pagingData.pageSize, '');
   }
 
   ngAfterViewInit() {
@@ -45,13 +46,15 @@ export class EmployeeSearchComponent implements OnInit, AfterViewInit {
     filterValue = filterValue.trim(); // Remove whitespace
     filterValue = filterValue.toLowerCase(); // MatTableDataSource defaults to lowercase matches
     // this.dataSource.filter = filterValue;
+    filterValue = this.buildSearchTerm(filterValue);
+    console.log(filterValue);
     this.getListEmployee(this.pagingData.page, this.pagingData.pageSize, filterValue);
   }
 
   pageChanged(event: any): void {
     this.clearSelected();
     this.pagingData.page = event.page;
-    this.getListEmployee(this.pagingData.page, this.pagingData.pageSize, null);
+    this.getListEmployee(this.pagingData.page, this.pagingData.pageSize, '');
   }
 
   getListEmployee(page: number, pageSize: number, searchTerm: string) {
@@ -84,4 +87,11 @@ export class EmployeeSearchComponent implements OnInit, AfterViewInit {
     this.selectedEmployee = this.selection.selected[0];
   }
 
+  private buildSearchTerm(filterValue: string) {
+    let query = '';
+    const properties = ['firstName', 'midName', 'lastName'];
+    query = properties.join(':' + filterValue + ',');
+    query += (':' + filterValue);
+    return query;
+  }
 }
