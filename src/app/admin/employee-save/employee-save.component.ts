@@ -43,15 +43,11 @@ export class EmployeeSaveComponent implements OnInit {
 
   ngOnInit() {
     this.getDepartments();
-    if (this.mode === this.UPDATE || this.mode === this.VIEW) {
-      this.getManagers(this.employee.departmentId);
-    }
     this.credentialData = this.authService.getCredentialData();
   }
 
   onSubmit() {
     this.progress.start();
-    this.employee.isLeader = this.employee.isLeader ? 1 : 0;
     this.employee.createBy = this.credentialData.userName;
     this.employee.updateBy = this.credentialData.userName;
     this.employeeService.saveEmployee(this.employee).subscribe(isSuccess => {
@@ -70,7 +66,7 @@ export class EmployeeSaveComponent implements OnInit {
   }
 
   onSelectDepartment(index) {
-    this.getManagers(index);
+    // this.getManagers(index);
   }
 
   onSelectManager(index) {
@@ -93,11 +89,11 @@ export class EmployeeSaveComponent implements OnInit {
     });
   }
 
-  getManagers(departmentId: number) {
-    this.progress.start();
-    this.employeeService.getListManagers(departmentId).subscribe(managers => {
-      this.managerList = managers ? managers : [];
-      this.progress.complete();
-    });
-  }
+  // getManagers(departmentId: number) {
+  //   this.progress.start();
+  //   this.employeeService.getListManagers(departmentId).subscribe(managers => {
+  //     this.managerList = managers ? managers : [];
+  //     this.progress.complete();
+  //   });
+  // }
 }

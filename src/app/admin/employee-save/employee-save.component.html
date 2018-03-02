@@ -98,26 +98,10 @@
 
           <!--manager-->
           <div class="form-group">
-            <label for="employee_manager">{{'employee.manager'| translate}}</label>
-            <select class="custom-select form-control" id="employee_manager" name="employee_manager"
-                    [disabled]="mode != NEW && mode != UPDATE"
-                    [(ngModel)]="employee.managerId"
-                    (change)="onSelectManager($event.target.value)">
-              <option *ngFor="let manager of managerList; let index = index" [value]="manager.id">
-                {{manager.lastName}} {{manager.midName}} {{manager.firstName}} {{manager.code}}
-              </option>
-            </select>
+            <label>{{'employee.manager'| translate}}</label>
+
           </div>
 
-          <!--is leader-->
-          <div class="form-group">
-            <mat-checkbox id="employee_is_leader"
-                          name="employee_is_leader"
-                          [(ngModel)]="employee.isLeader"
-                          [disabled]="mode != NEW && mode != UPDATE">
-              {{'employee.isLeader'| translate}}
-            </mat-checkbox>
-          </div>
 
           <!--message area-->
           <div class="alert alert-danger" *ngIf="showMessageKey == ERROR">

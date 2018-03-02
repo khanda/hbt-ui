@@ -9,10 +9,9 @@ import {MyConstant} from '../../constant/MyConstant';
 import {ConfirmationService} from '@jaspero/ng2-confirmations';
 import {ResolveEmit} from '@jaspero/ng2-confirmations/src/interfaces/resolve-emit';
 import {MessageData} from '../../entity/MessageData';
-import {CredentialConstant} from '../../constant/CredentialConstant';
 import {TranslateService} from '@ngx-translate/core';
-import {BreadcrumbData} from "../../entity/BreadcrumbData";
-import {NgProgress} from "@ngx-progressbar/core";
+import {BreadcrumbData} from '../../entity/BreadcrumbData';
+import {NgProgress} from '@ngx-progressbar/core';
 
 @Component({
   selector: 'app-account-management',

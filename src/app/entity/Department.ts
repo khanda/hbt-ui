@@ -10,4 +10,5 @@ export class Department {
   create_date: Date;
   update_date: Date;
   status: number;
+  leaderId: number;
 }

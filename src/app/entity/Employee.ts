@@ -12,8 +12,6 @@ export class Employee {
   departmentId: number;
   code: string;
   accountId: number;
-  managerId: number;
-  isLeader: number;
   createBy: string;
   updateBy: string;
   createDate: Date;
