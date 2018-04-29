@@ -20,9 +20,12 @@
       "prefix": "app",
       "styles": [
         "../node_modules/bootstrap/dist/css/bootstrap.min.css",
-        "styles.css"
+        "styles.css",
+        "../semantic/dist/semantic.min.css"
       ],
       "scripts": [
+        "../semantic/dist/semantic.min.js",
+        "../node_modules/hammerjs/hammer.min.js"
       ],
       "environmentSource": "environments/environment.ts",
       "environments": {
