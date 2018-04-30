@@ -3,8 +3,10 @@
 <div *ngIf="mode == LIST">
   <div class="card">
     <div class="card-header">
-      <span class="card-text-header">Danh sach tai khoan</span>
-      <app-button-new (clickAdd)="onClickAdd($event)" class="pull-right"></app-button-new>
+      <div class="d-flex">
+        <span class="card-text-header align-self-center">Danh sach tai khoan</span>
+        <app-button-new (clickAdd)="onClickAdd($event)" class="ml-auto"></app-button-new>
+      </div>
     </div>
 
     <div class="card-body">
