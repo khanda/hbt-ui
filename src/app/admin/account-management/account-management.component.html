@@ -10,7 +10,7 @@
     </div>
 
     <div class="card-body">
-      <div class="table-responsive-sm table-wrapper">
+      <div class="table-responsive-sm">
         <table class="table table-hover table-bordered">
           <thead>
           <tr>
@@ -43,25 +43,26 @@
           </tr>
           </tbody>
         </table>
-      </div>
-    </div>
 
-    <div class="card-footer">
-      <!--pagination-->
-      <div class="row">
-        <div class="col-xs-12 col-12">
-          {{'label.page' | translate}}: {{currentPage}} / {{numPages}}
-          <pagination [totalItems]="total" [(ngModel)]="currentPage" [maxSize]="itemPerPage" class="pagination-sm"
-                      [boundaryLinks]="true" [rotate]="false" (numPages)="numPages = $event"
-                      previousText="{{'button.previous' | translate}}" nextText="{{'button.next' | translate}}"
-                      firstText="{{'button.first' | translate}}" lastText="{{'button.last' | translate}}"
-                      (pageChanged)="pageChanged($event)">
-          </pagination>
-        </div>
+        <!--pagination-->
+        {{'label.page' | translate}}: {{currentPage}} / {{numPages}}
+        <pagination class="pagination-sm"
+                    [totalItems]="total" [(ngModel)]="currentPage"
+                    [maxSize]="itemPerPage"
+                    [boundaryLinks]="true"
+                    [rotate]="false"
+                    (numPages)="numPages = $event"
+                    previousText="{{'button.previous' | translate}}"
+                    nextText="{{'button.next' | translate}}"
+                    firstText="{{'button.first' | translate}}"
+                    lastText="{{'button.last' | translate}}"
+                    (pageChanged)="pageChanged($event)">
+
+        </pagination>
+
       </div>
     </div>
   </div>
-
 </div>
 
 <!--new account form-->

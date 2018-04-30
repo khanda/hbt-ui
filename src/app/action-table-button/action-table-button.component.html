@@ -1,31 +1,28 @@
-<!--<button type="button" class="btn btn-sm btn-info badge badge-info" (click)="onClickView()"-->
-        <!--data-toggle="tooltip" title="Xem thông tin chi tiết">Xem-->
-  <!--&lt;!&ndash;<i class="fa fa-eye" aria-hidden="true"></i>&ndash;&gt;-->
-<!--</button>-->
-
-<!--<button type="button" class="btn btn-sm btn-warning  badge badge-warning" (click)="onClickUpdate()"-->
-        <!--data-toggle="tooltip" title="Chỉnh sửa">Sửa-->
-  <!--&lt;!&ndash;<i class="fa fa-pencil-square-o" aria-hidden="true"></i>&ndash;&gt;-->
-<!--</button>-->
-
-<!--<button type="button" class="btn btn-sm btn-danger  badge badge-danger" (click)="onClickDelete()"-->
-        <!--data-toggle="tooltip" title="Xóa">Xóa-->
-  <!--&lt;!&ndash;<i class="fa fa-trash-o" aria-hidden="true"></i>&ndash;&gt;-->
-<!--</button>-->
-
-
 <div class="btn-group" dropdown>
   <button id="button-basic" dropdownToggle type="button"
           class="btn btn-default btn-sm dropdown-toggle"
           aria-controls="dropdown-basic">
     {{'action' | translate}} <span class="caret"></span>
   </button>
+
   <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu" role="menu" aria-labelledby="button-basic">
-    <li role="menuitem"><button type="button" class="btn btn-link dropdown-item" (click)="onClickView()">
-      {{'button.view' | translate}}</button></li>
-    <li role="menuitem"><button type="button" class="btn btn-link dropdown-item" (click)="onClickUpdate()">
-      {{'button.update2' | translate}}</button></li>
-    <li role="menuitem"><button type="button" class="btn btn-link dropdown-item" (click)="onClickDelete()">
-      {{'button.delete' | translate}}</button></li>
+
+    <li role="menuitem">
+      <button type="button" class="btn btn-link btn-sm dropdown-item" (click)="onClickView()">
+        {{'button.view' | translate}}
+      </button>
+    </li>
+
+    <li role="menuitem">
+      <button type="button" class="btn btn-link btn-sm dropdown-item" (click)="onClickUpdate()">
+        {{'button.update2' | translate}}
+      </button>
+    </li>
+
+    <li role="menuitem">
+      <button type="button" class="btn btn-link btn-sm dropdown-item" (click)="onClickDelete()">
+        {{'button.delete' | translate}}
+      </button>
+    </li>
   </ul>
 </div>
