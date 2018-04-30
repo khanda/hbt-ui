@@ -18,25 +18,26 @@
       </li>
     </ul>
 
+    
+    <!--sign in-->
+    <a class="nav-link pointer" (click)="goToLoginPage()" *ngIf="!isAuthenticated()">
+      <span>{{'menu.item.login' | translate}}</span>
+    </a>
     <!--login user-->
-    <div>
-      <button class="btn btn-link" (click)="goToLoginPage()" *ngIf="!isAuthenticated()">
-        <span>{{'menu.item.login' | translate}}</span>
-      </button>
-      <div dropdown *ngIf="isAuthenticated()">
-        <a class="p-2" href dropdownToggle (click)="false">
-          <img src="../../assets/image/user-default.png" height="20" width="20"/>
-          {{getAccountDetail()}}</a>
+    <div dropdown *ngIf="isAuthenticated()">
+      <a class="p-2" href dropdownToggle (click)="false">
+        <img src="../../assets/image/user-default.png" height="20" width="20"/>
+        {{getAccountDetail()}}</a>
 
-        <ul *dropdownMenu class="dropdown-menu dropdown-menu-right" role="menu">
-          <li role="menuitem">
-            <a class="dropdown-item pointer" (click)="logout()">
-              <span>{{'menu.item.logout' | translate}}</span>
-            </a>
-          </li>
-        </ul>
-      </div>
+      <ul *dropdownMenu class="dropdown-menu dropdown-menu-right" role="menu">
+        <li role="menuitem">
+          <a class="dropdown-item pointer" (click)="logout()">
+            <span>{{'menu.item.logout' | translate}}</span>
+          </a>
+        </li>
+      </ul>
     </div>
+
 
     <!--languages-->
     <div class="language-flag-wrap" *ngIf="false">
