@@ -27,7 +27,7 @@
           <tbody>
           <tr *ngFor="let account of listAccount; let index = index">
             <td scope="row">{{(currentPage - 1) * 10 + index + 1}}</td>
-            <td class="td-action-btn">
+            <td>
               <app-action-table-button (clickView)="onClickView(index)"
                                        (clickUpdate)="onClickUpdate(index)"
                                        (clickDelete)="onClickDelete(index)">
