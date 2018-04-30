@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top py-0 z-1000">
+<nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top py-0">
   <a class="navbar-brand" routerLink="/">
     <img src="assets/image/bootstrap-solid.svg" width="30" height="30" alt="">
   </a>
@@ -24,7 +24,10 @@
         <span>{{'menu.item.login' | translate}}</span>
       </button>
       <div dropdown *ngIf="isAuthenticated()">
-        <a class="p-2" href dropdownToggle (click)="false">{{getAccountDetail()}}</a>
+        <a class="p-2" href dropdownToggle (click)="false">
+          <img src="../../assets/image/user-default.png" height="20" width="20"/>
+          {{getAccountDetail()}}</a>
+
         <ul *dropdownMenu class="dropdown-menu dropdown-menu-right" role="menu">
           <li role="menuitem">
             <a class="dropdown-item pointer" (click)="logout()">
@@ -36,7 +39,7 @@
     </div>
 
     <!--languages-->
-    <div class="language-flag-wrap">
+    <div class="language-flag-wrap" *ngIf="false">
       <img src="../../assets/image/vi-flag.png" class="language-flag"
            (click)="onChangeLanguage('en')" *ngIf="language == 'vi'"/>
       <img src="../../assets/image/en-flag.png" class="language-flag"
