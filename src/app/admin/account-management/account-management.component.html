@@ -1,16 +1,17 @@
 <simple-notifications [options]="options"></simple-notifications>
 
-<div *ngIf="mode == LIST">
+<div>
   <div class="card">
     <div class="card-header">
       <div class="d-flex">
-        <span class="card-text-header align-self-center">{{'management.account.caption' | translate}}</span>
+        <span class="card-text-header align-self-center">{{'management.account.header' | translate}}</span>
         <app-button-new (clickAdd)="onClickAdd($event)" class="ml-auto"></app-button-new>
       </div>
     </div>
 
     <div class="card-body">
-      <div class="table-responsive-sm">
+      <!--List-->
+      <div class="table-responsive-sm" *ngIf="mode == LIST">
         <table class="table table-hover">
           <thead>
           <tr>
@@ -61,14 +62,17 @@
         </pagination>
 
       </div>
+
+      <!--new account form-->
+      <div *ngIf="mode != LIST" class="form-wrapper">
+        <app-account-save [mode]="mode" [account]="selectedAccount"
+                          (backToList)="backFromSaveForm($event)">
+        </app-account-save>
+      </div>
+
     </div>
   </div>
 </div>
 
-<!--new account form-->
-<div *ngIf="mode != LIST" class="form-wrapper">
-  <app-account-save [mode]="mode" [account]="selectedAccount"
-                    (backToList)="backFromSaveForm($event)">
-  </app-account-save>
-</div>
+
 <jaspero-confirmations></jaspero-confirmations>

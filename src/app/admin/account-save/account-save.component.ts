@@ -9,8 +9,8 @@ import {MessageConstant} from '../../constant/MessageConstant';
 import {Router} from '@angular/router';
 import {MessageData} from '../../entity/MessageData';
 import {MyTranslate} from '../../service/my-translate.service';
-import {CredentialData} from "../../entity/CredentialData";
-import {AuthService} from "../../service/auth/auth.service";
+import {CredentialData} from '../../entity/CredentialData';
+import {AuthService} from '../../service/auth/auth.service';
 
 @Component({
   selector: 'app-account-save',
