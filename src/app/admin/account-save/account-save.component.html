@@ -118,7 +118,7 @@
                   required
                   (change)="onSelectRole($event.target.value)"
                   [class.is-invalid]="userRole.invalid && (userRole.dirty || userRole.touched)">
-            <option *ngFor="let role of roleList; let index = index" [value]="role.id">{{role.name}}</option>
+            <option *ngFor="let role of roleList; let index = index" [value]="role.id">{{role.description}}</option>
           </select>
           <div *ngIf="userRole.invalid && (userRole.dirty || userRole.touched)" class="invalid-feedback">
             <div *ngIf="userRole.errors.required">

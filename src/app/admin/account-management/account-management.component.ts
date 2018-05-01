@@ -65,7 +65,6 @@ export class AccountManagementComponent implements OnInit {
       const returnData: PagingData<Account> = pagingData;
       if (returnData) {
         this.listAccount = returnData.data;
-        console.log(this.listAccount);
         this.total = returnData.total;
         let max = Math.floor(this.total / this.itemPerPage);
         if (this.total % this.itemPerPage > 0) {
@@ -112,7 +111,6 @@ export class AccountManagementComponent implements OnInit {
               this.currentPage = 1;
               this.getListAccount(this.currentPage, this.itemPerPage);
             } else {
-              console.log('loi');
               this.showAlertMessage('Xóa tài khoản không thành công',
                 MessageConstant.ALERT_DANGER, 'Lỗi');
             }
