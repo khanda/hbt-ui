@@ -1,41 +1,46 @@
-<!--header, action button-->
-<div class="sticky-top top-sticky-main-content">
-  <div class="d-flex flex-row justify-content-between">
-    <app-breadcrumb [items]="breadcrumb" class="align-self-center"></app-breadcrumb>
-    <div class=" text-right align-self-center">
+<div class="card">
+  <div class="card-header">
+    <div class="d-flex">
+      <app-breadcrumb [items]="breadcrumb" class="align-self-center"></app-breadcrumb>
+    </div>
+  </div>
+
+  <div class="card-body">
+    <div class="table-responsive-sm">
+      <table class="table table-hover">
+        <thead>
+        <tr>
+          <th scope="col">{{'no' | translate}}</th>
+          <th scope="col">{{'action' | translate}}</th>
+          <th scope="col">{{'khoi.name' | translate}}</th>
+          <th scope="col">{{'khoi.leader.name' | translate}}</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let khoi of khois; let index = index">
+          <td scope="row">{{index + 1}}</td>
+          <!--action-->
+          <td class="btn-action-khoi">
+            <button
+              type="button" class="btn btn-sm btn-default badge badge-primary"
+              (click)="openDialog(index)">{{'button.choose.leader' | translate}}
+            </button>
+            <button type="button" class="btn btn-sm btn-danger  badge badge-danger" (click)="onClickDelete(index)"
+                    data-toggle="tooltip" title="Xóa">{{'button.delete' | translate}}
+            </button>
+          </td>
+
+          <td>{{khoi.name}}</td>
+
+          <td>
+            <span *ngIf="khoi.leaderId && khoi.leader">{{khoi.leader.lastName}} {{khoi.leader.midName}} {{khoi.leader.firstName}}</span>
+          </td>
+
+        </tr>
+        </tbody>
+      </table>
     </div>
   </div>
 </div>
 
-<div class="table-responsive-sm table-wrapper">
-  <table class="table table-hover table-bordered">
-    <thead>
-    <tr>
-      <th scope="col" class="text-center">{{'no' | translate}}</th>
-      <th scope="col" class="text-center">{{'khoi.name' | translate}}</th>
-      <th scope="col" class="text-center">{{'khoi.leader.name' | translate}}</th>
-      <th scope="col" class="text-center"></th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr *ngFor="let khoi of khois; let index = index">
-      <td scope="row">{{index + 1}}</td>
-      <td>{{khoi.name}}</td>
-      <td>
-        <div *ngIf="khoi.leaderId && khoi.leader">
-          <span>{{khoi.leader.lastName}} {{khoi.leader.midName}} {{khoi.leader.firstName}}</span>
-        </div>
-      </td>
-      <td class="btn-action-khoi">
-        <button
-          type="button" class="btn btn-sm btn-primary  badge badge-primary"
-          (click)="openDialog(index)">{{'button.choose.leader' | translate}}
-        </button>
-        <button type="button" class="btn btn-sm btn-danger  badge badge-danger" (click)="onClickDelete(index)"
-                data-toggle="tooltip" title="Xóa">{{'button.delete' | translate}}
-        </button>
-      </td>
-    </tr>
-    </tbody>
-  </table>
-</div>
+
