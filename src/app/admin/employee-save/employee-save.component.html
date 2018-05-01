@@ -1,35 +1,42 @@
-<div class="d-flex flex-row align-items-center justify-content-center">
-  <div class="col-xl-5 col-lg-7 col-md-9 col-sm-12">
-    <div class="card">
-      <div class="card-body">
-        <form #employeeForm="ngForm" (ngSubmit)="onSubmit()">
-          <!--last name-->
-          <div class="form-group">
-            <label for="last_name">{{'employee.lastName' | translate}}<span class="text-danger">&#042;</span></label>
-            <input type="text" class="form-control" id="last_name" name="last_name"
-                   [(ngModel)]="employee.lastName"
-                   required
-                   minlength="{{NAME_MIN}}"
-                   maxlength="{{NAME_MAX}}"
-                   appForbiddenName="{{NAME_REG}}"
-                   #lastName="ngModel"
-                   [readonly]="mode != NEW && mode != UPDATE"
-                   [class.is-invalid]="lastName.invalid && (lastName.dirty || lastName.touched)">
-            <!--validate message-->
-            <div *ngIf="lastName.invalid && (lastName.dirty || lastName.touched)" class="invalid-feedback">
-              <div *ngIf="lastName.errors.required"> {{'message.validation.require' | translate}}</div>
-              <div *ngIf="lastName.errors.minlength">
-                {{'message.validation.min' | translate}} {{NAME_MIN}} {{'message.validation.character' | translate}}
-              </div>
-              <div *ngIf="lastName.errors.maxlength">
-                {{'message.validation.max' | translate}} {{NAME_MAX}} {{'message.validation.character' | translate}}
-              </div>
-              <div *ngIf="lastName.errors.invalidExp">{{'message.validation.character.only' | translate}}</div>
+<div class="row">
+  <div class="col-xl-8 col-lg-8 col-md-12 col-sm-12">
+
+    <form #employeeForm="ngForm" (ngSubmit)="onSubmit()">
+
+      <div class="form-group row">
+        <label for="last_name" class="col-sm-3 col-md-4 col-xl-3  col-form-label text-right">
+          {{'employee.lastName' | translate}}<span class="text-danger">&#042;</span>
+        </label>
+        <div class="col-sm-8">
+          <input type="text" class="form-control" id="last_name" name="last_name"
+                 [(ngModel)]="employee.lastName"
+                 required
+                 minlength="{{NAME_MIN}}"
+                 maxlength="{{NAME_MAX}}"
+                 appForbiddenName="{{NAME_REG}}"
+                 #lastName="ngModel"
+                 [readonly]="mode != NEW && mode != UPDATE"
+                 [class.is-invalid]="lastName.invalid && (lastName.dirty || lastName.touched)">
+          <!--validate message-->
+          <div *ngIf="lastName.invalid && (lastName.dirty || lastName.touched)" class="invalid-feedback">
+            <div *ngIf="lastName.errors.required"> {{'message.validation.require' | translate}}</div>
+            <div *ngIf="lastName.errors.minlength">
+              {{'message.validation.min' | translate}} {{NAME_MIN}} {{'message.validation.character' | translate}}
             </div>
+            <div *ngIf="lastName.errors.maxlength">
+              {{'message.validation.max' | translate}} {{NAME_MAX}} {{'message.validation.character' | translate}}
+            </div>
+            <div *ngIf="lastName.errors.invalidExp">{{'message.validation.character.only' | translate}}</div>
           </div>
-          <!--mid name-->
-          <div class="form-group">
-            <label for="mid_name">{{'employee.midName' | translate}}</label>
+        </div>
+      </div>
+
+      <div formGroupName="passwords" class="my-exclude-invalid-form" *ngIf="mode==NEW">
+        <div class="form-group row">
+          <label for="mid_name" class="col-sm-3 col-md-4  col-xl-3  col-form-label text-right">
+            {{'employee.midName' | translate}}
+          </label>
+          <div class="col-sm-8">
             <input type="text" class="form-control" id="mid_name" name="mid_name"
                    [(ngModel)]="employee.midName"
                    [readonly]="mode != NEW && mode != UPDATE"
@@ -49,69 +56,118 @@
               <div *ngIf="midName.errors.invalidExp">{{'message.validation.character.only' | translate}}</div>
             </div>
           </div>
-          <!--first name-->
-          <div class="form-group">
-            <label for="first_name">{{'employee.firstName' | translate}}
-              <span class="text-danger">&#042;</span></label>
-            <input type="text" class="form-control" id="first_name" name="first_name"
-                   [(ngModel)]="employee.firstName"
-                   [readonly]="mode != NEW && mode != UPDATE"
-                   required minlength="{{NAME_MIN}}"
-                   maxlength="{{NAME_MAX}}"
-                   appForbiddenName="{{NAME_REG}}"
-                   #firstName="ngModel"
-                   [class.is-invalid]="firstName.invalid && (firstName.dirty || firstName.touched)">
-            <div *ngIf="firstName.invalid && (firstName.dirty || firstName.touched)" class="invalid-feedback">
-              <div *ngIf="firstName.errors.required"> {{'message.validation.require' | translate}}</div>
-              <div *ngIf="firstName.errors.minlength">
-                {{'message.validation.min' | translate}} {{NAME_MIN}} {{'message.validation.character' | translate}}
-              </div>
-              <div *ngIf="firstName.errors.maxlength">
-                {{'message.validation.max' | translate}} {{NAME_MAX}} {{'message.validation.character' | translate}}
-              </div>
-              <div *ngIf="firstName.errors.invalidExp">{{'message.validation.character.only' | translate}}</div>
-            </div>
-          </div>
-          <!--department-->
-          <div class="form-group">
-            <label for="employee_departments">{{'employee.department'|translate}}
-              <span class="text-danger">&#042;</span>
-            </label>
-            <select class="custom-select form-control"
-                    id="employee_departments" name="employee_departments"
-                    [disabled]="mode != NEW && mode != UPDATE"
-                    #emDepartment="ngModel"
-                    required
-                    [(ngModel)]="employee.departmentId"
-                    (change)="onSelectDepartment($event.target.value)"
-                    [class.is-invalid]="emDepartment.invalid && (emDepartment.dirty || emDepartment.touched)">
-              <option *ngFor="let department of departmentList; let index = index" [value]="department.id">
-                {{department.name}}
-              </option>
-            </select>
-            <div *ngIf="emDepartment.invalid && (emDepartment.dirty || emDepartment.touched)" class="invalid-feedback">
-              <div *ngIf="emDepartment.errors.required">
+        </div>
+        <div class="form-group row">
+          <label for="username" class="col-sm-3 col-md-4 col-xl-3  col-form-label text-right">
+            Nhập lại mật khẩu
+            <span class="text-danger">&#042;</span>
+          </label>
+          <div class="col-sm-8">
+
+            <input type="password"
+                   class="form-control"
+                   id="passwordConfirm"
+                   name="passwordConfirm"
+                   (keyup)="onChangeConfirmedPassword($event.target.value)"
+                   formControlName="passwordConfirm"
+                   required
+                   [readonly]="mode == VIEW"
+                   [class.is-invalid]="passwordConfirm.invalid && (passwordConfirm.dirty || passwordConfirm.touched)">
+
+            <div *ngIf="passwordConfirm.invalid && (passwordConfirm.dirty || passwordConfirm.touched)"
+                 class="invalid-feedback">
+              <div *ngIf="passwordConfirm.errors.required">
                 <span> Thông tin này là bắt buộc.</span>
               </div>
+              <div *ngIf="passwordConfirm.errors.minlength">
+                Cần nhiều hơn {{PASSWORD_MIX}} kí tự
+              </div>
+              <div *ngIf="passwordConfirm.errors.maxlength">
+                Cần ít hơn {{PASSWORD_MIX}} kí tự
+              </div>
+              <div *ngIf="passwordConfirm.errors.invalidExp">
+                Chỉ được nhập chữ cái, số, - và _
+              </div>
+            </div>
+
+            <div *ngIf="showMessagePasswordNotMatch" class="invalid-feedback">
+              <span> Mật khẩu không khớp</span>
             </div>
           </div>
+        </div>
+      </div>
 
-          <!--manager-->
-          <div class="form-group">
-            <label>{{'employee.manager'| translate}}</label>
-
+      <!--first name-->
+      <div class="form-group row">
+        <label for="first_name" class="col-sm-3 col-md-4 col-xl-3  col-form-label text-right">
+          {{'employee.firstName' | translate}}<span class="text-danger">&#042;</span>
+        </label>
+        <div class="col-sm-8">
+          <input type="text" class="form-control" id="first_name" name="first_name"
+                 [(ngModel)]="employee.firstName"
+                 [readonly]="mode != NEW && mode != UPDATE"
+                 required minlength="{{NAME_MIN}}"
+                 maxlength="{{NAME_MAX}}"
+                 appForbiddenName="{{NAME_REG}}"
+                 #firstName="ngModel"
+                 [class.is-invalid]="firstName.invalid && (firstName.dirty || firstName.touched)">
+          <div *ngIf="firstName.invalid && (firstName.dirty || firstName.touched)" class="invalid-feedback">
+            <div *ngIf="firstName.errors.required"> {{'message.validation.require' | translate}}</div>
+            <div *ngIf="firstName.errors.minlength">
+              {{'message.validation.min' | translate}} {{NAME_MIN}} {{'message.validation.character' | translate}}
+            </div>
+            <div *ngIf="firstName.errors.maxlength">
+              {{'message.validation.max' | translate}} {{NAME_MAX}} {{'message.validation.character' | translate}}
+            </div>
+            <div *ngIf="firstName.errors.invalidExp">{{'message.validation.character.only' | translate}}</div>
           </div>
+        </div>
+      </div>
 
+      <!--department-->
+      <div class="form-group row">
+        <label for="employee_departments" class="col-sm-3 col-md-4 col-xl-3  col-form-label text-right">
+          {{'employee.department'|translate}}<span class="text-danger">&#042;</span>
+        </label>
+        <div class="col-sm-8">
+          <select class="custom-select form-control"
+                  id="employee_departments" name="employee_departments"
+                  [disabled]="mode != NEW && mode != UPDATE"
+                  #emDepartment="ngModel"
+                  required
+                  [(ngModel)]="employee.departmentId"
+                  (change)="onSelectDepartment($event.target.value)"
+                  [class.is-invalid]="emDepartment.invalid && (emDepartment.dirty || emDepartment.touched)">
+            <option *ngFor="let department of departmentList; let index = index" [value]="department.id">
+              {{department.name}}
+            </option>
+          </select>
+          <div *ngIf="emDepartment.invalid && (emDepartment.dirty || emDepartment.touched)" class="invalid-feedback">
+            <div *ngIf="emDepartment.errors.required">
+              <span> Thông tin này là bắt buộc.</span>
+            </div>
+          </div>
+        </div>
+      </div>
 
-          <!--message area-->
-          <div class="alert alert-danger" *ngIf="showMessageKey == ERROR">
-            <span> Đã xảy ra lỗi </span>
-          </div>
-          <div class="alert alert-success" *ngIf="showMessageKey == SUCCESS">
-            <span> Thành công  </span>
-          </div>
-          <!--message area-->
-          <!--button action area-->
+      <!--manager-->
+      <!--<div class="form-group">-->
+        <!--<label>{{'employee.manager'| translate}}</label>-->
+
+      <!--</div>-->
+
+      <!--message area-->
+      <div class="alert alert-danger" *ngIf="showMessageKey == ERROR">
+        <span> Đã xảy ra lỗi </span>
+      </div>
+      <div class="alert alert-success" *ngIf="showMessageKey == SUCCESS">
+        <span> Thành công  </span>
+      </div>
+
+      <!--button action area-->
+      <div class="form-group row">
+        <label class="col-sm-3 col-md-4 col-xl-3  col-form-label text-right"></label>
+        <div class="col-sm-8">
           <div class="button-form-action text-center">
             <button mat-raised-button type="button" (click)="onClickBack()">{{'button.back' | translate}}</button>
             <button type="submit" mat-raised-button color="primary"
@@ -120,9 +176,10 @@
               {{'button.save' | translate}}
             </button>
           </div>
-          <!--button action area-->
-        </form>
+        </div>
       </div>
-    </div>
+
+    </form>
   </div>
 </div>
+

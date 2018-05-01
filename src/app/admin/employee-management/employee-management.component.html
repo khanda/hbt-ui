@@ -1,80 +1,79 @@
-<!--header, action button-->
-<div class="sticky-top top-sticky-main-content">
-  <div class="d-flex flex-row justify-content-between">
-    <app-breadcrumb [items]="breadcrumb" class="align-self-center"></app-breadcrumb>
-    <div class=" text-right align-self-center">
-      <app-button-new (clickAdd)="onClickAdd($event)" *ngIf="mode === LIST"></app-button-new>
+<div class="card">
+  <div class="card-header">
+    <div class="d-flex">
+      <app-breadcrumb [items]="breadcrumb" class="align-self-center"></app-breadcrumb>
+      <app-button-new (clickAdd)="onClickAdd($event)" *ngIf="mode === LIST" class="ml-auto"></app-button-new>
     </div>
   </div>
-</div>
 
-<div *ngIf="mode == LIST">
-  <div class="table-responsive-sm table-wrapper">
-    <table class="table table-hover table-bordered">
-      <thead>
-      <tr>
-        <th scope="col" class="text-center">{{'no' | translate}}</th>
-        <th scope="col" class="text-center">{{'action' | translate}}</th>
-        <th scope="col" class="text-center">{{'employee.lastName' | translate}}</th>
-        <th scope="col" class="text-center">{{'employee.midName' | translate}}</th>
-        <th scope="col" class="text-center">{{'employee.firstName' | translate}}</th>
-        <th scope="col" class="text-center">{{'employee.code' | translate}}</th>
-        <th scope="col" class="text-center">{{'employee.account.name' | translate}}</th>
-        <th scope="col" class="text-center">{{'employee.department' | translate}}</th>
-        <th scope="col" class="text-center">{{'employee.role' | translate}}</th>
-      </tr>
-      </thead>
-      <tbody>
-      <tr *ngFor="let employee of pagingData.data; let index = index">
-        <td scope="row">{{(pagingData.page - 1) * 10 + index + 1}}</td>
-        <td class="td-action-btn">
-          <app-action-table-button (clickView)="onClickView(index)"
-                                   (clickUpdate)="onClickUpdate(index)"
-                                   (clickDelete)="onClickDelete(index)">
-          </app-action-table-button>
-        </td>
-        <td>{{employee.lastName}}</td>
-        <td>{{employee.midName}}</td>
-        <td>{{employee.firstName}}</td>
-        <td>{{employee.code}}</td>
-        <td>{{employee.account ? employee.account : ''}}</td>
-        <td>{{employee.department.name}}</td>
-        <td>
-          <span *ngIf="employee.isLeader === 1">{{'employee.leader' | translate}}</span>
-          <span *ngIf="employee.isLeader === 0">{{'employee.role.normal' | translate}}</span>
-        </td>
-      </tr>
-      </tbody>
-    </table>
-  </div>
+  <div class="card-body">
+    <div class="table-responsive-sm table-wrapper" *ngIf="mode == LIST">
+      <table class="table table-hover">
+        <thead>
+        <tr>
+          <th scope="col" class="text-center">{{'no' | translate}}</th>
+          <th scope="col" class="text-center">{{'action' | translate}}</th>
+          <th scope="col" class="text-center">{{'employee.lastName' | translate}}</th>
+          <th scope="col" class="text-center">{{'employee.midName' | translate}}</th>
+          <th scope="col" class="text-center">{{'employee.firstName' | translate}}</th>
+          <th scope="col" class="text-center">{{'employee.code' | translate}}</th>
+          <th scope="col" class="text-center">{{'employee.account.name' | translate}}</th>
+          <th scope="col" class="text-center">{{'employee.department' | translate}}</th>
+          <th scope="col" class="text-center">{{'employee.role' | translate}}</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let employee of pagingData.data; let index = index">
+          <td scope="row">{{(pagingData.page - 1) * 10 + index + 1}}</td>
+          <td>
+            <app-action-table-button (clickView)="onClickView(index)"
+                                     (clickUpdate)="onClickUpdate(index)"
+                                     (clickDelete)="onClickDelete(index)">
+            </app-action-table-button>
+          </td>
+          <td>{{employee.lastName}}</td>
+          <td>{{employee.midName}}</td>
+          <td>{{employee.firstName}}</td>
+          <td>{{employee.code}}</td>
+          <td>{{employee.account ? employee.account : ''}}</td>
+          <td>{{employee.department.name}}</td>
+          <td>
+            <span *ngIf="employee.isLeader === 1">{{'employee.leader' | translate}}</span>
+            <span *ngIf="employee.isLeader === 0">{{'employee.role.normal' | translate}}</span>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+    <!--panigation-->
+    <div class="row" *ngIf="mode == LIST">
+      <div class="col-xs-12 col-12">
+        <div *ngIf="pagingData.totalPages > 0">
+          {{'label.page' | translate}}: {{pagingData.page}} / {{pagingData.totalPages}}
 
-  <!--panigation-->
-  <div class="row">
-    <div class="col-xs-12 col-12">
-      <div *ngIf="pagingData.totalPages > 0">
-        {{'label.page' | translate}}: {{pagingData.page}} / {{pagingData.totalPages}}
-
-        <pagination [totalItems]="pagingData.total"
-                    [(ngModel)]="pagingData.page"
-                    [maxSize]="pagingData.pageSize"
-                    class="pagination-sm"
-                    [boundaryLinks]="true"
-                    [rotate]="false"
-                    (numPages)="numPages = $event"
-                    previousText="{{'button.previous' | translate}}"
-                    nextText="{{'button.next' | translate}}"
-                    firstText="{{'button.first' | translate}}"
-                    lastText="{{'button.last' | translate}}"
-                    (pageChanged)="pageChanged($event)">
-        </pagination>
+          <pagination [totalItems]="pagingData.total"
+                      [(ngModel)]="pagingData.page"
+                      [maxSize]="pagingData.pageSize"
+                      class="pagination-sm"
+                      [boundaryLinks]="true"
+                      [rotate]="false"
+                      (numPages)="numPages = $event"
+                      previousText="{{'button.previous' | translate}}"
+                      nextText="{{'button.next' | translate}}"
+                      firstText="{{'button.first' | translate}}"
+                      lastText="{{'button.last' | translate}}"
+                      (pageChanged)="pageChanged($event)">
+          </pagination>
+        </div>
       </div>
     </div>
-  </div>
-</div>
 
-<!--nemployee form-->
-<div *ngIf="mode != LIST" class="form-wrapper">
-  <app-employee-save [mode]="mode" [employee]="selectedEmployee"
-                     (backToList)="backFromSaveForm($event)">
-  </app-employee-save>
+    <!--nemployee form-->
+    <div *ngIf="mode != LIST" class="form-wrapper">
+      <app-employee-save [mode]="mode" [employee]="selectedEmployee"
+                         (backToList)="backFromSaveForm($event)">
+      </app-employee-save>
+    </div>
+
+  </div>
 </div>
