@@ -4,7 +4,8 @@
   <div class="card">
     <div class="card-header">
       <div class="d-flex">
-        <span class="card-text-header align-self-center">{{'management.account.header' | translate}}</span>
+        <!--<span class="card-text-header align-self-center">{{'management.account.header' | translate}}</span>-->
+        <app-breadcrumb [items]="breadcrumb" class="card-text-header align-self-center"></app-breadcrumb>
         <app-button-new (clickAdd)="onClickAdd($event)" class="ml-auto"></app-button-new>
       </div>
     </div>
