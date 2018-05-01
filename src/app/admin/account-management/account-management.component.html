@@ -1,76 +1,89 @@
 <simple-notifications [options]="options"></simple-notifications>
 
-  <div class="card">
-    <div class="card-header">
-      <div class="d-flex">
-        <!--<span class="card-text-header align-self-center">{{'management.account.header' | translate}}</span>-->
-        <app-breadcrumb [items]="breadcrumb" class="card-text-header align-self-center"></app-breadcrumb>
-        <app-button-new (clickAdd)="onClickAdd($event)" class="ml-auto" *ngIf="mode == LIST"></app-button-new>
-      </div>
-    </div>
-
-    <div class="card-body">
-      <!--List-->
-      <div class="table-responsive-sm" *ngIf="mode == LIST">
-        <table class="table table-hover">
-          <thead>
-          <tr>
-            <th scope="col" class="text-center">{{'no' | translate}}</th>
-            <th scope="col" class="text-center">{{'action' | translate}}</th>
-            <th scope="col" class="text-center">Tên đăng nhập</th>
-            <th scope="col" class="text-center">Vai trò</th>
-            <th scope="col" class="text-center">Người tạo</th>
-            <th scope="col" class="text-center">Ngày tạo</th>
-            <th scope="col" class="text-center">Cập nhật lần cuối bởi</th>
-            <th scope="col" class="text-center">Thời gian cập nhật cuối</th>
-          </tr>
-          </thead>
-          <tbody>
-          <tr *ngFor="let account of listAccount; let index = index">
-            <td scope="row">{{(currentPage - 1) * 10 + index + 1}}</td>
-            <td>
-              <app-action-table-button (clickView)="onClickView(index)"
-                                       (clickUpdate)="onClickUpdate(index)"
-                                       (clickDelete)="onClickDelete(index)">
-
-              </app-action-table-button>
-            </td>
-            <td>{{account.userName}}</td>
-            <td>{{account.userRole.description}}</td>
-            <td>{{account.createBy}}</td>
-            <td>{{account.createDate | date:'dd/MM/yyyy, H:mm'}}</td>
-            <td>{{account.updateBy}}</td>
-            <td>{{account.updateDate | date:'dd/MM/yyyy, H:mm'}}</td>
-          </tr>
-          </tbody>
-        </table>
-
-        <!--pagination-->
-        {{'label.page' | translate}}: {{currentPage}} / {{numPages}}
-        <pagination class="pagination-sm"
-                    [totalItems]="total" [(ngModel)]="currentPage"
-                    [maxSize]="itemPerPage"
-                    [boundaryLinks]="true"
-                    [rotate]="false"
-                    (numPages)="numPages = $event"
-                    previousText="{{'button.previous' | translate}}"
-                    nextText="{{'button.next' | translate}}"
-                    firstText="{{'button.first' | translate}}"
-                    lastText="{{'button.last' | translate}}"
-                    (pageChanged)="pageChanged($event)">
-
-        </pagination>
-
-      </div>
-
-      <!--new account form-->
-      <div *ngIf="mode != LIST" class="form-wrapper">
-        <app-account-save [mode]="mode" [account]="selectedAccount"
-                          (backToList)="backFromSaveForm($event)">
-        </app-account-save>
-      </div>
-
+<div class="card">
+  <div class="card-header">
+    <div class="d-flex">
+      <!--<span class="card-text-header align-self-center">{{'management.account.header' | translate}}</span>-->
+      <app-breadcrumb [items]="breadcrumb" class="card-text-header align-self-center"></app-breadcrumb>
+      <app-button-new (clickAdd)="onClickAdd($event)" class="ml-auto" *ngIf="mode == LIST"></app-button-new>
     </div>
   </div>
+
+  <div class="card-body">
+    <!--List-->
+    <div class="table-responsive-sm" *ngIf="mode == LIST">
+      <table class="table table-hover">
+        <thead>
+        <tr>
+          <th scope="col" class="text-center">{{'no' | translate}}</th>
+          <th scope="col" class="text-center">{{'action' | translate}}</th>
+          <th scope="col" class="text-center">Tên đăng nhập</th>
+          <th scope="col" class="text-center">Vai trò</th>
+          <th scope="col" class="text-center">Người tạo</th>
+          <th scope="col" class="text-center">Ngày tạo</th>
+          <th scope="col" class="text-center">Cập nhật lần cuối bởi</th>
+          <th scope="col" class="text-center">Thời gian cập nhật cuối</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let account of listAccount; let index = index">
+          <td scope="row">{{(currentPage - 1) * 10 + index + 1}}</td>
+          <td>
+            <div class="btn-group" dropdown>
+              <button id="button-basic" dropdownToggle type="button" class="btn btn-light btn-sm dropdown-toggle"
+                      aria-controls="dropdown-basic">
+                {{'action' | translate}} <span class="caret"></span>
+              </button>
+              <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu" role="menu" aria-labelledby="button-basic">
+                <li role="menuitem">
+                  <button type="button" class="btn btn-link btn-sm dropdown-item" (click)="onClickUpdate(index)">
+                    {{'button.update2' | translate}}
+                  </button>
+                </li>
+                <li role="menuitem">
+                  <button type="button" class="btn btn-link btn-sm dropdown-item" (click)="onClickDelete(index)">
+                    {{'button.delete' | translate}}
+                  </button>
+                </li>
+              </ul>
+            </div>
+          </td>
+          <td>{{account.userName}}</td>
+          <td>{{account.userRole.description}}</td>
+          <td>{{account.createBy}}</td>
+          <td>{{account.createDate | date:'dd/MM/yyyy, H:mm'}}</td>
+          <td>{{account.updateBy}}</td>
+          <td>{{account.updateDate | date:'dd/MM/yyyy, H:mm'}}</td>
+        </tr>
+        </tbody>
+      </table>
+
+      <!--pagination-->
+      {{'label.page' | translate}}: {{currentPage}} / {{numPages}}
+      <pagination class="pagination-sm"
+                  [totalItems]="total" [(ngModel)]="currentPage"
+                  [maxSize]="itemPerPage"
+                  [boundaryLinks]="true"
+                  [rotate]="false"
+                  (numPages)="numPages = $event"
+                  previousText="{{'button.previous' | translate}}"
+                  nextText="{{'button.next' | translate}}"
+                  firstText="{{'button.first' | translate}}"
+                  lastText="{{'button.last' | translate}}"
+                  (pageChanged)="pageChanged($event)">
+
+      </pagination>
+
+    </div>
+
+    <!--new account form-->
+    <div *ngIf="mode != LIST" class="form-wrapper">
+      <app-account-save [mode]="mode" [account]="selectedAccount"
+                        (backToList)="backFromSaveForm($event)">
+      </app-account-save>
+    </div>
+
+  </div>
+</div>
 
 <jaspero-confirmations></jaspero-confirmations>
