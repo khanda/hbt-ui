@@ -4,6 +4,7 @@
     <form #employeeForm="ngForm" (ngSubmit)="onSubmit()">
 
       <div class="form-group row">
+        <!--last_name-->
         <label for="last_name" class="col-sm-3 col-md-4 col-xl-3  col-form-label text-right">
           {{'employee.lastName' | translate}}<span class="text-danger">&#042;</span>
         </label>
@@ -27,77 +28,38 @@
               {{'message.validation.max' | translate}} {{NAME_MAX}} {{'message.validation.character' | translate}}
             </div>
             <div *ngIf="lastName.errors.invalidExp">{{'message.validation.character.only' | translate}}</div>
+
+          </div>
+        </div>
+      </div>
+      <!--mid_name-->
+      <div class="form-group row">
+        <label for="mid_name" class="col-sm-3 col-md-4 col-xl-3 col-form-label text-right">
+          {{'employee.midName' | translate}}
+        </label>
+        <div class="col-sm-8">
+          <input type="text" class="form-control" id="mid_name" name="mid_name"
+                 [(ngModel)]="employee.midName"
+                 [readonly]="mode != NEW && mode != UPDATE"
+                 minlength="{{NAME_MIN}}"
+                 maxlength="{{NAME_MAX}}"
+                 appForbiddenName="{{NAME_REG}}"
+                 #midName="ngModel"
+                 [class.is-invalid]="midName.invalid && (midName.dirty || midName.touched)">
+          <div *ngIf="midName.invalid && (midName.dirty || midName.touched)" class="invalid-feedback">
+            <div *ngIf="midName.errors.required"> {{'message.validation.require' | translate}}</div>
+            <div *ngIf="midName.errors.minlength">
+              {{'message.validation.min' | translate}} {{NAME_MIN}} {{'message.validation.character' | translate}}
+            </div>
+            <div *ngIf="midName.errors.maxlength">
+              {{'message.validation.max' | translate}} {{NAME_MAX}} {{'message.validation.character' | translate}}
+            </div>
+            <div *ngIf="midName.errors.invalidExp">{{'message.validation.character.only' | translate}}</div>
           </div>
         </div>
       </div>
 
-      <div formGroupName="passwords" class="my-exclude-invalid-form" *ngIf="mode==NEW">
-        <div class="form-group row">
-          <label for="mid_name" class="col-sm-3 col-md-4  col-xl-3  col-form-label text-right">
-            {{'employee.midName' | translate}}
-          </label>
-          <div class="col-sm-8">
-            <input type="text" class="form-control" id="mid_name" name="mid_name"
-                   [(ngModel)]="employee.midName"
-                   [readonly]="mode != NEW && mode != UPDATE"
-                   minlength="{{NAME_MIN}}"
-                   maxlength="{{NAME_MAX}}"
-                   appForbiddenName="{{NAME_REG}}"
-                   #midName="ngModel"
-                   [class.is-invalid]="midName.invalid && (midName.dirty || midName.touched)">
-            <div *ngIf="midName.invalid && (midName.dirty || midName.touched)" class="invalid-feedback">
-              <div *ngIf="midName.errors.required"> {{'message.validation.require' | translate}}</div>
-              <div *ngIf="midName.errors.minlength">
-                {{'message.validation.min' | translate}} {{NAME_MIN}} {{'message.validation.character' | translate}}
-              </div>
-              <div *ngIf="midName.errors.maxlength">
-                {{'message.validation.max' | translate}} {{NAME_MAX}} {{'message.validation.character' | translate}}
-              </div>
-              <div *ngIf="midName.errors.invalidExp">{{'message.validation.character.only' | translate}}</div>
-            </div>
-          </div>
-        </div>
-        <div class="form-group row">
-          <label for="username" class="col-sm-3 col-md-4 col-xl-3  col-form-label text-right">
-            Nhập lại mật khẩu
-            <span class="text-danger">&#042;</span>
-          </label>
-          <div class="col-sm-8">
-
-            <input type="password"
-                   class="form-control"
-                   id="passwordConfirm"
-                   name="passwordConfirm"
-                   (keyup)="onChangeConfirmedPassword($event.target.value)"
-                   formControlName="passwordConfirm"
-                   required
-                   [readonly]="mode == VIEW"
-                   [class.is-invalid]="passwordConfirm.invalid && (passwordConfirm.dirty || passwordConfirm.touched)">
-
-            <div *ngIf="passwordConfirm.invalid && (passwordConfirm.dirty || passwordConfirm.touched)"
-                 class="invalid-feedback">
-              <div *ngIf="passwordConfirm.errors.required">
-                <span> Thông tin này là bắt buộc.</span>
-              </div>
-              <div *ngIf="passwordConfirm.errors.minlength">
-                Cần nhiều hơn {{PASSWORD_MIX}} kí tự
-              </div>
-              <div *ngIf="passwordConfirm.errors.maxlength">
-                Cần ít hơn {{PASSWORD_MIX}} kí tự
-              </div>
-              <div *ngIf="passwordConfirm.errors.invalidExp">
-                Chỉ được nhập chữ cái, số, - và _
-              </div>
-            </div>
-
-            <div *ngIf="showMessagePasswordNotMatch" class="invalid-feedback">
-              <span> Mật khẩu không khớp</span>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!--first name-->
+      <!--first_name-->
       <div class="form-group row">
         <label for="first_name" class="col-sm-3 col-md-4 col-xl-3  col-form-label text-right">
           {{'employee.firstName' | translate}}<span class="text-danger">&#042;</span>
@@ -124,9 +86,10 @@
         </div>
       </div>
 
+
       <!--department-->
       <div class="form-group row">
-        <label for="employee_departments" class="col-sm-3 col-md-4 col-xl-3  col-form-label text-right">
+        <label for="first_name" class="col-sm-3 col-md-4 col-xl-3  col-form-label text-right">
           {{'employee.department'|translate}}<span class="text-danger">&#042;</span>
         </label>
         <div class="col-sm-8">
@@ -150,7 +113,7 @@
         </div>
       </div>
 
-      <!--manager-->
+      <!--&lt;!&ndash;manager&ndash;&gt;-->
       <!--<div class="form-group">-->
         <!--<label>{{'employee.manager'| translate}}</label>-->
 
