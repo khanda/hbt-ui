@@ -20,14 +20,29 @@
         <tr *ngFor="let khoi of khois; let index = index">
           <td scope="row">{{index + 1}}</td>
           <!--action-->
-          <td class="btn-action-khoi">
-            <button
-              type="button" class="btn btn-sm btn-default badge badge-primary"
-              (click)="openDialog(index)">{{'button.choose.leader' | translate}}
-            </button>
-            <button type="button" class="btn btn-sm btn-danger  badge badge-danger" (click)="onClickDelete(index)"
-                    data-toggle="tooltip" title="Xóa">{{'button.delete' | translate}}
-            </button>
+          <td>
+            <div class="btn-group" dropdown>
+              <button id="button-basic" dropdownToggle type="button"
+                      class="btn btn-light btn-sm dropdown-toggle"
+                      aria-controls="dropdown-basic">
+                {{'action' | translate}} <span class="caret"></span>
+              </button>
+
+              <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu" role="menu" aria-labelledby="button-basic">
+                <li role="menuitem">
+                  <button
+                    type="button" class="btn btn-link btn-sm dropdown-item"
+                    (click)="openDialog(index)">{{'button.choose.leader' | translate}}
+                  </button>
+                </li>
+                <li role="menuitem">
+                  <button type="button" class="btn btn-link btn-sm dropdown-item" (click)="onClickDelete(index)"
+                          data-toggle="tooltip" title="Xóa">{{'khoi.delete.leader' | translate}}
+                  </button>
+                </li>
+              </ul>
+            </div>
+
           </td>
 
           <td>{{khoi.name}}</td>

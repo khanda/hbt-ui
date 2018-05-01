@@ -11,6 +11,7 @@
   "management.employee.caption": "Danh sách nhân viên",
   "management.khoi.header": "Quản lý khối",
   "khoi.leader.name": "Tổ trưởng",
+  "khoi.delete.leader": "Xóa tổ trưởng",
   "khoi.name": "Tên",
   "button.back": "Quay lại",
   "button.close": "Đóng",
