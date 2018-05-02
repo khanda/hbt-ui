@@ -21,7 +21,6 @@ export class AuthService {
 
   login(): Observable<boolean> {
     const token = localStorage.getItem(CredentialConstant.TOKEN);
-    console.log(token);
     if (token && token.length) {
       this.isLoggedIn = true;
     }
@@ -44,6 +43,10 @@ export class AuthService {
       return true;
     }
     return false;
+  }
+
+  public isAdmin() {
+    return this.isAuthenticated && CredentialConstant.HBT_SUPER_ADMIN === localStorage.getItem(CredentialConstant.ROLE);
   }
 
   public getCredentialData(): CredentialData {

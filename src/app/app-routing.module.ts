@@ -8,7 +8,8 @@ import {AccountSaveComponent} from './admin/account-save/account-save.component'
 import {LoginComponent} from './login/login.component';
 import {RouteConstant} from './constant/RouteConstant';
 import {AuthGuard} from './service/auth/auth-guard.service';
-import {KhoiManagementComponent} from "./admin/khoi-management/khoi-management.component";
+import {KhoiManagementComponent} from './admin/khoi-management/khoi-management.component';
+import {LeaderGuard} from './service/auth/leader-guard.service';
 
 const routes: Routes = [
   {path: RouteConstant.NONE, redirectTo: RouteConstant.HOME, pathMatch: 'full'},
@@ -17,26 +18,26 @@ const routes: Routes = [
   {
     path: RouteConstant.MANAGEMENT,
     component: ManagementComponent,
-    canActivate: [AuthGuard],
+    canActivate: [LeaderGuard],
     children: [
       {
         path: RouteConstant.ACCOUNTS,
-        canActivateChild: [AuthGuard],
+        canActivateChild: [LeaderGuard],
         component: AccountManagementComponent
       },
       {
         path: RouteConstant.SAVE_ACCOUNT,
-        canActivateChild: [AuthGuard],
+        canActivateChild: [LeaderGuard],
         component: AccountSaveComponent
       },
       {
         path: RouteConstant.EMPLOYEES,
-        canActivateChild: [AuthGuard],
+        canActivateChild: [LeaderGuard],
         component: EmployeeManagementComponent
       },
       {
         path: RouteConstant.KHOI,
-        canActivateChild: [AuthGuard],
+        canActivateChild: [LeaderGuard],
         component: KhoiManagementComponent
       }
     ]
