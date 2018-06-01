@@ -12,9 +12,9 @@ export class LoginService {
   constructor(private http: HttpClient) {
   }
 
-  login(userName: string, password: string): Observable<CredentialData> {
-    const url = ApiUrlConstant.BASE_URL + ApiUrlConstant.LOGIN_URL;
-    return this.http.post<CredentialData>(url, {'userName': userName, 'password': password})
+  login(email: string, password: string): Observable<CredentialData> {
+    const url = ApiUrlConstant.BASE_URL_WITHOUT_API + ApiUrlConstant.LOGIN_URL;
+    return this.http.post<CredentialData>(url, {'email': email, 'password': password})
       .pipe(
         map(response => {
           console.log(response);
